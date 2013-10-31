@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>MeguZ - Home</title>
+	<link rel="stylesheet" href="/static/css/style.css"/>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+	{% block extrahead %}{% endblock %}
+</head>
+<body>
+	
+	<header>
+		<div class="logo">
+			<a href="/"><img src="/static/img/logo.png"/></a>
+		</div>
+		<div class="cont_buscador">
+			<div class="cont_buscador_camp">
+				<input name="buscador" type="text" value="">
+			</div>
+		</div>
+		<div class="contenedor_header_der">
+
+			<span class="boton azul posicion"><a href="/empresa/contacto/">Publica tu desafio Ahora</a></span>
+			<span class="boton_usuario_nav">
+				<a href="#">Eduardo Valdebenito</a>
+				<span class="boton_usuario_nav_boton boton_usuario_nav_boton_conf"></span>
+
+				<span class="cont_btn_users">
+					<a href="#" class="botones_redondos_f icon_usuario"></a>
+					<a href="#" class="botones_redondos_f icon_opciones"></a>
+				</span>
+
+			</span>
+
+		</div>
+	</header>
+
+	<aside class="contenedor_central_full">
+		{% block content %}
+		{% endblock %}
+	</aside>
+
+	<footer></footer>
+
+</body>
+</html>
