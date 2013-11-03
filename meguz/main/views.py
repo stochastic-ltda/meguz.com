@@ -3,8 +3,12 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import slugify
 
-from main.models import Company, Offer
+from main.models import Company#, Offer
 from main.forms import CompanyContactForm
+
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
 
 import Image
 
@@ -13,32 +17,54 @@ def Home(request):
 	context = {'companies': companies}
 	return render_to_response('home.html', context, context_instance=RequestContext(request))
 
-def SpecificOffer(request, company_slug, offer_slug):
-	company = Company.objects.get(slug=company_slug)
-	offer = Offer.objects.get(slug=offer_slug)
-	context = {'offer': offer, 'company':company}
-	return render_to_response('offer.html', context, context_instance=RequestContext(request))	
+def CompanyList(request):
+	companies = Company.objects.all()
+	context = {'companies':companies}
+	return render_to_response('company/list.html', context, context_instance=RequestContext(request))
 
 def CompanyContact(request):	
+	import string, random
+
 	if request.method == 'POST': 
 		form = CompanyContactForm(request.POST, request.FILES)
 
-		if(form.is_valid()):			
+		if(form.is_valid()):						
+			company = Company(**form.cleaned_data)
+			
+			# set slug
+			slug = slugify(request.POST['name'])						
+			company.slug = slug
+			
+			# set randomin password
+			chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
+			company.password = ''.join(random.choice(chars) for x in range(15))
+			company.save()			
+			
+			# send email with login info
+			plaintext = get_template('email/registrook.txt')
+			htmly = get_template('email/registrook.html')
 
-			# generate slug
-			slug = slugify(request.POST['name']) 
+			d = Context({
+				'contact_name':request.POST['contact_name'],
+				'empresa':request.POST['name'],
+				'contact_email':request.POST['contact_email'],
+				'password':company.password,
+				})
 
-			# create object and save
-			c = Company(name=request.POST['name'],slug=slug,logo=request.FILES['logo'],rut=request.POST['rut'],website=request.POST['website'],contact_name=request.POST['contact_name'],contact_phone=request.POST['contact_phone'],contact_email=request.POST['contact_email'])
-			c.save()
+			subject, from_email, to = 'Registro de empresa en Meguz.com', 'pqzada@gmail.com', request.POST['contact_email']
+			text_content = plaintext.render(d)
+			html_content = htmly.render(d)
+			msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+			msg.attach_alternative(html_content, "text/html")
+			msg.send()
 
-			# redirect to thanks page
+			# redirect to 'register ok' page
 			return HttpResponseRedirect('/empresa/registro/ok')
 	else:
 		form = CompanyContactForm()
 
 	context = {'form': form}
-	return render_to_response('company_contact.html', context, context_instance=RequestContext(request))
+	return render_to_response('company/register.html', context, context_instance=RequestContext(request))
 
 def CompanyThanks(request):
-	return render_to_response('company_thanks.html', {}, context_instance=RequestContext(request))
+	return render_to_response('company/registerok.html', {}, context_instance=RequestContext(request))

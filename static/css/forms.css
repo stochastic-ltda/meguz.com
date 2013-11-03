@@ -7,7 +7,7 @@
 }
 
 .forms li {
-	line-height: 20px;
+	line-height: 15px;
 	margin-bottom: 5px;
 	padding: 10px;
 }
@@ -20,8 +20,8 @@
 	.forms li input[type=text] {
 		border: 1px solid #CCC;
 		border-radius: 5px;
-		width: 25%;
-		padding: 10px;
+		width: 70%;
+		padding: 5px;
 		font-size: 16px;
 	}
 
@@ -56,4 +56,10 @@
 	margin-top: 20px;
 	margin-bottom: 10px;
 	color: #555;
+}
+
+#form_regempresa .block {
+	width: 45%;
+	float: left; 
+	margin-bottom: 20px;
 }
