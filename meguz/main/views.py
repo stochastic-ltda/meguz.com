@@ -38,7 +38,13 @@ def CompanyContact(request):
 			# set randomin password
 			chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
 			company.password = ''.join(random.choice(chars) for x in range(15))
-			company.save()			
+			company.save()
+
+			# create user
+			from django.contrib.auth.models import User
+			user = User.objects.create_user(company.contact_email, company.contact_email, company.password)
+			user.first_name = company.name
+			user.save()
 			
 			# send email with login info
 			plaintext = get_template('email/registrook.txt')

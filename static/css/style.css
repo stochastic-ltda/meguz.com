@@ -949,3 +949,22 @@ footer {
 	user-select: none;
 	-webkit-font-smoothing: auto;
 }
+
+footer {
+	text-align: center;
+	color: white;
+	padding-top: 10px;
+}
+
+footer ul {
+	list-style: none;
+	display: inline-block;
+}
+
+footer ul li {
+	float: left;
+}
+
+footer ul li a {
+	color: white;
+}

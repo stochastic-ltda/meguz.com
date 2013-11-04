@@ -1,0 +1,39 @@
+{% extends 'base_boe.html' %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<h1>Nueva oferta</h1>
+	<a href="/boe/ofertas/lista" class="btn btn">Volver</a>
+</div>
+
+<form id="new_offer" class="forms" enctype="multipart/form-data" method="post">
+	{% csrf_token %}
+	{{ form.non_field_errors }}
+
+	<div class="block">
+		<ul>
+			<li>
+				{{ form.title.errors }}
+				<label for="id_title">Título</label>
+				{{ form.title }}
+			</li>
+			<li>
+				{{ form.description.errors }}
+				<label for="id_description">Descripción</label>
+				{{ form.description }}
+			</li>
+			<li>
+				{{ form.conditions.errors }}
+				<label for="id_conditions">Letra chica</label>
+				{{ form.conditions }}
+			</li>
+		</ul>
+
+		<input type="submit" class="btn btn-primary" value="Enviar" />
+	</div>
+</form>
+{% endblock %}
