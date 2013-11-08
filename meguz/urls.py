@@ -19,4 +19,8 @@ urlpatterns = patterns('',
     url(r'^boe/salir$', 'boe.views.Logout', name='boe_salir'),
     url(r'^boe/ofertas/lista$', 'boe.views.OfferList', name='boe_offer_list'),
     url(r'^boe/ofertas/nueva$', 'boe.views.OfferNew', name='boe_offer_new'),
+    url(r'^boe/ofertas/multimedia/(?P<offer_id>.*)/$', 'boe.views.OfferMultimedia', name='boe_offer_multimedia'),
+
+    # youtube
+    (r'^boe/youtube/', include('django_youtube.urls')),
 )

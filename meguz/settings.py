@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django_youtube',
     'main',
     'boe',
 )
@@ -149,7 +150,7 @@ LOGGING = {
     }
 }
 
-# Email configuration
+# Email 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -159,3 +160,17 @@ EMAIL_HOST_PASSWORD = 'pablito321'
 
 DEFAULT_FROM_EMAIL = 'pqzada@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Youtube
+YOUTUBE_AUTH_EMAIL = 'pqzada@gmail.com'
+YOUTUBE_AUTH_PASSWORD = 'pablito321'
+
+# developer key, get one from http://code.google.com/apis/youtube/dashboard/
+YOUTUBE_DEVELOPER_KEY = 'AI39si674QcZQ36KIlrX_NbZWEIs_PH6ZCt698PC-cmAI6qyInhya1ySl7hc5hlUPfQeGoQwKQBFsC5SORmcWFJwe7usutYYtQ'
+YOUTUBE_CLIENT_ID = 'client-id'
+
+# url to redirect after upload finishes, default is respected `video` page
+YOUTUBE_UPLOAD_REDIRECT_URL = '/youtube/videos/'
+
+# url to redirect after deletion video, default is `upload page`
+YOUTUBE_DELETE_REDIRECT_URL = '/myurl/'

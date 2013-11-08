@@ -1,4 +1,5 @@
 from django import forms
+from main.models import Category
 
 MEDIA_CHOICES 	= ( 
 	('I', 'Imagen'),
@@ -11,15 +12,13 @@ SOCIAL_CHOICES 	= (
 )
 
 class OfferNewForm(forms.Form):
-	title 			= forms.CharField(max_length=200,label='Nombre')
+	title 			= forms.CharField(max_length=200)
+	prize_name		= forms.CharField(max_length=200)
+	stock	     	= forms.IntegerField()
+	category		= forms.ModelChoiceField(queryset=Category.objects.all(),empty_label="Seleccione")
 	description		= forms.CharField(widget=forms.Textarea)
 	conditions		= forms.CharField(widget=forms.Textarea)
-	#logo 			= forms.ImageField(help_text='Se recomienda subir una imagen de 250x250')
-	#rut 			= forms.CharField(max_length=25,help_text='Ej: 99.888.777-6')
-	#address 		= forms.CharField(max_length=200, required=False)
-	#phone 			= forms.CharField(max_length=40, required=False)
-	#email 			= forms.EmailField(max_length=75,initial='@', required=False)
-	#website 		= forms.URLField(max_length=200,initial='http://', required=False)
-	#contact_name 	= forms.CharField(max_length=40)
-	#contact_phone 	= forms.CharField(max_length=40)
-	#contact_email 	= forms.EmailField(max_length=75,initial='@')	
+	vote_limit     	= forms.IntegerField()
+	vote_source   	= forms.ChoiceField(choices=SOCIAL_CHOICES)
+
+#class OfferMultimediaForm(forms.Form):

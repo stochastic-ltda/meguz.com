@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 
 from django.template.defaultfilters import slugify
 
-from main.models import Company
+from main.models import Company, Offer
 from django.contrib import auth
 
 from boe.forms import OfferNewForm
@@ -42,6 +42,37 @@ def OfferList(request):
 		return render_to_response('boe/offer/list.html', {}, context_instance=RequestContext(request))
 
 def OfferNew(request):
-	form = OfferNewForm()
-	context = {'form':form}
-	return render_to_response('boe/offer/new.html', context, context_instance=RequestContext(request))
+	if not request.user.is_authenticated():
+		return HttpResponseRedirect("/boe")
+	else: 
+		if request.method == 'POST': 
+			form = OfferNewForm(request.POST)
+			if(form.is_valid()):
+				offer = Offer(**form.cleaned_data)
+
+				# set slug
+				slug = slugify(request.POST['title'])						
+				offer.slug = slug
+
+				# set company_id
+				user_email = request.user.email
+				company = Company.objects.get(contact_email=user_email)
+				offer.company_id = company.id
+
+				offer.save()
+
+				# redirect to media page
+				return HttpResponseRedirect("/boe/ofertas/multimedia/%d" % offer.id)
+		else: 
+			form = OfferNewForm()
+
+		context = {'form':form}
+		return render_to_response('boe/offer/new.html', context, context_instance=RequestContext(request))
+
+
+def OfferMultimedia(request, offer_id):
+	if not request.user.is_authenticated():
+		return HttpResponseRedirect("/boe")
+	else: 
+		context = {'id':offer_id}
+		return render_to_response('boe/offer/multimedia.html', context, context_instance=RequestContext(request))

@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="row">
-	<h1>Nueva oferta</h1>
+	<h1>Nueva oferta (1/2)</h1>
 	<a href="/boe/ofertas/lista" class="btn btn">Volver</a>
 </div>
 
@@ -22,6 +22,38 @@
 				{{ form.title }}
 			</li>
 			<li>
+				{{ form.prize_name.errors }}
+				<label for="id_prize_name">Premio</label>
+				{{ form.prize_name }}
+			</li>
+			<li>
+				{{ form.stock.errors }}
+				<label for="id_stock">Cantidad</label>
+				{{ form.stock }}
+			</li>
+			<li>
+				{{ form.category.errors }}
+				<label for="id_categorye">Categoría</label>
+				{{ form.category }}
+			</li>
+			<li>
+				{{ form.vote_limit.errors }}
+				<label for="id_vote_limit">Meta (likes o retweets)</label>
+				{{ form.vote_limit }}
+			</li>
+			<li>
+				{{ form.vote_source.errors }}
+				<label for="id_vote_source">Red social</label>
+				{{ form.vote_source }}
+			</li>
+		</ul>
+
+	
+	</div>
+
+	<div class="block">
+		<ul>
+			<li>
 				{{ form.description.errors }}
 				<label for="id_description">Descripción</label>
 				{{ form.description }}
@@ -32,8 +64,7 @@
 				{{ form.conditions }}
 			</li>
 		</ul>
-
-		<input type="submit" class="btn btn-primary" value="Enviar" />
+		<input type="submit" class="btn btn-primary" value="Guardar y continuar" />
 	</div>
 </form>
 {% endblock %}
