@@ -1,8 +1,46 @@
 {% extends 'base_boe.html' %}
 
 {% block content %}
+<style type="text/css">
+	.list_thumb { width: 64px; }
+	table .controls { padding: 0px; }
+	table .controls li { list-style: none; line-height: 12px; }
+	table .controls li a { font-size: 12px; }
+</style>
 <div class="row">
-	<h1>Mis ofertas</h1>
-	<a href="/boe/ofertas/nueva" class="btn btn-primary">Nueva oferta</a>
+	<h1>Mis premios</h1>
+	<a href="/boe/premios/nuevo" class="btn btn-primary">Nuevo premio</a>
+
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Imagen</th>
+				<th>Titulo</th>
+				<th>Premio</th>
+				<th>Stock</th>
+				<th>Controles</th>
+			</tr>
+		</thead>
+
+		{% for o in offers %}
+		<tbody>
+			<tr>
+				<td>{{ o.id }}</td>
+				<td><img src="{{ o.media_thumb }}" class="list_thumb"></td>
+				<td><a href="/premios/{{ o.id }}/{{ o.slug }}" target="_blank">{{ o.title }}</a></td>
+				<td>{{ o.prize_name }}</td>
+				<td>{{ o.stock }}</td>
+				<td>
+					<ul class="controls">
+						<li><a href="/boe/premios/editar/{{ o.id }}">Editar</a></li>
+						<li><a href="/boe/premios/multimedia/{{ o.id }}">Multimedia</a></li>
+						<li><a href="#">Eliminar</a></li>
+					</ul>
+				</td>
+			</tr>		
+		</tbody>
+		{% endfor %}
+	</table>
 </div>
 {% endblock %}

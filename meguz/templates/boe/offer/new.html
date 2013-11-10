@@ -6,8 +6,8 @@
 
 {% block content %}
 <div class="row">
-	<h1>Nueva oferta (1/2)</h1>
-	<a href="/boe/ofertas/lista" class="btn btn">Volver</a>
+	<h1>Premio: {{ title }}</h1>
+	<a href="/boe/premios/lista" class="btn btn">Volver</a>
 </div>
 
 <form id="new_offer" class="forms" enctype="multipart/form-data" method="post">
@@ -64,7 +64,7 @@
 				{{ form.conditions }}
 			</li>
 		</ul>
-		<input type="submit" class="btn btn-primary" value="Guardar y continuar" />
+		<input type="submit" class="btn btn-primary" value="{{ submit }}" />
 	</div>
 </form>
 {% endblock %}

@@ -2,8 +2,8 @@ from django import forms
 from main.models import Category
 
 MEDIA_CHOICES 	= ( 
-	('I', 'Imagen'),
-	('Y', 'Video Youtube'),
+	('Y', 'Video'),
+	('I', 'Imagen'),	
 )
 
 SOCIAL_CHOICES 	= ( 
@@ -21,4 +21,10 @@ class OfferNewForm(forms.Form):
 	vote_limit     	= forms.IntegerField()
 	vote_source   	= forms.ChoiceField(choices=SOCIAL_CHOICES)
 
-#class OfferMultimediaForm(forms.Form):
+
+class OfferMultimediaForm(forms.Form):
+	media_type		= forms.ChoiceField(choices=MEDIA_CHOICES)
+	token = forms.CharField()
+	file = forms.FileField()
+	media_image = forms.ImageField()
+	

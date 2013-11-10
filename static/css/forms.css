@@ -10,6 +10,7 @@
 	line-height: 15px;
 	margin-bottom: 5px;
 	padding: 10px;
+	list-style: none;
 }
 
 	.forms li label {
@@ -63,3 +64,4 @@
 	float: left; 
 	margin-bottom: 20px;
 }
+

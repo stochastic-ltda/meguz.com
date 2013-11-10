@@ -17,9 +17,10 @@ urlpatterns = patterns('',
     # backoffice empresa
     url(r'^boe/$', 'boe.views.Login', name='boe_login'),
     url(r'^boe/salir$', 'boe.views.Logout', name='boe_salir'),
-    url(r'^boe/ofertas/lista$', 'boe.views.OfferList', name='boe_offer_list'),
-    url(r'^boe/ofertas/nueva$', 'boe.views.OfferNew', name='boe_offer_new'),
-    url(r'^boe/ofertas/multimedia/(?P<offer_id>.*)/$', 'boe.views.OfferMultimedia', name='boe_offer_multimedia'),
+    url(r'^boe/premios/lista$', 'boe.views.PrizeList', name='boe_offer_list'),
+    url(r'^boe/premios/nuevo$', 'boe.views.PrizeNew', name='boe_offer_new'),
+    url(r'^boe/premios/editar/(?P<offer_id>.*)/$', 'boe.views.PrizeEdit', name='boe_offer_edit'),
+    url(r'^boe/premios/multimedia/(?P<offer_id>.*)/$', 'boe.views.PrizeMultimedia', name='boe_offer_multimedia'),
 
     # youtube
     (r'^boe/youtube/', include('django_youtube.urls')),

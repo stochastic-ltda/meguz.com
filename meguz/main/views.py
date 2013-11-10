@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import slugify
 
-from main.models import Company#, Offer
+from main.models import Company, Offer
 from main.forms import CompanyContactForm
 
 from django.core.mail import EmailMultiAlternatives
@@ -13,8 +13,8 @@ from django.template import Context
 import Image
 
 def Home(request):
-	companies = Company.objects.all().order_by('name')
-	context = {'companies': companies}
+	offers = Offer.objects.all()
+	context = {'offers': offers}
 	return render_to_response('home.html', context, context_instance=RequestContext(request))
 
 def CompanyList(request):

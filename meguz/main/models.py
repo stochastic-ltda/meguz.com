@@ -52,6 +52,8 @@ class Offer(models.Model):
 	conditions   	= models.TextField(blank=True)
 	media_type     	= models.CharField(max_length=1, choices=MEDIA_CHOICES)
 	media_url     	= models.CharField(max_length=200)
+	media_image		= ImageWithThumbsField(upload_to="offer/", sizes=((600,393),(158,104)))
+	media_thumb		= models.CharField(max_length=200)
 	vote_limit     	= models.IntegerField()
 	vote_source   	= models.CharField(max_length=1, choices=SOCIAL_CHOICES)
 	prize_name    	= models.CharField(max_length=40)

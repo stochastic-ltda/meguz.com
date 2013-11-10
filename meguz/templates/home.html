@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <aside class="contenedor_menu_izq">
 	
 	<nav class="cont_navegacion">
@@ -55,6 +54,21 @@
 
 
 	<aside class="contenedor_destacados_meguz">
+
+		{% for offer in offers %}
+		<article class="contenedor_destacados_h">			
+			<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
+				<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
+					<img src="{{ offer.media_thumb }}" style="width:158px;height:104px">
+				</span> 
+			</div>
+			<div class="cont_like_destacado_f">
+				<span class="txt_digito_destacados">{{ offer.vote_limit }}</span>
+				<span class="bt_like_destacados"><a href="#"><img src="/static/img/like_destacado.jpg"></a></span>
+			</div>
+			<h1><a href="/premios/{{ offer.id }}/{{ offer.slug }}">{{ offer.title }}</a></h1>
+		</article>	
+		{% endfor %}
 		<!--
 		<article class="contenedor_destacados_h">			
 			<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
