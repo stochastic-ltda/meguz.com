@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     # backoffice empresa
     url(r'^boe/$', 'boe.views.Login', name='boe_login'),
     url(r'^boe/salir$', 'boe.views.Logout', name='boe_salir'),
+    url(r'^boe/perfil$', 'boe.views.Profile', name='boe_profile'),
     url(r'^boe/premios/lista$', 'boe.views.PrizeList', name='boe_offer_list'),
     url(r'^boe/premios/nuevo$', 'boe.views.PrizeNew', name='boe_offer_new'),
     url(r'^boe/premios/editar/(?P<offer_id>.*)/$', 'boe.views.PrizeEdit', name='boe_offer_edit'),

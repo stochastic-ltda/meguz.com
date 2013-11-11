@@ -8,6 +8,7 @@ from main.models import Company, Offer
 from django.contrib import auth
 
 from boe.forms import OfferNewForm, OfferMultimediaForm
+from main.forms import CompanyContactForm
 
 
 def Login(request):	
@@ -180,3 +181,38 @@ def PrizeMultimedia(request, offer_id):
 
 			context = {'form':form, 'offer':offer, 'show_media':show_media, 'post_url': data['post_url'], 'next_url': next_url}
 			return render_to_response('boe/offer/multimedia.html', context, context_instance=RequestContext(request))
+
+
+def Profile(request):
+
+	user_email = request.user.email
+	company = Company.objects.get(contact_email=user_email)
+
+	if company is None:
+		HttpResponseRedirect('/boe')
+	else:
+		if request.method == 'POST':
+			# Proceso form
+			form = CompanyContactForm(request.POST, request.FILES)
+			if(form.is_valid()):
+				edit_company = Company(**form.cleaned_data)
+				edit_company.id = company.id
+				edit_company.save()
+				return HttpResponseRedirect("/boe/perfil")
+		else:
+			form = CompanyContactForm(initial={
+					'name': company.name,
+					'slogan': company.slogan,
+					'logo': company.logo,
+					'rut': company.rut,
+					'address': company.address,
+					'phone': company.phone,
+					'email': company.email,
+					'website': company.website,
+					'contact_name': company.contact_name,
+					'contact_email': company.contact_email,
+					'contact_phone': company.contact_phone,
+				})
+
+	context = {'form':form}
+	return render_to_response('boe/profile.html', context, context_instance=RequestContext(request))

@@ -1,0 +1,92 @@
+{% extends 'base_boe.html' %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<h1>Perfil</h1>
+	<a href="/boe/premios/lista" class="btn btn">Volver</a>
+</div>
+
+
+<form id="profile_empresa" class="forms" enctype="multipart/form-data" method="post" action="">
+	{% csrf_token %}
+	{{ form.non_field_errors }}
+	<div class="block">
+		<h3>Información de la empresa</h3>
+		<ul>
+			<li>
+				{{ form.name.errors }}
+				<label for="id_name">Nombre:</label> 
+				{{ form.name }}				
+			</li>
+			<li>
+				{{ form.slogan.errors }}
+				<label for="id_slogan">Slogan:</label> 
+				{{ form.slogan }}				
+			</li>
+			<li>
+				{{ form.logo.errors }}
+				<label for="id_logo">Logo:</label> 
+				{{ form.logo }}
+				<span class="helptext">Se recomienda subir una imagen de 250x250</span>
+			</li>
+			<li>
+				{{ form.rut.errors }}
+				<label for="id_rut">Rut:</label> 
+				{{ form.rut }}
+				<span class="helptext">Ej: 99.888.777-6</span>
+			</li>
+			<li>
+				{{ form.address.errors }}
+				<label for="id_address">Dirección:</label> 
+				{{ form.address }}
+			</li>
+			<li>
+				{{ form.phone.errors }}
+				<label for="id_phone">Teléfono:</label> 
+				{{ form.phone }}
+			</li>
+			<li>
+				{{ form.email.errors }}
+				<label for="id_email">Email:</label> 
+				{{ form.email }}
+			</li>
+			<li>
+				{{ form.website.errors }}
+				<label for="id_website">Sitio web:</label> 
+				{{ form.website }}
+			</li>
+		</ul>
+	</div>
+
+	<div class="block">
+		<h3>Información de contacto</h3>
+		<ul>
+			<li>
+				{{ form.contact_name.errors }}
+				<label for="id_contact_name">Nombre:</label> 
+				{{ form.contact_name }}
+			</li>
+			<li>
+				{{ form.contact_phone.errors }}
+				<label for="id_contact_phone">Teléfono:</label> 
+				{{ form.contact_phone }}
+			</li>
+			<li>
+				{{ form.contact_email.errors }}
+				<label for="id_contact_email">Email:</label> 
+				{{ form.contact_email }}
+			</li>
+			<li>
+				<input type="submit" value="Editar perfil">
+			</li>
+		</ul>
+	</div>
+
+</form>
+{% endblock %}
+
