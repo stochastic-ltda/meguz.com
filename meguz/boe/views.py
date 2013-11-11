@@ -198,6 +198,8 @@ def Profile(request):
 				edit_company = Company(**form.cleaned_data)
 				edit_company.id = company.id
 				edit_company.save()
+
+				# TODO: Check contact_email change and update userinfo
 				return HttpResponseRedirect("/boe/perfil")
 		else:
 			form = CompanyContactForm(initial={
