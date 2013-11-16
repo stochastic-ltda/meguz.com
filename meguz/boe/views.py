@@ -7,8 +7,7 @@ from django.template.defaultfilters import slugify
 from main.models import Company, Offer
 from django.contrib import auth
 
-from boe.forms import OfferNewForm, OfferMultimediaForm
-from main.forms import CompanyContactForm
+from boe.forms import OfferNewForm, OfferMultimediaForm, CompanyEditForm
 
 
 def Login(request):	
@@ -193,7 +192,7 @@ def Profile(request):
 	else:
 		if request.method == 'POST':
 			# Proceso form
-			form = CompanyContactForm(request.POST, request.FILES)
+			form = CompanyEditForm(request.POST, request.FILES)
 			if(form.is_valid()):
 				edit_company = Company(**form.cleaned_data)
 				edit_company.id = company.id
@@ -202,7 +201,7 @@ def Profile(request):
 				# TODO: Check contact_email change and update userinfo
 				return HttpResponseRedirect("/boe/perfil")
 		else:
-			form = CompanyContactForm(initial={
+			form = CompanyEditForm(initial={
 					'name': company.name,
 					'slogan': company.slogan,
 					'logo': company.logo,

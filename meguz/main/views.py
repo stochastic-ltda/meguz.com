@@ -74,3 +74,9 @@ def CompanyContact(request):
 
 def CompanyThanks(request):
 	return render_to_response('company/registerok.html', {}, context_instance=RequestContext(request))
+
+def PrizeView(request, offer_id, offer_slug):
+	prize = Offer.objects.get(pk=offer_id)
+	company = Company.objects.get(pk=prize.company.id)
+	context = { 'offer': prize, 'company': company }
+	return render_to_response('offer.html', context, context_instance=RequestContext(request))

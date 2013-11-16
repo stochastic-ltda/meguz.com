@@ -3,50 +3,105 @@
 <head>
 	<meta charset="utf-8">
 	<title>Meguz.com</title>
-	<link rel="stylesheet" href="/static/css/style.css"/>
+	<link rel="stylesheet" href="/static/css/estilo.css"/>
+	<link rel="stylesheet" href="/static/css/media.css"/>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 	{% block extrahead %}{% endblock %}
 </head>
 <body>
-	
-	<header>
-		<div class="logo">
-			<a href="/"><img src="/static/img/logo.png"/></a>
-		</div>
-		<!--
-		<div class="cont_buscador">
-			<div class="cont_buscador_camp">
-				<input name="buscador" type="text" value="">
+
+	<div class="snap-drawers" id="posicion_del_menu">
+		<div class="snap-drawer snap-drawer-left">
+			<div id="contenido_menu_meguz">
+
+				<aside class="contenedor_menu_izq" id="menu_izq_superior_movil">
+					<nav class="cont_navegacion">
+
+						<div class="contenedor_navega">
+							<h1>Estado</h1>
+						</div>
+
+						<ul>
+							<li><a href="#" class="select">Destacados</a></li>
+							<li><a href="#">MeguZers (Cumplidos)</a></li>
+						</ul>
+
+						<div class="contenedor_navega">
+							<h1>Categorias</h1>
+						</div>
+
+						<ul>
+							<li><a href="#">Desafios Extremos</a></li>
+							<li><a href="#">Ofertas Comerciales</a></li>
+							<li><a href="#">Ayuda Social</a></li>
+							<li><a href="#">Más Popularidad</a></li>
+							<li><a href="#">Otros</a></li>
+						</ul>
+
+						<div class="contenedor_navega">
+						<h1>Likes</h1>
+						</div>
+						
+						<ul>
+							<li><a href="#">Desafios Extremos</a></li>
+							<li><a href="#">Ofertas Comerciales</a></li>
+						</ul>
+
+					</nav>
+				</aside>
+
 			</div>
+
 		</div>
-		<div class="contenedor_header_der">
+	</div>
+	
+	<div id="content" class="snap-content">
+		<header>
+			<div class="logo">
+				<a href="/"><img src="/static/img/logo.png"/></a>
+			</div>
+			<!--
+			<div class="cont_buscador">
+				<div class="cont_buscador_camp">
+					<input name="buscador" type="text" value="">
+				</div>
+			</div>
+			<div class="contenedor_header_der">
 
-			<span class="boton_usuario_nav">
-				<a href="#">Eduardo Valdebenito</a>
-				<span class="boton_usuario_nav_boton boton_usuario_nav_boton_conf"></span>
+				<span class="boton_usuario_nav">
+					<a href="#">Eduardo Valdebenito</a>
+					<span class="boton_usuario_nav_boton boton_usuario_nav_boton_conf"></span>
 
-				<span class="cont_btn_users">
-					<a href="#" class="botones_redondos_f icon_usuario"></a>
-					<a href="#" class="botones_redondos_f icon_opciones"></a>
+					<span class="cont_btn_users">
+						<a href="#" class="botones_redondos_f icon_usuario"></a>
+						<a href="#" class="botones_redondos_f icon_opciones"></a>
+					</span>
+
 				</span>
 
-			</span>
+			</div>
+			-->
+		</header>
 
-		</div>
-		-->
-	</header>
+		<aside class="contenedor_central_full">
+			{% block content %}
+			{% endblock %}
+		</aside>
 
-	<aside class="contenedor_central_full">
-		{% block content %}
-		{% endblock %}
-	</aside>
+		<footer>
+			<ul>
+				<li><a href="/boe">Empresas</a></li>
+			</ul>		
+		</footer>
 
-	<footer>
-		<ul>
-			<li><a href="/boe">Empresas</a></li>
-		</ul>		
-	</footer>
+	</div>
+
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/static/js/menu.js"></script>
+    <script type="text/javascript" src="/static/js/meguz_apps.js"></script>
 
 </body>
 </html>

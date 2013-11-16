@@ -3,11 +3,11 @@
 <div class="titulo_usuario_meguz">
 	<div class="contendor_header_usuario">
 	<span class="perfil_imagen_usuario">
-		<img src="/static/img/imagen_usuario.png">
+		<img src="{{ company.logo.url_120x120 }}" />
 	</span>
 	<span class="titulo_usuario_barra_perfil">
-		<a href="/empresas/lan">Nombre de la Empresa</a>
-		<a href="#" class="eslogan_empresa">"Slogan de la empresa"</a>
+		<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>
+		<a href="#" class="eslogan_empresa">"{{ company.slogan }}</a>
 	</span>
 
 	<span class="boton azul posicion_ver_perfil">Ver perfil</span>
@@ -40,7 +40,7 @@
 			<div class="contendor_caracteristicas_auspiciador">
 				<div class="contendor_interno_auspiciador">
 					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Meta: <span class="txt_datos_auspiciador_bold">{{ offer.vote_limit }}</span></span>
-					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Gano: <span class="txt_datos_auspiciador_bold">{{ offer.shortname }}</span></span>
+					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Premio: <span class="txt_datos_auspiciador_bold">{{ offer.prize_name }}</span></span>
 					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_der">Stock: <span class="txt_datos_auspiciador_bold">{{ offer.stock }} Premios</span></span>
 				</div>
 			</div>
@@ -53,6 +53,7 @@
 		<div class="contenedor_descripcion">
 			<h3>Descripción:</h3>
 			<p>{{ offer.description }}</p>
+			<p>{{ offer.conditions }}</p>
 		</div>
 
 		<div class="contenedor_auspiciado">
