@@ -7,7 +7,7 @@
 	</span>
 	<span class="titulo_usuario_barra_perfil">
 		<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>
-		<a href="#" class="eslogan_empresa">"{{ company.slogan }}</a>
+		<a href="#" class="eslogan_empresa">"{{ company.slogan }}"</a>
 	</span>
 
 	<span class="boton azul posicion_ver_perfil">Ver perfil</span>
@@ -24,7 +24,7 @@
 			<div class="contenido_img_detalle_empresa">
 				<!-- // 600 x 393 -->
 				{% if offer.media_type == "I" %}
-				<img src="{{ offer.media_url.url }}">
+				<img src="{{ offer.media_image.url }}">
 				{% else %}
 				<iframe width="600" height="393" src="//www.youtube.com/embed/{{ offer.media_url }}?showinfo=0&modestbranding=1&rel=0&theme=light" frameborder="0" allowfullscreen></iframe>
 				{% endif %}

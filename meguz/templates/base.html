@@ -12,53 +12,17 @@
 	{% block extrahead %}{% endblock %}
 </head>
 <body>
-
-	<div class="snap-drawers" id="posicion_del_menu">
-		<div class="snap-drawer snap-drawer-left">
-			<div id="contenido_menu_meguz">
-
-				<aside class="contenedor_menu_izq" id="menu_izq_superior_movil">
-					<nav class="cont_navegacion">
-
-						<div class="contenedor_navega">
-							<h1>Estado</h1>
-						</div>
-
-						<ul>
-							<li><a href="#" class="select">Destacados</a></li>
-							<li><a href="#">MeguZers (Cumplidos)</a></li>
-						</ul>
-
-						<div class="contenedor_navega">
-							<h1>Categorias</h1>
-						</div>
-
-						<ul>
-							<li><a href="#">Desafios Extremos</a></li>
-							<li><a href="#">Ofertas Comerciales</a></li>
-							<li><a href="#">Ayuda Social</a></li>
-							<li><a href="#">Más Popularidad</a></li>
-							<li><a href="#">Otros</a></li>
-						</ul>
-
-						<div class="contenedor_navega">
-						<h1>Likes</h1>
-						</div>
-						
-						<ul>
-							<li><a href="#">Desafios Extremos</a></li>
-							<li><a href="#">Ofertas Comerciales</a></li>
-						</ul>
-
-					</nav>
-				</aside>
-
-			</div>
-
-		</div>
-	</div>
+<!-- Facebook Javascript SDK -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=234778956683382";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 	
-	<div id="content" class="snap-content">
+	<div id="content">
 		<header>
 			<div class="logo">
 				<a href="/"><img src="/static/img/logo.png"/></a>
@@ -84,6 +48,12 @@
 
 			</div>
 			-->
+			<div class="contenedor_header_der">
+				<div id="fb-button">
+					<input type="button" onclick="fb_login()" value="Ingresa con Facebook" />
+					{% csrf_token %}
+				</div>
+			</div>
 		</header>
 
 		<aside class="contenedor_central_full">
@@ -100,8 +70,7 @@
 	</div>
 
 	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/static/js/menu.js"></script>
-    <script type="text/javascript" src="/static/js/meguz_apps.js"></script>
+    <script type="text/javascript" src="/static/js/meguz.js"></script>
 
 </body>
 </html>

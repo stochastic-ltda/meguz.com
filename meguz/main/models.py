@@ -65,5 +65,22 @@ class Offer(models.Model):
 
 	def __unicode__(self):
 		return self.title 
-       
+
+
+# Usuario
+class User(models.Model):
+	facebook_id 	= models.CharField(max_length=80)
+	name 			= models.CharField(max_length=40)
+	username 		= models.CharField(max_length=40,null=True)
+	first_name 		= models.CharField(max_length=40,null=True)
+	last_name 		= models.CharField(max_length=40,null=True)
+	email 			= models.EmailField(max_length=60)
+	avatar 			= models.URLField(max_length=200)
+	birthday 		= models.DateField(null=True)
+	gender 			= models.CharField(max_length=10,null=True)
+	token 			= models.CharField(max_length=120)
+
+	def __unicode__(self):
+		return name
+
    

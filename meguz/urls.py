@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^empresa/registro/$', 'main.views.CompanyContact', name='company_contact'),
     url(r'^empresa/registro/ok$', 'main.views.CompanyThanks', name='company_thanks'),
     url(r'^premios/(?P<offer_id>.*)/(?P<offer_slug>.*)/$', 'main.views.PrizeView', name='offer_view'),
+    url(r'^user/login$', 'main.views.UserLogin', name="user_login"),
 
     # backoffice empresa
     url(r'^boe/$', 'boe.views.Login', name='boe_login'),

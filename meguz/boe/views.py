@@ -39,8 +39,12 @@ def PrizeList(request):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect("/boe")
 	else: 
-		company = Company.objects.get(contact_email=request.user.email)
-		offers = Offer.objects.filter(company=company)
+		try:
+			company = Company.objects.get(contact_email=request.user.email)
+			offers = Offer.objects.filter(company=company)
+		except Company.DoesNotExist:
+			offers = {}
+
 		return render_to_response('boe/offer/list.html', {'offers':offers}, context_instance=RequestContext(request))
 
 def PrizeEdit(request, offer_id):
@@ -57,7 +61,12 @@ def PrizeEdit(request, offer_id):
 
 					new_offer = Offer(**form.cleaned_data)
 					new_offer.id = offer.id
-					new_offer.company = offer.company
+					new_offer.slug = offer.slug
+					new_offer.company = offer.company	
+					new_offer.media_type = offer.media_type
+					new_offer.media_url = offer.media_url
+					new_offer.media_image = offer.media_image
+					new_offer.media_thumb = offer.media_thumb				
 					new_offer.save()
 
 					# redirect to edit page
@@ -196,6 +205,12 @@ def Profile(request):
 			if(form.is_valid()):
 				edit_company = Company(**form.cleaned_data)
 				edit_company.id = company.id
+				edit_company.slug = company.slug
+				edit_company.contact_email = company.contact_email
+
+				if 'logo' not in request.FILES:
+					edit_company.logo = company.logo
+					
 				edit_company.save()
 
 				# TODO: Check contact_email change and update userinfo
