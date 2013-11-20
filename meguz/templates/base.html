@@ -27,30 +27,32 @@
 			<div class="logo">
 				<a href="/"><img src="/static/img/logo.png"/></a>
 			</div>
-			<!--
-			<div class="cont_buscador">
-				<div class="cont_buscador_camp">
-					<input name="buscador" type="text" value="">
-				</div>
-			</div>
-			<div class="contenedor_header_der">
+			
+			<div class="contenedor_header_der" id="userLogIn" style="display:none">
 
 				<span class="boton_usuario_nav">
-					<a href="#">Eduardo Valdebenito</a>
-					<span class="boton_usuario_nav_boton boton_usuario_nav_boton_conf"></span>
+					<a href="/usuario/">[[username]]</a>
+					<span class="boton_usuario_nav_boton boton_usuario_nav_boton_conf" onclick="toggleMenu()"></span>
+					<div class="menu_usuario_nav">
+						<ul>
+							<li><a href="/usuario/mis-meguz">Mis Meguz!</a></li>
+							<li><a href="/usuario/mis-datos">Mis datos</a></li>
+							<li><a href="#" onclick="fbLogout()">Salir</a></li>
+						</ul>
+					</div>
 
 					<span class="cont_btn_users">
-						<a href="#" class="botones_redondos_f icon_usuario"></a>
+						[[useravatar]]
 						<a href="#" class="botones_redondos_f icon_opciones"></a>
 					</span>
 
 				</span>
 
 			</div>
-			-->
-			<div class="contenedor_header_der">
+			
+			<div class="contenedor_header_der" id="userLogOut" style="display:none">
 				<div id="fb-button">
-					<input type="button" onclick="fb_login()" value="Ingresa con Facebook" />
+					<input type="button" onclick="fbLogin()" value="Ingresa con Facebook" />
 					{% csrf_token %}
 				</div>
 			</div>
@@ -71,6 +73,13 @@
 
 	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="/static/js/meguz.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	userPanel();
+    	btnParticipar();
+    });
+    </script>
 
 </body>
 </html>

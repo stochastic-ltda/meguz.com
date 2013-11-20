@@ -13,7 +13,11 @@ window.fbAsyncInit = function() {
 
   };
 
-function fb_login(){
+// ------------------------------------------------------------------------------------------------------------------
+// Login / logout
+// ------------------------------------------------------------------------------------------------------------------
+
+function fbLogin(){
     FB.login(function(response) {
 
         if (response.authResponse) {
@@ -41,9 +45,10 @@ function fb_login(){
                     url: '/user/login', 
                     data: userinfo,  
                     success: function(data) {
-                        setCookie('fb_uxt', data, 7)
-                        setCookie('user_name', userinfo.name, 7)
-                        setCookie('user_avatar', 'http://graph.facebook.com/' + userinfo.id + '/picture', 7)                                             
+                        setCookie('fbmgz_234778956683382', data, 7);
+                        setCookie('user_name', userinfo.first_name, 7);
+                        setCookie('user_avatar', 'http://graph.facebook.com/' + userinfo.id + '/picture', 7); 
+                        userPanelLogout();  
                     }
                 });
     
@@ -57,6 +62,50 @@ function fb_login(){
     }, {
         scope: 'offline_access,user_birthday,user_likes,email'
     });
+}
+
+function fbLogout() {
+    setCookie('fbmgz_234778956683382', '', -1);
+    setCookie('user_name', '', -1);
+    setCookie('user_avatar', '', -1);
+    userPanelLogin();    
+}
+
+function isLogged() {
+    var user_name = getCookie('user_name');
+    if(typeof user_name == "undefined")  return false;
+    return true;
+}
+
+function userPanel() {
+    if(!isLogged()) userPanelLogin();
+    else userPanelLogout();    
+}
+
+function userPanelLogin() {
+    // Crear view userpanel/login y cargar nombre + link a cuenta usuario + btn logout
+    $('#userLogOut').show();
+    $('#userLogIn').hide();
+    
+    btnParticipar();
+}
+
+function userPanelLogout() {
+    // Crear view userpanel/logout y cargar btn login + crsf_token
+    var userLogIn = $('#userLogIn').html();
+    userLogIn = userLogIn.replace('[[username]]', getCookie('user_name'));
+    userLogIn = userLogIn.replace('[[useravatar]]', '<img src="'+getCookie('user_avatar')+'"">');  
+    $('#userLogIn').html(userLogIn);
+    $('#userLogIn').show();
+    $('#userLogOut').hide();
+
+    btnParticipar();
+}
+
+function toggleMenu() {
+    var btn = $('.menu_usuario_nav');
+    if(btn.css("display") == "none") btn.show();
+    else btn.hide();
 }
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -99,4 +148,23 @@ function sameOrigin(url) {
         (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
         // or any other URL that isn't scheme relative or absolute i.e relative.
         !(/^(\/\/|http:|https:).*/.test(url));
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+// Premios
+// ------------------------------------------------------------------------------------------------------------------
+
+function participar(prize_id) {
+    if(!isLogged()) fbLogin();
+    else document.location = "/premios/participar/" + prize_id;
+}
+
+function btnParticipar() {    
+    if(isLogged()) {
+        $('.btn-participar').html('Participar');
+        $('.btn-participar').removeClass('not-login');
+    } else {
+        $('.btn-participar').html('<p class="small">Inicia sesión para</p>Participar');
+        $('.btn-participar').addClass('not-login');
+    }
 }

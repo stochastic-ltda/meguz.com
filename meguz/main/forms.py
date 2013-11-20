@@ -14,3 +14,6 @@ class CompanyContactForm(forms.Form):
 	contact_name 	= forms.CharField(max_length=40)
 	contact_phone 	= forms.CharField(max_length=40)
 	contact_email 	= forms.EmailField(max_length=75,initial='@')	
+
+# class MeguzForm(forms.Form):
+

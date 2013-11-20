@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="titulo_usuario_meguz">
 	<div class="contendor_header_usuario">
 	<span class="perfil_imagen_usuario">
-		<img src="{{ company.logo.url_120x120 }}" />
+		<img src="{{ company.logo.url_120x60 }}" />
 	</span>
 	<span class="titulo_usuario_barra_perfil">
 		<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>
@@ -34,14 +35,34 @@
 
 		<div class="contenedor_central_superior_detalle_izq_empresa">
 			<h5>Auspiciado por:</h5>
-			<div class="contenedor_imagen_auspiciador">
-				<img src="{{ company.logo.url_250x250 }}">
+			<div class="contenedor_auspiciador">
+				<img src="{{ company.logo.url_250x120 }}">
+				<div class="contacto_auspiciador_1">
+					<p class="auspiciador_nombre">{{ company.name }}</p>
+					<p class="auspiciador_website">
+						<a href="{{ company.website }}" target="_blank" rel="nofollow">Visitar página</a>
+					</p>
+				</div>
+				<div class="contacto_auspiciador_2">
+					<p>{{ company.address }}</p>
+					<p>{{ company.phone }}</p>
+					<p>{{ company.email }}</p>
+				</div>
 			</div>
 			<div class="contendor_caracteristicas_auspiciador">
 				<div class="contendor_interno_auspiciador">
-					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Meta: <span class="txt_datos_auspiciador_bold">{{ offer.vote_limit }}</span></span>
-					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Premio: <span class="txt_datos_auspiciador_bold">{{ offer.prize_name }}</span></span>
-					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_der">Stock: <span class="txt_datos_auspiciador_bold">{{ offer.stock }} Premios</span></span>
+					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq" id="tda_meta">
+						<span class="txt_datos_auspiciador_label">Meta:</span>
+						<span class="txt_datos_auspiciador_bold">{{ offer.vote_limit }}</span>
+					</span>
+					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq" id="tda_premio">
+						<span class="txt_datos_auspiciador_label">Premio:</span>
+						<span class="txt_datos_auspiciador_bold">{{ offer.prize_name }}</span>
+					</span>
+					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_der" id="tda_stock">
+						<span class="txt_datos_auspiciador_label">Stock:</span>
+						<span class="txt_datos_auspiciador_bold">{{ offer.stock }} Premios</span>
+					</span>
 				</div>
 			</div>
 		</div>
@@ -57,7 +78,7 @@
 		</div>
 
 		<div class="contenedor_auspiciado">
-			<span class="boton_nar posicion_ver_perfil" id="boton_naranjo">Participar</span>
+			<span class="boton_nar posicion_ver_perfil btn-participar" id="boton_naranjo" onclick="participar({{ offer.id }})">Participar</span>
 		</div>
 
 	</div>
@@ -145,4 +166,5 @@
 		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
 	</article>
 </aside>
+
 {% endblock %}

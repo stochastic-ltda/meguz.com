@@ -83,6 +83,9 @@ def PrizeView(request, offer_id, offer_slug):
 	context = { 'offer': prize, 'company': company }
 	return render_to_response('offer.html', context, context_instance=RequestContext(request))
 
+# def PrizeParticipate(request, offer_id):
+
+
 def UserLogin(request):
 	if request.method == 'POST':
 		from main.models import User

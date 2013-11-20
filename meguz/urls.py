@@ -13,7 +13,10 @@ urlpatterns = patterns('',
     url(r'^empresa/lista/$', 'main.views.CompanyList', name='company_list'),
     url(r'^empresa/registro/$', 'main.views.CompanyContact', name='company_contact'),
     url(r'^empresa/registro/ok$', 'main.views.CompanyThanks', name='company_thanks'),
+
     url(r'^premios/(?P<offer_id>.*)/(?P<offer_slug>.*)/$', 'main.views.PrizeView', name='offer_view'),
+    url(r'^premios/participar/(?P<offer_id>.*)/$', 'main.views.PrizeParticipate', name='offer_participate'),
+
     url(r'^user/login$', 'main.views.UserLogin', name="user_login"),
 
     # backoffice empresa

@@ -274,18 +274,48 @@ footer {
 	margin-right: 17px;
 }
 
-.boton_usuario_nav {
+#fb-button input {
+	background: #3B5998;
+	padding: 10px;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
 
+.menu_usuario_nav {
+	position: absolute;
+	background: #EEE;
+	padding: 0px 16px;
+	color: #999;
+	margin-left: -26px;
+	margin-top: -11px;
+	padding-bottom: 5px;
+	display: none;	
+}
+
+.menu_usuario_nav li a {
+	margin-top: 5px;
+	color: #94999c;
+	font-weight: normal;
+}
+
+.boton_usuario_nav {
+	position: relative;
+}
+
+.boton_usuario_nav img {
+	width: 40px;
 }
 
 .boton_usuario_nav a {
-	color: #94999c;
+	color: #111;
 	display: inline-block;
 	font-size: 12px;
 	line-height: 20px;
 	margin-top: 12px;
 	padding: 0 0 0 10px;
 	vertical-align: top;
+	font-weight: bold;
 }
 
 .boton_usuario_nav a:hover {
@@ -317,9 +347,9 @@ footer {
 .botones_redondos_f {
 	width: 40px;
 	height: 40px;
-	-webkit-border-radius: 20px;
+	/*-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
-	border-radius: 20px;
+	border-radius: 20px;*/
 	display: inline-block;
 	cursor: pointer;
 }
@@ -587,7 +617,6 @@ footer {
 
 .perfil_imagen_usuario {
 	float: left;
-	width: 43px;
 	margin-top: 8px;
 	border: 1px solid #989898;
 	background: #d8dadc;
@@ -787,6 +816,22 @@ footer {
 	width: 50%;
 }
 
+.not-login p {
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 8px;
+}
+
+.not-login {
+    line-height: 30px !important;
+    padding-bottom: 7px;
+}
+
+.btn-participar {
+margin: 0px !important;
+padding-bottom: 5px;
+}
+
 .boton_participa {
 	float: left;
 	width: 50%;
@@ -862,16 +907,15 @@ footer {
 }
 
 .contenedor_central_superior_detalle_izq_empresa h5 {
-	float: left;
-	width: 100%;
-	font-family: 'Open Sans', sans-serif;
-	font-size: 20px;
-	font-weight: normal;
-	padding-bottom: 7px;
-	margin-bottom: 12px;
-	border-bottom: 1px solid #a0a0a0;
-	color: #4b5c66;
-
+float: left;
+width: 100%;
+font-family: 'Open Sans', sans-serif;
+font-size: 12px;
+font-weight: normal;
+padding-bottom: 3px;
+margin-bottom: 5px;
+border-bottom: 1px solid #a0a0a0;
+color: #4b5c66;
 }
 
 .contenido_img_detalle_empresa {
@@ -887,12 +931,43 @@ footer {
 	max-width: 100%;
 }
 
-.contenedor_imagen_auspiciador {
+.contenedor_auspiciador {
 	float: left;
 	width: 100%;
+	padding: 0px;
 	text-align: center;
-	padding: 17px 0;
 }
+
+	.contenedor_auspiciador img {
+		width: 75%;
+	}
+
+	.auspiciador_nombre {
+	    font-weight: bold;
+	    font-size: 15px;
+	}
+	.auspiciador_website a {
+	    color: blue;
+	}
+	.contacto_auspiciador_1 {
+	    text-align: left;
+	    font-size: 11px;
+	    margin-top: 9px;
+	    width: 45%;
+	    float: left;
+	    color: #444;
+	    margin-left: 2%;
+	}
+
+	.contacto_auspiciador_2 {
+	    text-align: right;
+	    font-size: 11px;
+	    margin-top: 9px;
+	    width: 45%;
+	    float: right;
+	    color: #444;
+	    margin-right: 2%;
+	}
 
 .contendor_caracteristicas_auspiciador {
 	float: left;
@@ -909,7 +984,7 @@ footer {
 	border:1px solid #fff;
 	width: 99.8%;
 	background: #cbddef;
-	padding: 0;
+	padding: 10px 0px;
 	color: #333;
 	text-shadow: 0 1px 0 #efefef;
 	-webkit-text-shadow: 0 1px 0 #efefef;
@@ -917,12 +992,26 @@ footer {
 	-o-text-shadow: 0 1px 0 #efefef;
 }
 
+#tda_meta {
+    width: 20%;
+}
+#tda_premio {
+    width: 50%;
+}
+#tda_stock {
+    width: 20%;
+}
+
 .txt_datos_auspiciador {
 	float: left;
 	font-family: Arial, sans-serif;
 	font-size: 14px;
 	font-weight: normal;
-	line-height: 44px;
+	line-height: 14px;
+}
+
+.txt_datos_auspiciador_label {
+	font-size: 12px;
 }
 
 .txt_datos_auspiciador_separa_izq {
@@ -936,6 +1025,9 @@ footer {
 .txt_datos_auspiciador_bold {
 	font-weight: bold;
 	color: #333;
+	display: block;
+	line-height: 20px;
+	margin-top: 5px;
 }
 
 .boton_nar {

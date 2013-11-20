@@ -22,7 +22,7 @@ STATUS_CHOICES 	= (
 class Company(models.Model):
 	name 			= models.CharField(max_length=200)
 	slug 			= models.SlugField(unique=True,max_length=200)
-	logo 			= ImageWithThumbsField(upload_to="company/", sizes=((120,120),(250,250)))
+	logo 			= ImageWithThumbsField(upload_to="company/", sizes=((120,60),(250,120)))
 	slogan 			= models.CharField(max_length=200, null=True)
 	rut 			= models.CharField(max_length=25)
 	website 		= models.URLField(max_length=200, null=True)
