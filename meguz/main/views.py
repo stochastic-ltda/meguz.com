@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.template.defaultfilters import slugify
 
 from main.models import Company, Offer
-from main.forms import CompanyContactForm
+from main.forms import CompanyContactForm, MeguzForm, MeguzMultimediaForm
 
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
@@ -79,11 +79,29 @@ def CompanyThanks(request):
 
 def PrizeView(request, offer_id, offer_slug):
 	prize = Offer.objects.get(pk=offer_id)
-	company = Company.objects.get(pk=prize.company.id)
-	context = { 'offer': prize, 'company': company }
-	return render_to_response('offer.html', context, context_instance=RequestContext(request))
+	if prize is None:
+		return HttpResponseRedirect("/")
+	else:
+		company = Company.objects.get(pk=prize.company.id)
+		context = { 'offer': prize, 'company': company }
+		return render_to_response('offer.html', context, context_instance=RequestContext(request))
 
-# def PrizeParticipate(request, offer_id):
+def PrizeParticipate(request, offer_id):
+
+	from django.core.urlresolvers import reverse
+	from django.contrib import messages
+	from django_youtube.api import Api, AccessControl, ApiError
+
+	prize = Offer.objects.get(pk=offer_id)
+
+	if prize is None:
+		return HttpResponseRedirect("/")
+	else:
+		company = Company.objects.get(pk=prize.company.id)
+		form = MeguzForm()
+
+		context = { 'offer': prize, 'company': company, 'form': form }
+		return render_to_response('meguz/new.html', context, context_instance=RequestContext(request))
 
 
 def UserLogin(request):

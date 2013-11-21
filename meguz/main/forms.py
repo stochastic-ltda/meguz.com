@@ -15,5 +15,11 @@ class CompanyContactForm(forms.Form):
 	contact_phone 	= forms.CharField(max_length=40)
 	contact_email 	= forms.EmailField(max_length=75,initial='@')	
 
-# class MeguzForm(forms.Form):
+class MeguzForm(forms.Form):
+	title 			= forms.CharField(max_length=200)
+	description		= forms.CharField(widget=forms.Textarea)
+
+class MeguzMultimediaForm(forms.Form):
+	token 			= forms.CharField()
+	file 			= forms.FileField()
 

@@ -161,7 +161,7 @@ def PrizeMultimedia(request, offer_id):
 			keywords = offer.category.name + "," + offer.prize_name + "," + offer.company.name
 			description = offer.description + "... Visita www.meguz.com para mas informacion"
 
-			# Try to create post_url and toke
+			# Try to create post_url and token
 			try:
 				api = Api()
 				api.authenticate()

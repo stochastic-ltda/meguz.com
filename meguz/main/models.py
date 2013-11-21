@@ -83,4 +83,16 @@ class User(models.Model):
 	def __unicode__(self):
 		return name
 
-   
+# Meguz
+class Meguz(models.Model):
+	title       	= models.CharField(max_length=200)
+	slug       		= models.SlugField(unique=True,max_length=200)
+	description   	= models.TextField(blank=False)
+	video_id     	= models.CharField(max_length=200)
+	video_thumb		= models.CharField(max_length=200)
+	vote_count     	= models.IntegerField()
+	publish_date    = models.DateTimeField(auto_now=True)
+	status			= models.CharField(max_length=1, choices=STATUS_CHOICES)
+
+	def __unicode__(self):
+		return self.title 

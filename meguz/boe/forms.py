@@ -24,9 +24,9 @@ class OfferNewForm(forms.Form):
 
 class OfferMultimediaForm(forms.Form):
 	media_type		= forms.ChoiceField(choices=MEDIA_CHOICES)
-	token = forms.CharField()
-	file = forms.FileField()
-	media_image = forms.ImageField()
+	token 			= forms.CharField()
+	file 			= forms.FileField()
+	media_image 	= forms.ImageField()
 
 # change form view to a manually print
 class CompanyEditForm(forms.Form):
