@@ -156,7 +156,26 @@ function sameOrigin(url) {
 
 function participar(prize_id) {
     if(!isLogged()) fbLogin();
-    else document.location = "/premios/participar/" + prize_id;
+    else document.location = "/premios/" + prize_id + '/participar';
+}
+
+function participarForm(offer_id) {
+
+    // console.log($('#form_participar').serialize());
+
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: '/premios/participar/form/' + offer_id + '/' + getCookie('fbmgz_234778956683382') + '/',
+        data: $('#form_participar').serialize(),
+        success: function(responseText) {
+            if(jQuery.isNumeric(responseText)) {
+                console.log("responseText");
+                return true;
+            }
+        }
+    });
+
 }
 
 function btnParticipar() {    

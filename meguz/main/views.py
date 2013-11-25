@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import slugify
 
-from main.models import Company, Offer
+from main.models import Company, Offer, Meguz
 from main.forms import CompanyContactForm, MeguzForm, MeguzMultimediaForm
 
 from django.core.mail import EmailMultiAlternatives
@@ -98,10 +98,90 @@ def PrizeParticipate(request, offer_id):
 		return HttpResponseRedirect("/")
 	else:
 		company = Company.objects.get(pk=prize.company.id)
-		form = MeguzForm()
+		formData = MeguzForm()		
 
-		context = { 'offer': prize, 'company': company, 'form': form }
+		# video metadata
+		title = prize.title + " | Meguz.com"
+		keywords = prize.category.name + "," + prize.prize_name + "," + prize.company.name
+		description = prize.description + "... Visita www.meguz.com para mas informacion"
+
+		# Try to create post_url and token
+		try:
+			api = Api()
+			api.authenticate()
+
+			data = api.upload(title, description=description, keywords=keywords, access_control=AccessControl.Unlisted)
+
+		# Api error happend
+		except ApiError as e:
+			messages.add_message(request, messages.ERROR, e.message)
+			return HttpResponseRedirect("/")
+
+		# Other error
+		except:
+			messages.add_message(request, messages.ERROR, _('Ha ocurrido un error, por favor intenta de nuevo'))
+			return HttpResponseRedirect("/")
+
+		formVideo = MeguzMultimediaForm(initial={"token": data["youtube_token"]})	
+					
+		import os
+		protocol = 'https' if request.is_secure() else 'http'
+		next_url = "".join([protocol, ":", os.sep, os.sep, request.get_host(), "/meguz/update/multimedia/{0}/{1}".format(prize.id,request.COOKIES.get('fbmgz_234778956683382')), os.sep])
+
+		context = { 'offer': prize, 'company': company, 'form_data': formData, 'form_video': formVideo, 'post_url': data['post_url'], 'next_url': next_url }
 		return render_to_response('meguz/new.html', context, context_instance=RequestContext(request))
+
+def PrizeParticipateForm(request, prize_id, user_token):
+
+	if request.method == 'POST': 
+		meguzForm = MeguzForm(request.POST)
+
+		if(meguzForm.is_valid()):
+
+			# Load model with form
+			meguz = Meguz(**meguzForm.cleaned_data)
+			slug = slugify(request.POST['title'])						
+			meguz.slug = slug
+			meguz.status = 'B'
+			meguz.prize_id = prize_id
+			meguz.vote_count = 0
+
+			# Load user id
+			from main.models import User
+			user = User.objects.get(token=user_token)
+			if user is None:
+				context = {'response':'Forbidden'}	
+			else:
+				meguz.user_id = user.id
+				meguz.save()
+				context = {'response':meguz.id}
+		else:
+			context = {'response':'fail'}
+
+	else:			
+		context = {'response': 'invalid'}
+
+	return render_to_response('meguz/participate.html', context, context_instance=RequestContext(request))
+
+def MeguzUpdateMultimedia(request, prize_id, user_token):
+	from main.models import User
+
+	prize = Offer.objects.get(pk=prize_id)
+	user = User.objects.get(token=user_token)
+	meguz = Meguz.objects.get(prize=prize,user=user)
+	if meguz is None:
+		return HttpResponseRedirect("/")
+	else:		
+
+		# If request.GET isset from Youtube, update media_url with video ID
+		if request.method == 'GET':
+			if 'status' in request.GET:
+				if request.GET['status'] == "200":
+					if 'id' in request.GET:
+						meguz.video_id = request.GET['id']
+						meguz.video_thumb = "http://img.youtube.com/vi/%s/1.jpg" % request.GET['id']
+						meguz.save()
+						return HttpResponseRedirect("/") # /meguz/{id}/{slug}
 
 
 def UserLogin(request):

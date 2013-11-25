@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css">
+{% endblock %}
+
+{% block content %}
+<div class="titulo_usuario_meguz">
+	<div class="contendor_header_usuario">
+	<span class="perfil_imagen_usuario">
+		<img src="{{ company.logo.url_120x60 }}" />
+	</span>
+	<span class="titulo_usuario_barra_perfil">
+		<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>
+		<a href="#" class="eslogan_empresa">"{{ company.slogan }}"</a>
+	</span>
+
+	<span class="boton azul posicion_ver_perfil">Ver perfil</span>
+
+	</div>
+</div>	
+
+<aside class="contenedor_izq_detalle">
+	<h1>{{ offer.title }}</h1>
+
+	<div class="contenedor_central_superior_detalle">
+		<form id="form_participar" class="forms" method="post">
+			{% csrf_token %}
+			{{ form_data.non_field_errors }}
+
+			<ul>
+				<li>
+					{{ form_data.title.errors }}
+					<label for="id_title">Título de tu video</label> 
+					{{ form_data.title }}				
+				</li>
+				<li>
+					{{ form_data.description.errors }}
+					<label for="id_description">
+						¿Cómo piensas ganarte el premio? Describe tu video a continuación...
+					</label> 
+					{{ form_data.description }}							
+				</li>					
+			</ul>
+		</form>
+
+		<form action="{{ post_url }}?nexturl={{ next_url }}" id="form_participar_multimedia" class="forms" method="post" enctype="multipart/form-data">
+			<ul>
+				<li id="input_video">
+					{{ form.file.errors }}
+					<label for="id_file">Sube tu video</label> 
+					{{ form_video.file }}
+		    		{{ form_video.token.as_hidden }}
+	    		</li>
+    			<li>
+    				<input value="Participar" id="submit" type="submit" onclick="return participarForm({{ offer.id }})" />
+    			</li>
+		</li>
+		</form>
+	</div>
+
+</aside>
+
+<!-- // Right Bar -->
+<aside class="contenedor_derecho_detalle">
+	<article class="contenedor_destacados_derecho">		
+		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
+			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz"></span> 
+		</div>
+		<div class="cont_like_destacado_f">
+			<span class="txt_digito_destacados">1.000.000</span>
+			<span class="bt_like_destacados"><a href="#"><img src="/static/img/twite_destacado.jpg"></a></span>
+		</div>
+		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
+	</article>
+</aside>
+{% endblock %}

@@ -1,0 +1,9 @@
+TODO
+------
+
+-. Agregar user_id al modelo Meguz
+-. Modificar formulario para que extraiga el user_id de la cookie
+-. Implementar recepción via GET desde Youtube
+-. Setear parámetros iniciales del formulario de video
+-. Subir video a youtube
+5. Averiguar como actualizar los datos de un video desde la API (Para cambiar el titulo y la descripción)

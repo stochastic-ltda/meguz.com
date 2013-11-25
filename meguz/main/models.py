@@ -81,18 +81,20 @@ class User(models.Model):
 	token 			= models.CharField(max_length=120)
 
 	def __unicode__(self):
-		return name
+		return self.name
 
 # Meguz
 class Meguz(models.Model):
+	prize 			= models.ForeignKey('Offer')
+	user 			= models.ForeignKey('User')
 	title       	= models.CharField(max_length=200)
 	slug       		= models.SlugField(unique=True,max_length=200)
-	description   	= models.TextField(blank=False)
-	video_id     	= models.CharField(max_length=200)
-	video_thumb		= models.CharField(max_length=200)
-	vote_count     	= models.IntegerField()
+	description   	= models.TextField(blank=False,null=True)
+	video_id     	= models.CharField(max_length=200,null=True)
+	video_thumb		= models.CharField(max_length=200,null=True)
+	vote_count     	= models.IntegerField(null=True)
 	publish_date    = models.DateTimeField(auto_now=True)
-	status			= models.CharField(max_length=1, choices=STATUS_CHOICES)
+	status			= models.CharField(max_length=1,choices=STATUS_CHOICES)
 
 	def __unicode__(self):
 		return self.title 
