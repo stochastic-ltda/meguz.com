@@ -1101,3 +1101,49 @@ color: #4b5c66;
 #boton_menu_izq_movil {
 	display: none;
 }
+
+/* ------------------------------------------------------------------------------- */
+/* User Account
+/* ------------------------------------------------------------------------------- */
+table.mis-meguz {
+    width: 95%;
+    border: 1px solid #CCC;
+    padding: 1%;
+}
+	table.mis-meguz img {
+	    width: 65px;
+	}
+	table.mis-meguz tr:hover {
+	    background-color: #EEE;
+	    cursor: pointer;
+	}
+	table.mis-meguz td {
+	    padding: 3px;
+	    text-align: center;
+	}
+
+#userimage {
+    width: 200px;
+    float: left;
+}
+	#userimage img {
+		border: 3px solid #999;
+	}
+	
+#userinfo {
+    width: 600px;
+    float: left;
+    font-size: 16px;
+    line-height: 35px;
+}
+	#userinfo li {
+	    font-weight: bold;
+	}
+	#userinfo .label {
+	    background: #DEDEDE;
+	    padding: 5px;
+	    border-radius: 5px;
+	    font-size: 13px;
+	    font-weight: normal;
+	    width: inherit;
+	}

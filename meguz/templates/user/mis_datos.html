@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<aside class="contenedor_izq_detalle">
+	<h1>{{ user.name }}</h1>
+	<div class="contenedor_central_superior_detalle">
+		<div id="userimage"><img src="{{ user.avatar }}?type=large"></div>
+		<div id="userinfo">
+			<ul>
+				<li><span class="label">Apodo:</span> {{ user.username }}</li>
+				<li><span class="label">Nombre:</span> {{ user.first_name }}</li>
+				<li><span class="label">Apellido:</span> {{ user.last_name }}</li>
+				<li><span class="label">Fecha nacimiento:</span> {{ user.birthday }}</li>
+				<li><span class="label">Género:</span> {{ user.gender }}</li>
+				<li><span class="label">Email:</span> {{ user.email }}</li>
+				<li><span class="label">Página facebook:</span> <a href="http://www.facebook.com/{{ user.facebook_id }}" target="_blank">http://www.facebook.com/{{ user.facebook_id }}</a></li>		
+			</ul>		
+		</div>
+	</div>
+</aside>
+{% endblock %}

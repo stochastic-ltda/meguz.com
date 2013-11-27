@@ -161,8 +161,6 @@ function participar(prize_id) {
 
 function participarForm(offer_id) {
 
-    // console.log($('#form_participar').serialize());
-
     $.ajax({
         async: false,
         type: 'POST',
@@ -176,6 +174,34 @@ function participarForm(offer_id) {
         }
     });
 
+}
+
+function editMeguz(meguz_id) {
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: '/meguz/edit/form/' + meguz_id + '/' + getCookie('fbmgz_234778956683382') + '/',
+        data: $('#form_participar').serialize(),
+        success: function(responseText) {
+            console.log(responseText);
+        },
+        complete: function(data) {
+            if( $('#id_file').val() != "" ) {
+                $.post('/meguz/'+meguz_id+'/eliminar-video/', $('#form_participar').serialize(), function(data){                    
+                    return true;
+                });                
+            } else {
+                return false;
+            }
+        }
+
+    });
+}
+
+function confirmDelete() {
+    if(confirm("¿Seguro que deseas eliminar este meguz? Perderas todos los votos..."))
+        return true;    
+    return false;
 }
 
 function btnParticipar() {    

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<aside class="contenedor_izq_detalle">
+	<h1>Mis meguz</h1>
+	<div class="contenedor_central_superior_detalle">
+
+		<table class="mis-meguz">
+			<thead>		
+				<tr>		
+					<th></th>
+					<th>Título</th>
+					<th>Premio</th>
+					<th>Publicado</th>
+					<th>Controles</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for m in meguz %}
+					<tr>
+						<td><img src="{{ m.video_thumb }}"></td>
+						<td>{{ m.title }}</td>
+						<td>{{ m.prize.prize_name }}</td>
+						<td>{{ m.publish_date }}</td>
+						<td>
+							<ul>
+								<li><a href="/meguz/{{ m.id }}/editar">Editar</a></li>
+								<li><a href="/meguz/{{ m.id }}/eliminar" onclick="return confirmDelete()">Eliminar</a></li>
+							</ul>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+</aside>
+{% endblock %}

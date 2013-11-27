@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/css/forms.css">
+{% endblock %}
+
+{% block content %}
+
+<aside class="contenedor_izq_detalle">
+	<h1>{{ meguz.prize.title }}</h1>
+
+	<div class="contenedor_central_superior_detalle">
+		<form id="form_participar" class="forms" method="post" action="http://meguz.dev/meguz/edit/form/8/x8YBjw91dkxChQJv4jdpqwpKPKTjz15TYvpZh5Ju/">
+			{% csrf_token %}
+			{{ form_data.non_field_errors }}
+
+			<ul>
+				<li>
+					{{ form_data.title.errors }}
+					<label for="id_title">Título de tu video</label> 
+					{{ form_data.title }}				
+				</li>
+				<li>
+					{{ form_data.description.errors }}
+					<label for="id_description">
+						¿Cómo piensas ganarte el premio? Describe tu video a continuación...
+					</label> 
+					{{ form_data.description }}							
+				</li>					
+			</ul>
+		</form>
+
+		<form action="{{ post_url }}?nexturl={{ next_url }}" id="form_participar_multimedia" class="forms" method="post" enctype="multipart/form-data" onsubmit="return editMeguz({{ meguz.id }})">
+			<ul>
+				<li id="input_video">
+					{{ form.file.errors }}
+					<label for="id_file">Sube tu video</label> 
+					{{ form_video.file }}
+		    		{{ form_video.token.as_hidden }}
+	    		</li>
+    			<li>
+    				<input value="Editar meguz" id="submit" type="submit" />
+    			</li>
+		</li>
+		</form>
+
+		<iframe width="420" height="315" src="//www.youtube.com/embed/{{ meguz.video_id }}" frameborder="0" allowfullscreen></iframe>
+	</div>
+
+</aside>
+
+<!-- // Right Bar -->
+<aside class="contenedor_derecho_detalle">
+	<article class="contenedor_destacados_derecho">		
+		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
+			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz"></span> 
+		</div>
+		<div class="cont_like_destacado_f">
+			<span class="txt_digito_destacados">1.000.000</span>
+			<span class="bt_like_destacados"><a href="#"><img src="/static/img/twite_destacado.jpg"></a></span>
+		</div>
+		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
+	</article>
+</aside>
+{% endblock %}
