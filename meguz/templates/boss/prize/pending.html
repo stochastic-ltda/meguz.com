@@ -1,0 +1,42 @@
+{% extends 'base_boss.html' %}
+
+{% block content %}
+<h2>Premios pendientes</h2>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Title</th>			
+			<th>Company</th>
+			<th>Category</th>
+			<th>Publish date</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for prize in prizes %}
+		<tr>
+			<td>{{ prize.id }}</td>
+			<td>{{ prize.title }}</td>
+			<td>{{ prize.company.name }}</td>
+			<td>{{ prize.category.name }}</td>
+			<td>{{ prize.publish_date|date:"M d, Y" }}</td>
+			<td>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						Action <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="/premios/{{ prize.id }}/{{ prize.slug }}" target="_blank">Ver</a></li>
+						<li><a href="/boss/premios/editar/{{ prize.id}}">Editar</a></li>
+						<li><a href="/boss/premios/aprobar/{{ prize.id}}">Aprobar</a></li>
+						<li class="divider"></li>
+						<li><a href="/boss/premios/rechazar/{{ prize.id}}" style="color:red">Rechazar</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'django_youtube',
     'main',
     'boe',
+    'boss',
 )
 
 # A sample logging configuration. The only tangible logging

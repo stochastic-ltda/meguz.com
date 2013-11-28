@@ -21,7 +21,7 @@
 						<td><img src="{{ m.video_thumb }}"></td>
 						<td>{{ m.title }}</td>
 						<td>{{ m.prize.prize_name }}</td>
-						<td>{{ m.publish_date }}</td>
+						<td>{{ m.publish_date|date:"M d, Y" }}</td>
 						<td>
 							<ul>
 								<li><a href="/meguz/{{ m.id }}/editar">Editar</a></li>

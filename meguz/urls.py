@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^meguz/(?P<meguz_id>.*)/eliminar/$', 'main.views.MeguzDelete', name='meguz_delete'),
     url(r'^meguz/(?P<meguz_id>.*)/eliminar-video/$', 'main.views.MeguzDeleteVideo', name='meguz_delete_video'),
     url(r'^meguz/edit/form/(?P<meguz_id>.*)/(?P<user_token>.*)/$', 'main.views.MeguzEditForm', name='meguz_edit_form'),
+    url(r'^meguz/(?P<meguz_id>.*)/(?P<meguz_slug>.*)/$', 'main.views.MeguzView', name='meguz_view'),
 
     url(r'^user/login$', 'main.views.UserLogin', name="user_login"),
     url(r'^usuario/mis-meguz$', 'main.views.UserMisMeguz', name="user_mismeguz"),
@@ -36,6 +37,16 @@ urlpatterns = patterns('',
     url(r'^boe/premios/nuevo$', 'boe.views.PrizeNew', name='boe_offer_new'),
     url(r'^boe/premios/editar/(?P<offer_id>.*)/$', 'boe.views.PrizeEdit', name='boe_offer_edit'),
     url(r'^boe/premios/multimedia/(?P<offer_id>.*)/$', 'boe.views.PrizeMultimedia', name='boe_offer_multimedia'),    
+
+    # boss zone
+    url(r'^boss/$', 'boss.views.Home', name='boss_home'),
+    url(r'^boss/premios/pendientes$', 'boss.views.PrizePendingApproval', name='boss_prize_pending'),
+    url(r'^boss/premios/aprobar/(?P<prize_id>.*)/$', 'boss.views.PrizeApprove', name='boss_prize_approve'),
+    url(r'^boss/premios/rechazar/(?P<prize_id>.*)/$', 'boss.views.PrizeReject', name='boss_prize_reject'),
+    url(r'^boss/meguz/pendientes$', 'boss.views.MeguzPendingApproval', name='boss_prize_pending'),
+    url(r'^boss/meguz/aprobar/(?P<meguz_id>.*)/$', 'boss.views.MeguzApprove', name='boss_meguz_approve'),
+    url(r'^boss/meguz/rechazar/(?P<meguz_id>.*)/$', 'boss.views.MeguzReject', name='boss_meguz_reject'),
+
 
     # youtube
     (r'^boe/youtube/', include('django_youtube.urls')),

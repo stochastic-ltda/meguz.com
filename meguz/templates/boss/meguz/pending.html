@@ -1,0 +1,40 @@
+{% extends 'base_boss.html' %}
+
+{% block content %}
+<h2>Meguz pendientes</h2>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Title</th>			
+			<th>Premio</th>
+			<th>Publish date</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for m in meguz %}
+		<tr>
+			<td>{{ m.id }}</td>
+			<td>{{ m.title }}</td>
+			<td>{{ m.prize.title }}</td>
+			<td>{{ m.publish_date|date:"M d, Y" }}</td>
+			<td>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						Action <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="/meguz/{{ m.id }}/{{ m.slug }}" target="_blank">Ver</a></li>
+						<li><a href="/boss/meguz/editar/{{ m.id}}">Editar</a></li>
+						<li><a href="/boss/meguz/aprobar/{{ m.id}}">Aprobar</a></li>
+						<li class="divider"></li>
+						<li><a href="/boss/meguz/rechazar/{{ m.id}}" style="color:red">Rechazar</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

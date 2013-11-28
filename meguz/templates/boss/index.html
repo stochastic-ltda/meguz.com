@@ -1,0 +1,22 @@
+{% extends 'base_boss.html' %}
+
+{% block content %}
+<h3>Quick tasks</h3>
+<form method="post" action="">
+	{%csrf_token%}
+	<input type="text" placeholder="Prize or Meguz ID">
+	<select>
+		<option value="">-- Type --</option>
+		<option value="">Prize</option>
+		<option value="">Meguz</option>
+	</select>
+	<select>
+		<option value="">-- Action --</option>
+		<option value="">Inactive</option>
+		<option value="">Edit</option>
+		<option value="">Kill</option>
+	</select>
+	<input type="submit" value="Do it!">
+</form>
+
+{% endblock %}

@@ -103,6 +103,7 @@ def PrizeNew(request):
 				user_email = request.user.email
 				company = Company.objects.get(contact_email=user_email)
 				offer.company_id = company.id
+				offer.status = "B"
 
 				offer.save()
 

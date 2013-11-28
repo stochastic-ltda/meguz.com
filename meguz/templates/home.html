@@ -55,34 +55,22 @@
 
 	<aside class="contenedor_destacados_meguz">
 
-		{% for offer in offers %}
+		{% for prize in prizes %}
 		<article class="contenedor_destacados_h">			
 			<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
 				<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
-					<a href="/premios/{{ offer.id }}/{{ offer.slug }}">
-						<img src="{{ offer.media_thumb }}" style="width:158px;height:104px">
+					<a href="{{ prize.url }}">
+						<img src="{{ prize.thumbnail }}" style="width:158px;height:104px">
 					</a>
 				</span> 
 			</div>
 			<div class="cont_like_destacado_f">
-				<span class="txt_digito_destacados">{{ offer.vote_limit }}</span>
+				<span class="txt_digito_destacados">{{ prize.vote_limit }}</span>
 				<span class="bt_like_destacados"><a href="#"><img src="/static/img/like_destacado.jpg"></a></span>
 			</div>
-			<h1><a href="/premios/{{ offer.id }}/{{ offer.slug }}">{{ offer.title }}</a></h1>
+			<h1><a href="{{ prize.url }}">{{ prize.title }}</a></h1>
 		</article>	
 		{% endfor %}
-		<!--
-		<article class="contenedor_destacados_h">			
-			<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
-				<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz"></span> 
-			</div>
-			<div class="cont_like_destacado_f">
-				<span class="txt_digito_destacados">10.000</span>
-				<span class="bt_like_destacados"><a href="#"><img src="/static/img/like_destacado.jpg"></a></span>
-			</div>
-			<h1><a href="/oferta/lan/viaja-al-sur-de-chile-por-solo-40000-pesos">Viaja al sur de Chile por solo $40.000 pesos</a></h1>
-		</article>	
-		-->
 	</aside>
 
 	<div class="cont_titulo_mas_meguz">
@@ -90,22 +78,26 @@
 	</div>
 
 	<aside class="contenedor_mas_meguz">
-		<!--
+		{% for meguz in meguzs %}
 		<article class="contenedor_mas_m_full">			
 			<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
-				<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz"></span> 
+				<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
+					<a href="{{ meguz.url }}">
+						<img src="{{ meguz.video_thumb }}" style="width:158px;height:104px">
+					</a>
+				</span> 				
 			</div>
 
 			<div class="contenedor_txt_mas_m">
-				<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
-				<h2>Vamos al cerro más alto logrando los likes en MeguZ ( texto descripción)</h2>
+				<h1><a href="{{ meguz.url }}">{{ meguz.title }}</a></h1>
+				<h2>{{ meguz.description }}</h2>
 				<div class="contendor_like">
-					<h3>1.000.000</h3>
-					<span class="contenedor_icono_like_home"><a href="#"><img src="/static/img/icon_like.png"></a></span>
+					<h3>{{ meguz.vote_count }}</h3>
+					<span class="contenedor_icono_like_home"><a href="{{ meguz.url }}"><img src="/static/img/icon_like.png"></a></span>
 				</div>
 			</div>
 		</article>
-		-->
+		{% endfor %}
 	</aside>
 </aside>
 

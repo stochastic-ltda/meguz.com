@@ -18,8 +18,14 @@ import Image
 # General views
 # ------------------------------------------------------------------------------------------------
 def Home(request):
-	offers = Offer.objects.all()
-	context = {'offers': offers}
+	from pyes.queryset import generate_model
+	prize_model = generate_model("prize","prize")
+	prizes = prize_model.objects.filter(status='c').order_by('-publish_date')
+
+	meguz_model = generate_model("meguz","meguz")
+	meguzs = meguz_model.objects.filter(status='c').order_by('-publish_date')
+
+	context = {'prizes':prizes, 'meguzs':meguzs}
 	return render_to_response('home.html', context, context_instance=RequestContext(request))
 
 # ------------------------------------------------------------------------------------------------
@@ -190,6 +196,12 @@ def PrizeParticipateForm(request, prize_id, user_token):
 # ------------------------------------------------------------------------------------------------
 # Meguz views
 # ------------------------------------------------------------------------------------------------
+def MeguzView(request, meguz_id, meguz_slug):
+	meguz = Meguz.objects.get(pk=meguz_id)
+	context = {"meguz":meguz}
+	return render_to_response('meguz.html', context, context_instance=RequestContext(request))
+
+
 def MeguzUpdateMultimedia(request, prize_id, user_token):
 	from django.core.urlresolvers import reverse
 	from django.contrib import messages

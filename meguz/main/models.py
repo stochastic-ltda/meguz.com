@@ -15,6 +15,7 @@ STATUS_CHOICES 	= (
 	('A', 'Inactivo'),
 	('B', 'Pendiente aprobacion'),
 	('C', 'Publicado'),
+	('D', 'Rechazado'),
 	('E', 'Eliminado'),
 )
 

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="titulo_usuario_meguz">
+	<div class="contendor_header_usuario">
+		<span class="perfil_imagen_usuario">
+			<img src="{{ meguz.user.avatar }}">
+		</span>
+		<span class="titulo_usuario_barra_perfil">
+		<a href="#">{{ meguz.user.name }}</a>
+		</span>
+
+		<span class="boton azul posicion_ver_perfil">Ver perfil</span>
+
+	</div>
+</div>	
+
+<aside class="contenedor_izq_detalle">
+	<h1>{{ meguz.title }}</h1>
+
+	<div class="contenedor_central_superior_detalle">
+
+		<div class="contenedor_central_superior_detalle_der">
+			<div class="contenido_img_detalle">
+				<iframe src="http://www.youtube.com/embed/{{ meguz.video_id }}" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+
+		<div class="contenedor_central_superior_detalle_izq">
+
+			<h1>Meta</h1>
+			<h2>{{ meguz.prize.vote_limit }} <span class="texto_like">Likes</span></h2>
+
+			<h1>Llevamos...</h1>
+			<span class="boton azul posicion_ver_perfil bt_like_lar">
+				<span class="boton_img_like"><img src="img/like.png"></span>
+				<span class="boton_img_redsocial"><img src="img/redsocial.png"></span>
+			</span>
+
+		</div>
+
+	</div>
+
+	<div class="contendor_caracteristicas_auspiciador">
+		<div class="contendor_interno_auspiciador">
+			<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Sorteados: <span class="txt_datos_auspiciador_bold">{{ meguz.prize.stock }}</span></span>
+			<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Disponibles: <span class="txt_datos_auspiciador_bold">1</span></span>
+			<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_der">Premio: <span class="txt_datos_auspiciador_bold">{{ meguz.prize.prize_name }}</span></span>
+		</div>
+	</div>
+
+	<div class="contenedor_medio_detalle">
+
+		<div class="contenedor_descripcion">
+			<h3>Descripción:</h3>
+			<p>{{ meguz.description }}</p>
+		</div>
+
+		<div class="contenedor_auspiciado">
+			<h3>Auspiciado por:</h3>
+			<div class="logo_auspiciador">
+				<img src="{{ meguz.prize.company.logo.url_250x120 }}">
+			</div>
+			<div class="boton_participa">
+				<span class="boton azul posicion_ver_perfil" id="boton_verde">Participar</span>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="contenedor_publicidad_detalle">
+		<div class="publicidad_banner_lar">
+			<div class="banner_lar_detalle">
+				<img src="img/banner_lar.png">
+			</div>
+		</div>
+	</div>
+
+	<div class="contenedor_comentarios_detalle_facebook">
+		<div class="fb-comments" data-width="1000" data-numposts="20" data-colorscheme="light"></div>
+	</div>
+
+</aside>
+
+<aside class="contenedor_derecho_detalle">
+
+	<article class="contenedor_destacados_derecho">
+
+		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
+			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
+
+			</span> 
+		</div>
+		<div class="cont_like_destacado_f">
+			<span class="txt_digito_destacados">1.000.000</span>
+			<span class="bt_like_destacados"><a href="#"><img src="img/twite_destacado.jpg"></a></span>
+		</div>
+
+		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
+
+	</article>
+
+	<article class="contenedor_destacados_derecho">
+
+		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
+			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
+
+			</span> 
+		</div>
+		<div class="cont_like_destacado_f">
+			<span class="txt_digito_destacados">1.000.000</span>
+			<span class="bt_like_destacados"><a href="#"><img src="img/twite_destacado.jpg"></a></span>
+		</div>
+
+		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
+
+	</article>
+
+	<article class="contenedor_destacados_derecho">
+
+		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
+			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
+
+			</span> 
+		</div>
+		<div class="cont_like_destacado_f">
+			<span class="txt_digito_destacados">1.000.000</span>
+			<span class="bt_like_destacados"><a href="#"><img src="img/twite_destacado.jpg"></a></span>
+		</div>
+
+		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
+
+	</article>
+
+	<article class="contenedor_destacados_derecho">
+
+		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
+			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
+
+			</span> 
+		</div>
+		<div class="cont_like_destacado_f">
+			<span class="txt_digito_destacados">1.000.000</span>
+			<span class="bt_like_destacados"><a href="#"><img src="img/twite_destacado.jpg"></a></span>
+		</div>
+
+		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
+
+	</article> 
+
+</aside>
+
+
+{% endblock %}
