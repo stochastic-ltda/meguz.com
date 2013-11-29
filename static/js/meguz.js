@@ -109,11 +109,36 @@ function toggleMenu() {
 }
 
 /**
- * Detect user like event 
+ * FB.Event Suscribe
+ * Detect when an user press like button 
  */
-FB.Event.subscribe('edge.create',
-    function(href, widget) {
-        alert('You liked the URL: ' + href);
+FB.Event.subscribe('edge.create', function(href, widget) {
+        alert("i like it!");
+        /*
+        var csrftoken = getCookie('csrftoken');
+        var meguzId = document.URL.split("/meguz/")[1].split("/")[0];
+                
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                    // Send the token to same-origin, relative URLs only.
+                    // Send the token only if the method warrants CSRF protection
+                    // Using the CSRFToken value acquired earlier
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        var request = $.ajax({
+            type: "POST",
+            url: '/meguz/'+meguzId+'/suscribe', 
+            success: function(data) { 
+            }
+        });
+        */
+
+        // TODO: Implement instace where fix number of likes using
+        // https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='PAGE URL'
     }
 );
 
