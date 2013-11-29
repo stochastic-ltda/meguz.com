@@ -108,6 +108,15 @@ function toggleMenu() {
     else btn.hide();
 }
 
+/**
+ * Detect user like event 
+ */
+FB.Event.subscribe('edge.create',
+    function(href, widget) {
+        alert('You liked the URL: ' + href);
+    }
+);
+
 // ------------------------------------------------------------------------------------------------------------------
 // Funciones generales 
 // ------------------------------------------------------------------------------------------------------------------
