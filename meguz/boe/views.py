@@ -116,15 +116,15 @@ def PrizeNew(request):
 		return render_to_response('boe/offer/new.html', context, context_instance=RequestContext(request))
 
 
-def PrizeMultimedia(request, offer_id):
-
-	from django.core.urlresolvers import reverse
-	from django.contrib import messages
-	from django_youtube.api import Api, AccessControl, ApiError
+def PrizeMultimedia(request, offer_id):		
 
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect("/boe")
 	else: 		
+
+		from django.core.urlresolvers import reverse
+		from django.contrib import messages
+		from django_youtube.api import Api, AccessControl, ApiError
 
 		offer = Offer.objects.get(id=offer_id)
 		show_media = False 
