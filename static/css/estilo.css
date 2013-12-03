@@ -275,11 +275,11 @@ footer {
 }
 
 #fb-button input {
-	background: #3B5998;
-	padding: 10px;
-	color: white;
-	font-weight: bold;
+	background: transparent;
 	cursor: pointer;
+	color: #fff;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 15px;
 }
 
 .menu_usuario_nav {
@@ -443,6 +443,7 @@ footer {
 	width: 156px;
 	height: 102px;
 	border: 1px solid #d8dadc;
+	overflow: hidden;
 }
 
 .contenedor_mas_m_caja_img_interior img {
@@ -451,6 +452,8 @@ footer {
 
 .contenedor_mas_m_caja_img_interior a img {
 	width: 100%;
+	position: relative;
+	top: -7px;
 }
 
 .fond_0_img_meguz {
@@ -482,6 +485,7 @@ footer {
 
 .contenedor_txt_mas_m h2 {
 	float: left;
+	width: 100%;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: normal;
 	font-size: 13px;
@@ -920,9 +924,14 @@ color: #4b5c66;
 
 .contenido_img_detalle_empresa {
 	float: left;
+	width: 600px;
 	border: 1px solid #c0c0c0;
 	margin-right: 16px;
 	height: 393px;
+}
+
+.contenido_img_detalle_empresa img {
+	width: 100%;
 }
 
 .contenido_img_detalle_empresa iframe {

@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import slugify
+from django.utils.translation import ugettext as _
 
 from main.models import Company, Offer, Meguz
 from main.forms import CompanyContactForm, MeguzForm, MeguzMultimediaForm
@@ -109,12 +110,14 @@ def PrizeParticipate(request, offer_id):
 
 	prize = Offer.objects.get(pk=offer_id)
 	if prize is None:
+		messages.add_message(request, messages.ERROR, _('Prize is None'))
 		return HttpResponseRedirect("/")
 	else:
 		# Prize exists
 		from main.models import User
 		user = User.objects.get(token=request.COOKIES.get('fbmgz_234778956683382'))
 		if user is None:
+			messages.add_message(request, messages.ERROR, _('User is none'))
 			return HttpResponseRedirect("/")		
 		else:
 			# User exists
@@ -140,11 +143,12 @@ def PrizeParticipate(request, offer_id):
 
 				# Api error happend
 				except ApiError as e:
+					messages.add_message(request, messages.ERROR, _('Api error happend'))
 					messages.add_message(request, messages.ERROR, e.message)
 					return HttpResponseRedirect("/")
 
 				# Other error
-				except:
+				except Error as e:
 					messages.add_message(request, messages.ERROR, _('Ha ocurrido un error, por favor intenta de nuevo'))
 					return HttpResponseRedirect("/")
 

@@ -112,6 +112,7 @@ function toggleMenu() {
  * FB.Event Suscribe
  * Detect when an user press like button 
  */
+/*
 FB.Event.subscribe('edge.create', function(href, widget) {
         alert("i like it!");
         /*
@@ -139,9 +140,10 @@ FB.Event.subscribe('edge.create', function(href, widget) {
 
         // TODO: Implement instace where fix number of likes using
         // https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='PAGE URL'
-    }
-);
+/*    }
 
+);
+*/
 // ------------------------------------------------------------------------------------------------------------------
 // Funciones generales 
 // ------------------------------------------------------------------------------------------------------------------
