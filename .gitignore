@@ -1,4 +1,4 @@
 *.pyc
 media
-meguz/setting.py
 meguz/apache/django.wsgi
+meguz/settings.py
