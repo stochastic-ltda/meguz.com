@@ -42,7 +42,7 @@ function fbLogin(){
                 
                 var request = $.ajax({
                     type: "POST",
-                    url: '/user/login', 
+                    url: '/usuario/login', 
                     data: userinfo,  
                     success: function(data) {
                         setCookie('fbmgz_234778956683382', data, 7);
@@ -192,7 +192,7 @@ function sameOrigin(url) {
 
 function participar(prize_id) {
     if(!isLogged()) fbLogin();
-    else document.location = "/premios/" + prize_id + '/participar';
+    else document.location = "/usuario/premios/" + prize_id + '/participar';
 }
 
 function participarForm(offer_id) {
