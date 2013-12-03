@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     url(r'^usuario/login$', 'main.views.UserLogin', name="user_login"),
     url(r'^usuario/mis-meguz$', 'main.views.UserMisMeguz', name="user_mismeguz"),
     url(r'^usuario/mis-datos$', 'main.views.UserMisDatos', name="user_misdatos"),
-    url(r'^usuario/(?P<offer_id>.*)/participar/$', 'main.views.PrizeParticipate', name='user_participate'),
+    url(r'^usuario/premios/(?P<offer_id>.*)/participar/$', 'main.views.PrizeParticipate', name='user_participate'),
 
     # backoffice empresa
     url(r'^boe/$', 'boe.views.Login', name='boe_login'),
