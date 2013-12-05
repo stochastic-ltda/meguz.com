@@ -268,6 +268,44 @@ footer {
 	border: 1px solid #0070a8;
 }
 
+.boton.face {
+	border: 1px solid #0070a8;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 1px 0 0px rgba(0, 0, 0, 0.14);
+	-webkit-box-shadow: 0px 1px 0 0px rgba(0, 0, 0, 0.14);
+	-moz-box-shadow: 0px 1px 0 0px rgba(0, 0, 0, 0.14);
+	-o-box-shadow: 0px 1px 0 0px rgba(0, 0, 0, 0.14);
+	color: white;
+
+	background: #5775b1; /* Old browsers */
+	background: -moz-linear-gradient(top,  #5775b1 0%, #4365af 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5775b1), color-stop(100%,#4365af)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #5775b1 0%,#4365af 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #5775b1 0%,#4365af 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #5775b1 0%,#4365af 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #5775b1 0%,#4365af 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5775b1', endColorstr='#4365af',GradientType=0 ); /* IE6-9 */
+
+}
+
+.boton.face:hover, .boton.face:focus {
+	background: #4b68a1; /* Old browsers */
+	background: -moz-linear-gradient(top,  #4b68a1 0%, #3b5999 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4b68a1), color-stop(100%,#3b5999)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #4b68a1 0%,#3b5999 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #4b68a1 0%,#3b5999 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #4b68a1 0%,#3b5999 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #4b68a1 0%,#3b5999 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4b68a1', endColorstr='#3b5999',GradientType=0 ); /* IE6-9 */
+
+	border: 1px solid #0070a8;
+}
+
+.posicion_face {
+	vertical-align: top;
+	margin-top: 3px;
+}
+
 .posicion {
 	vertical-align: top;
 	margin-top: 3px;
@@ -721,7 +759,7 @@ footer {
 	font-size: 23px;
 	font-weight: normal;
 	padding-bottom: 7px;
-	margin-bottom: 12px;
+	/*margin-bottom: 12px;*/
 	border-bottom: 1px solid #a0a0a0;
 
 }
@@ -733,7 +771,7 @@ footer {
 	font-size: 35px;
 	font-weight: normal;
 	color:#e58036;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 }
 
 .texto_like {
@@ -812,7 +850,11 @@ footer {
 	font-size: 20px;
 	font-weight: normal;
 	color: #4a4a4a;
-	margin-bottom: 30px;
+	/*margin-bottom: 30px;*/
+	margin-bottom: 12px;
+	border-bottom: 1px solid #a0a0a0;
+	padding-bottom: 7px;
+
 }
 
 .logo_auspiciador {
@@ -820,16 +862,20 @@ footer {
 	width: 50%;
 }
 
-.not-login p {
+.logo_auspiciador img {
+	width: 100%;
+}
+
+/*.not-login p {
     font-size: 12px;
     line-height: 14px;
     margin-top: 8px;
-}
+}*/
 
-.not-login {
+/*.not-login {
     line-height: 30px !important;
     padding-bottom: 7px;
-}
+} */
 
 .btn-participar {
 margin: 0px !important;
@@ -863,7 +909,7 @@ padding-bottom: 5px;
 	background-color: #fd8f22;
 	width: 356px;
 	text-align: center;
-	line-height: 65px;
+	/*line-height: 65px;*/
 	font-size: 28px;
 	margin:40px 0 0 0;
 }
@@ -911,15 +957,15 @@ padding-bottom: 5px;
 }
 
 .contenedor_central_superior_detalle_izq_empresa h5 {
-float: left;
-width: 100%;
-font-family: 'Open Sans', sans-serif;
-font-size: 12px;
-font-weight: normal;
-padding-bottom: 3px;
-margin-bottom: 5px;
-border-bottom: 1px solid #a0a0a0;
-color: #4b5c66;
+	float: left;
+	width: 100%;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 20px;
+	font-weight: normal;
+	padding-bottom: 3px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #a0a0a0;
+	color: #4b5c66;
 }
 
 .contenido_img_detalle_empresa {
@@ -943,6 +989,7 @@ color: #4b5c66;
 .contenedor_auspiciador {
 	float: left;
 	width: 100%;
+	height: 215px;
 	padding: 0px;
 	text-align: center;
 }
@@ -955,27 +1002,27 @@ color: #4b5c66;
 	    font-weight: bold;
 	    font-size: 15px;
 	}
-	.auspiciador_website a {
-	    color: blue;
-	}
+
 	.contacto_auspiciador_1 {
 	    text-align: left;
-	    font-size: 11px;
+	    font-size: 13px;
 	    margin-top: 9px;
 	    width: 45%;
 	    float: left;
 	    color: #444;
 	    margin-left: 2%;
+	    font-family: 'Open Sans', sans-serif;
 	}
 
 	.contacto_auspiciador_2 {
 	    text-align: right;
-	    font-size: 11px;
+	    font-size: 13px;
 	    margin-top: 9px;
 	    width: 45%;
 	    float: right;
 	    color: #444;
 	    margin-right: 2%;
+	    font-family: 'Open Sans', sans-serif;
 	}
 
 .contendor_caracteristicas_auspiciador {
@@ -991,7 +1038,7 @@ color: #4b5c66;
 .contendor_interno_auspiciador {
 	float: left;
 	border:1px solid #fff;
-	width: 99.8%;
+	width: 99.5%;
 	background: #cbddef;
 	padding: 10px 0px;
 	color: #333;
@@ -1037,6 +1084,7 @@ color: #4b5c66;
 	display: block;
 	line-height: 20px;
 	margin-top: 5px;
+	display: inline;
 }
 
 .boton_nar {
@@ -1097,6 +1145,26 @@ color: #4b5c66;
 	-o-user-select: none;
 	user-select: none;
 	-webkit-font-smoothing: auto;
+}
+
+.bt_inicio_sesion {
+	float: left;
+	width: 100%;
+	text-align: center;
+	line-height: 65px;
+}
+
+.bt_inicio_sesion_txt {
+	font-size: 23px;
+}
+
+.bt_inicio_sesion_participa {
+	font-size: 28px;
+	padding-bottom: 7px;
+}
+
+.bt_inicio_sesion_ok {
+	line-height: 65px;
 }
 
 #face_movil {
@@ -1108,6 +1176,10 @@ color: #4b5c66;
 }
 
 #boton_menu_izq_movil {
+	display: none;
+}
+
+#participar_mobile {
 	display: none;
 }
 

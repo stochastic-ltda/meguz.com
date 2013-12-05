@@ -42,7 +42,7 @@ function fbLogin(){
                 
                 var request = $.ajax({
                     type: "POST",
-                    url: '/usuario/login', 
+                    url: '/user/login', 
                     data: userinfo,  
                     success: function(data) {
                         setCookie('fbmgz_234778956683382', data, 7);
@@ -192,7 +192,7 @@ function sameOrigin(url) {
 
 function participar(prize_id) {
     if(!isLogged()) fbLogin();
-    else document.location = "/usuario/premios/" + prize_id + '/participar';
+    else document.location = "/premios/" + prize_id + '/participar';
 }
 
 function participarForm(offer_id) {
@@ -242,10 +242,10 @@ function confirmDelete() {
 
 function btnParticipar() {    
     if(isLogged()) {
-        $('.btn-participar').html('Participar');
+        $('.btn-participar').html('<span class="bt_inicio_sesion_ok">Participar</span>');
         $('.btn-participar').removeClass('not-login');
     } else {
-        $('.btn-participar').html('<p class="small">Inicia sesión para</p>Participar');
+        $('.btn-participar').html('<span class="bt_inicio_sesion bt_inicio_sesion_txt">Inicia sesión para Participar</span>');
         $('.btn-participar').addClass('not-login');
     }
 }

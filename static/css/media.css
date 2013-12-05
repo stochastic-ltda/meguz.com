@@ -190,6 +190,7 @@
   }
   .contenedor_comentarios_detalle_facebook {
     border-top: 1px solid #cccccc;
+    display: none; /* CAJA FACEBOOK MOBILE */
   }
   .contenedor_comentarios_detalle_facebook img {
     display: none;
@@ -198,7 +199,7 @@
     display: none;
   }
   .contenedor_publicidad_detalle {
-    display: none;
+    display: none; /* CAJA PUBLICIDAD MOBILE */
   }
   .contenido_img_detalle {
     margin-right: 0;
@@ -273,11 +274,13 @@
 
   .boton.azul {
     /*margin-top: 12px;*/
-    margin: 5px 0 0 0;
+    margin: 5px 0 0 10px;
     /*width: 95px;*/
+    line-height: 24px;
   }
   .contenedor_central_superior_detalle_izq .boton.azul {
     width: 90%;
+    margin: 15px 0 0 0;
   }
   .contenedor_descripcion p {
     font-size: 14px;
@@ -289,6 +292,7 @@
     width: 69%;
     font-size: 28px;
     line-height: 65px;
+    margin: 0;
   }
   .contenido_img_detalle_empresa {
     margin-right: 0;
@@ -313,16 +317,19 @@
     margin-top: 12px;
     margin-bottom: 0;
   }
+  
   .txt_datos_auspiciador {
     width: 96%;
     font-size: 17px;
+    margin: 0 0 0 10px;
   }
+
   .titulo_usuario_barra_perfil {
     line-height: 20px;
     font-size: 15px;
-    padding-top: 10px;
+    padding-top: 4px;
     padding-left: 10px;
-    width: 50%;
+    width: 46%;
   }
   .eslogan_empresa {
     display: none;
@@ -330,6 +337,33 @@
   .contendor_interno_auspiciador {
     width: 99.5%;
   }
+
+  .contacto_auspiciador_2 {
+    font-size: 11px;
+  }
+
+  #participar_mobile {
+    display: block;
+    margin: 25px 0 20px 0;
+  }
+
+  #participar_desktop {
+    display: none;
+  }
+
+  .bt_inicio_sesion_txt {
+    font-size: 20px;
+  }
+
+  .posicion_face {
+    margin-top: 4px;
+  }
+
+  /* USUARIO */
+  .contendor_caracteristicas_auspiciador {
+    width: 96%;
+  }
+
 }
 @media only screen and (min-width: 480px) and (max-width: 767px) {
   header {
@@ -367,7 +401,7 @@
 
   .contenedor_header_der {
     display: none;
-    padding-top: 16px;
+    padding-top: 14px;
   }
 
   .boton.azul {
@@ -529,6 +563,7 @@
   }
   .contenedor_comentarios_detalle_facebook {
     border-top: 1px solid #cccccc;
+    display: none; /* CAJA FACEBOOK MOBILE HORIZONTAL */
   }
   .contenedor_comentarios_detalle_facebook img {
     display: none;
@@ -537,7 +572,7 @@
     display: none;
   }
   .contenedor_publicidad_detalle {
-    display: none;
+    display: none; /* CAJA PUBLICIDAD MOBILE HORIZONTAL */
   }
   .contenido_img_detalle {
     margin-right: 0;
@@ -598,12 +633,17 @@
     width: 95.7%;
     padding: 0 0 0 20px;
   }
+
   .titulo_usuario_barra_perfil {
-    width: 61%;
+    width: 50%;
   }
+
+  #titulo_mobile_horizontal {
+    width: 63%;
+  }
+
   .boton.azul {
-   /* margin-top: 12px;*/
-      margin: 0;
+    margin-top: 12px;
   }
   .contenedor_central_superior_detalle_izq .boton.azul {
     width: 93%;
@@ -653,8 +693,31 @@
   .contendor_interno_auspiciador {
     width: 99.6%;
   }
+
+  #boton_perfil_mobile {
+    /*line-height: 15px;*/
+  }
+
+  .contacto_auspiciador_2 {
+    font-size: 11px;
+  }
+
+  #participar_mobile {
+    display: block;
+    margin: 25px 0 20px 0;
+  }
+
+  #participar_desktop {
+    display: none;
+  }
+
+  .bt_inicio_sesion_txt {
+    font-size: 20px;
+  }
+
+
 }
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
+@media only screen and (min-width: 481px) and (max-width: 1024px) and (-webkit-device-pixel-ratio: 3) {
   .cont_navegacion {
     width: 168px;
   }
@@ -849,4 +912,13 @@
   .contendor_interno_auspiciador {
     width: 99.8%;
   }
+
+  #participar_mobile {
+    display: block;
+  }
+
+  #participar_desktop {
+    display: none;
+  }
+
 }

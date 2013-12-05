@@ -6,7 +6,7 @@
 		<span class="perfil_imagen_usuario">
 			<img src="{{ meguz.user.avatar }}">
 		</span>
-		<span class="titulo_usuario_barra_perfil">
+		<span class="titulo_usuario_barra_perfil" id="titulo_mobile_horizontal">
 		<a href="#">{{ meguz.user.name }}</a>
 		</span>
 
@@ -23,6 +23,16 @@
 		<div class="contenedor_central_superior_detalle_der">
 			<div class="contenido_img_detalle">
 				<iframe src="http://www.youtube.com/embed/{{ meguz.video_id }}" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+
+		<div class="contenedor_auspiciado">
+			<h3>Auspiciado por:</h3>
+			<div class="logo_auspiciador">
+				<img src="{{ meguz.prize.company.logo.url_250x120 }}">
+			</div>
+			<div class="boton_participa">
+				<span class="boton azul posicion_ver_perfil" id="boton_verde">Participar</span>
 			</div>
 		</div>
 
@@ -56,16 +66,6 @@
 		<div class="contenedor_descripcion">
 			<h3>Descripción:</h3>
 			<p>{{ meguz.description }}</p>
-		</div>
-
-		<div class="contenedor_auspiciado">
-			<h3>Auspiciado por:</h3>
-			<div class="logo_auspiciador">
-				<img src="{{ meguz.prize.company.logo.url_250x120 }}">
-			</div>
-			<div class="boton_participa">
-				<span class="boton azul posicion_ver_perfil" id="boton_verde">Participar</span>
-			</div>
 		</div>
 
 	</div>

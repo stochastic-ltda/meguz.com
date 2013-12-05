@@ -54,7 +54,7 @@
 			</div>
 			
 			<div class="contenedor_header_der" id="userLogOut" style="display:none">
-				<div id="fb-button" class="boton azul posicion">
+				<div id="fb-button" class="boton face posicion_face">
 					<input type="button" onclick="fbLogin()" value="Ingresa con Facebook" />
 					{% csrf_token %}
 				</div>
@@ -75,8 +75,7 @@
 	</div>
 
     <script type="text/javascript">
-    $(document).ready(function() {
-
+    $(document).ready(function(){
     	userPanel();
     	btnParticipar();
     });
