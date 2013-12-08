@@ -45,9 +45,9 @@ function fbLogin(){
                     url: '/usuario/login', 
                     data: userinfo,  
                     success: function(data) {
-                        setCookie('fbmgz_234778956683382', data);
-                        setCookie('user_name', userinfo.first_name);
-                        setCookie('user_avatar', 'http://graph.facebook.com/' + userinfo.id + '/picture'); 
+                        setCookie('fbmgz_234778956683382', data,1);
+                        setCookie('user_name', userinfo.first_name,1);
+                        setCookie('user_avatar', 'http://graph.facebook.com/' + userinfo.id + '/picture',1); 
                         userPanelLogout();  
                     }
                 });
