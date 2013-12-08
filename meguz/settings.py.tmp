@@ -76,7 +76,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/home/pablo/Projects/meguz.com/static",
+    "/home/pablo/Projects/meguz.com/static/",
 )
 
 # List of finder classes that know how to find static files in
@@ -152,26 +152,22 @@ LOGGING = {
 }
 
 # Email 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 465
 EMAIL_USE_TLS = True
-
-EMAIL_HOST_USER = 'pqzada@gmail.com'
-EMAIL_HOST_PASSWORD = 'pablito321'
-
-DEFAULT_FROM_EMAIL = 'pqzada@gmail.com'
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'postmaster@meguz.com'
+EMAIL_HOST_PASSWORD = '14kl1mmi29y6'
+DEFAULT_FROM_EMAIL = 'like@meguz.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Youtube
-YOUTUBE_AUTH_EMAIL = 'pqzada@gmail.com'
-YOUTUBE_AUTH_PASSWORD = 'pablito321'
-
+YOUTUBE_AUTH_EMAIL = 'like@meguz.com'
+YOUTUBE_AUTH_PASSWORD = 'donpipowinner'
 # developer key, get one from http://code.google.com/apis/youtube/dashboard/
-YOUTUBE_DEVELOPER_KEY = 'AI39si674QcZQ36KIlrX_NbZWEIs_PH6ZCt698PC-cmAI6qyInhya1ySl7hc5hlUPfQeGoQwKQBFsC5SORmcWFJwe7usutYYtQ'
-YOUTUBE_CLIENT_ID = 'client-id'
-
+YOUTUBE_DEVELOPER_KEY = 'AI39si76pOgLBQ--saznWw8f636n_ys0arNq2eKRi9m_D2Qfp13ksESjs_ipTh0BLsvdW1bkfArZCsjPAkKrrN8ixyuONLVLLA'
+YOUTUBE_CLIENT_ID = 'MEGUZcom'
 # url to redirect after upload finishes, default is respected `video` page
 YOUTUBE_UPLOAD_REDIRECT_URL = '/youtube/videos/'
-
 # url to redirect after deletion video, default is `upload page`
 YOUTUBE_DELETE_REDIRECT_URL = '/myurl/'

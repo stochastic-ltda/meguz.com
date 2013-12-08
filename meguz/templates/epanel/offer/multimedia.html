@@ -1,4 +1,4 @@
-{% extends 'base_boe.html' %}
+{% extends 'base_epanel.html' %}
 {% load i18n %}
 {% block extrahead %}
 <link rel="stylesheet" type="text/css" href="/static/css/forms.css">
@@ -7,7 +7,7 @@
 {% block content %}
 <div class="row">
 	<h1>Premios: multimedia</h1>
-	<a href="/boe/premios/lista" class="btn btn">Volver</a>
+	<a href="/epanel/premios/lista" class="btn btn">Volver</a>
 </div>
 
 <form action="{{ post_url }}?nexturl={{ next_url }}" id="multimedia_offer" class="forms" method="post" enctype="multipart/form-data">

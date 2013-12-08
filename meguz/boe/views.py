@@ -9,6 +9,8 @@ from django.contrib import auth
 
 from boe.forms import OfferNewForm, OfferMultimediaForm, CompanyEditForm
 
+from pyes import *
+
 
 def Login(request):	
 	if request.method == 'POST': 
@@ -20,24 +22,24 @@ def Login(request):
 		# user logged in
 		if user is not None:
 			auth.login(request, user)
-			return HttpResponseRedirect("/boe/premios/lista")
+			return HttpResponseRedirect("/epanel/premios/lista")
 		# authentication fail
 		else:
-			return HttpResponseRedirect("/boe")
+			return HttpResponseRedirect("/epanel")
 
 	else :	
 		if request.user.is_authenticated():
-			return HttpResponseRedirect("/boe/premios/lista")
+			return HttpResponseRedirect("/epanel/premios/lista")
 		else:
-			return render_to_response('boe/login.html', {}, context_instance=RequestContext(request))
+			return render_to_response('epanel/login.html', {}, context_instance=RequestContext(request))
 
 def Logout(request):	
 	auth.logout(request)
-	return HttpResponseRedirect("/boe")
+	return HttpResponseRedirect("/epanel")
 
 def PrizeList(request):
 	if not request.user.is_authenticated():
-		return HttpResponseRedirect("/boe")
+		return HttpResponseRedirect("/epanel")
 	else: 
 		try:
 			company = Company.objects.get(contact_email=request.user.email)
@@ -45,15 +47,15 @@ def PrizeList(request):
 		except Company.DoesNotExist:
 			offers = {}
 
-		return render_to_response('boe/offer/list.html', {'offers':offers}, context_instance=RequestContext(request))
+		return render_to_response('epanel/offer/list.html', {'offers':offers}, context_instance=RequestContext(request))
 
 def PrizeEdit(request, offer_id):
 	if not request.user.is_authenticated():
-		return HttpResponseRedirect("/boe")
+		return HttpResponseRedirect("/epanel")
 	else: 
 		offer = Offer.objects.get(pk=offer_id)
 		if offer is None: 
-			return HttpResponseRedirect("/boe")
+			return HttpResponseRedirect("/epanel")
 		else: 
 			if request.method == 'POST': 
 				form = OfferNewForm(request.POST)
@@ -66,11 +68,24 @@ def PrizeEdit(request, offer_id):
 					new_offer.media_type = offer.media_type
 					new_offer.media_url = offer.media_url
 					new_offer.media_image = offer.media_image
-					new_offer.media_thumb = offer.media_thumb				
+					new_offer.media_thumb = offer.media_thumb	
+					new_offer.status = offer.status			
 					new_offer.save()
 
+					# update elasticsearch
+					prize = Offer.objects.get(pk=offer.id)
+					if(prize.status == 'C'):
+						es = ES("localhost:9200")
+						prizeES = es.get("prize","prize",prize.id)
+						prizeES.title = prize.title
+						prizeES.description = prize.description
+						prizeES.vote_limit = prize.vote_limit
+						prizeES.vote_source = prize.vote_source
+						prizeES.category = prize.category.name
+						prizeES.save()						
+
 					# redirect to edit page
-					return HttpResponseRedirect("/boe/premios/editar/%d" % offer.id)
+					return HttpResponseRedirect("/epanel/premios/editar/%d" % offer.id)
 			else: 
 				form = OfferNewForm(initial={
 						'title': offer.title,
@@ -84,11 +99,11 @@ def PrizeEdit(request, offer_id):
 					}, auto_id=False)
 
 		context = {'form':form, 'title': 'editar', 'submit': 'Editar premio'}
-		return render_to_response('boe/offer/new.html', context, context_instance=RequestContext(request))
+		return render_to_response('epanel/offer/new.html', context, context_instance=RequestContext(request))
 
 def PrizeNew(request):
 	if not request.user.is_authenticated():
-		return HttpResponseRedirect("/boe")
+		return HttpResponseRedirect("/epanel")
 	else: 
 		if request.method == 'POST': 
 			form = OfferNewForm(request.POST)
@@ -108,18 +123,18 @@ def PrizeNew(request):
 				offer.save()
 
 				# redirect to media page
-				return HttpResponseRedirect("/boe/premios/multimedia/%d" % offer.id)
+				return HttpResponseRedirect("/epanel/premios/multimedia/%d" % offer.id)
 		else: 
 			form = OfferNewForm()
 
 		context = {'form':form, 'title': 'nuevo', 'submit': 'Guardar premio'}
-		return render_to_response('boe/offer/new.html', context, context_instance=RequestContext(request))
+		return render_to_response('epanel/offer/new.html', context, context_instance=RequestContext(request))
 
 
 def PrizeMultimedia(request, offer_id):		
 
 	if not request.user.is_authenticated():
-		return HttpResponseRedirect("/boe")
+		return HttpResponseRedirect("/epanel")
 	else: 		
 
 		from django.core.urlresolvers import reverse
@@ -131,7 +146,7 @@ def PrizeMultimedia(request, offer_id):
 
 		# Offer doesnt exists
 		if offer is None:
-			return HttpResponseRedirect("/boe")
+			return HttpResponseRedirect("/epanel")
 
 		# Offer exists		
 		else:
@@ -146,6 +161,13 @@ def PrizeMultimedia(request, offer_id):
 				offer.media_thumb = offer.media_image.url_158x104
 				offer.save()
 
+				# update elasticsearch
+				if(offer.status == 'C'):
+					es = ES("localhost:9200")
+					prizeES = es.get("prize","prize",offer.id)
+					prizeES.thumbnail = offer.media_thumb
+					prizeES.save()	
+
 			# If request.GET isset from Youtube, update media_url with video ID
 			if request.method == 'GET':
 				if 'status' in request.GET:
@@ -155,7 +177,14 @@ def PrizeMultimedia(request, offer_id):
 							offer.media_thumb = "http://img.youtube.com/vi/%s/1.jpg" % request.GET['id']
 							offer.media_type = 'Y'
 							offer.save()
-							return HttpResponseRedirect("/boe/premios/multimedia/%s" % offer_id)
+
+							# update elasticsearch
+							if(offer.status == 'C'):
+								es = ES("localhost:9200")
+								prizeES = es.get("prize","prize",offer.id)
+								prizeES.thumbnail = offer.media_thumb
+								prizeES.save()
+							return HttpResponseRedirect("/epanel/premios/multimedia/%s" % offer_id)
 
 			# video metadata
 			title = offer.title + " | Meguz.com"
@@ -172,24 +201,28 @@ def PrizeMultimedia(request, offer_id):
 			# Api error happend
 			except ApiError as e:
 				messages.add_message(request, messages.ERROR, e.message)
-				return HttpResponseRedirect("/boe")
+				return HttpResponseRedirect("/epanel")
 
 			# Other error
 			except:
 				messages.add_message(request, messages.ERROR, _('Ha ocurrido un error, por favor intenta de nuevo'))
-				return HttpResponseRedirect("/boe")
+				return HttpResponseRedirect("/epanel")
 
 			form = OfferMultimediaForm(initial={'media_type':offer.media_type,"token": data["youtube_token"]})
 						
 			import os
+			from django.contrib.sites.models import Site
+			current_site = Site.objects.get_current()
+			domain = current_site.domain
+
 			protocol = 'https' if request.is_secure() else 'http'
-			next_url = "".join([protocol, ":", os.sep, os.sep, request.get_host(), "/boe/premios/multimedia/%d" % offer.id, os.sep])
+			next_url = "".join([protocol, ":", os.sep, os.sep, domain, "/epanel/premios/multimedia/%d" % offer.id, os.sep])
 
 			if offer.media_url != '' or offer.media_image != '':
 				show_media = True
 
 			context = {'form':form, 'offer':offer, 'show_media':show_media, 'post_url': data['post_url'], 'next_url': next_url}
-			return render_to_response('boe/offer/multimedia.html', context, context_instance=RequestContext(request))
+			return render_to_response('epanel/offer/multimedia.html', context, context_instance=RequestContext(request))
 
 
 def Profile(request):
@@ -198,7 +231,7 @@ def Profile(request):
 	company = Company.objects.get(contact_email=user_email)
 
 	if company is None:
-		HttpResponseRedirect('/boe')
+		HttpResponseRedirect("/epanel")
 	else:
 		if request.method == 'POST':
 			# Proceso form
@@ -215,7 +248,7 @@ def Profile(request):
 				edit_company.save()
 
 				# TODO: Check contact_email change and update userinfo
-				return HttpResponseRedirect("/boe/perfil")
+				return HttpResponseRedirect("/epanel/perfil")
 		else:
 			form = CompanyEditForm(initial={
 					'name': company.name,
@@ -232,4 +265,4 @@ def Profile(request):
 				})
 
 	context = {'form':form}
-	return render_to_response('boe/profile.html', context, context_instance=RequestContext(request))
+	return render_to_response('epanel/profile.html', context, context_instance=RequestContext(request))

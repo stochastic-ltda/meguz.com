@@ -42,7 +42,7 @@ function fbLogin(){
                 
                 var request = $.ajax({
                     type: "POST",
-                    url: '/user/login', 
+                    url: '/usuario/login', 
                     data: userinfo,  
                     success: function(data) {
                         setCookie('fbmgz_234778956683382', data, 7);

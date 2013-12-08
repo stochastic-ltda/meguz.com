@@ -14,7 +14,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'meguz',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': 'donpipowinner',                  # Not used with sqlite3.
+        'PASSWORD': 'root',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -49,7 +49,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/meguz.com/media/'
+MEDIA_ROOT = '/home/pablo/Projects/meguz.com/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -76,7 +76,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/home/meguz.com/static/",
+    "/home/pablo/Projects/meguz.com/static/",
 )
 
 # List of finder classes that know how to find static files in
@@ -111,7 +111,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/home/meguz.com/meguz/templates",
+    "/home/pablo/Projects/meguz.com/meguz/templates",
 )
 
 INSTALLED_APPS = (
@@ -152,30 +152,21 @@ LOGGING = {
 }
 
 # Email 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-EMAIL_HOST_USER = 'pqzada@gmail.com'
-EMAIL_HOST_PASSWORD = 'pablito321'
-
-DEFAULT_FROM_EMAIL = 'pqzada@gmail.com'
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'postmaster@meguz.com'
+EMAIL_HOST_PASSWORD = '14kl1mmi29y6'
+DEFAULT_FROM_EMAIL = 'like@meguz.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Youtube
-YOUTUBE_AUTH_EMAIL = 'pqzada@gmail.com'
-YOUTUBE_AUTH_PASSWORD = 'pablito321'
-
+YOUTUBE_AUTH_EMAIL = 'like@meguz.com'
+YOUTUBE_AUTH_PASSWORD = 'donpipowinner'
 # developer key, get one from http://code.google.com/apis/youtube/dashboard/
-YOUTUBE_DEVELOPER_KEY = 'AI39si674QcZQ36KIlrX_NbZWEIs_PH6ZCt698PC-cmAI6qyInhya1ySl7hc5hlUPfQeGoQwKQBFsC5SORmcWFJwe7usutYYtQ'
-YOUTUBE_CLIENT_ID = 'pqzada'
-
+YOUTUBE_DEVELOPER_KEY = 'AI39si76pOgLBQ--saznWw8f636n_ys0arNq2eKRi9m_D2Qfp13ksESjs_ipTh0BLsvdW1bkfArZCsjPAkKrrN8ixyuONLVLLA'
+YOUTUBE_CLIENT_ID = 'MEGUZcom'
 # url to redirect after upload finishes, default is respected `video` page
 YOUTUBE_UPLOAD_REDIRECT_URL = '/youtube/videos/'
-
 # url to redirect after deletion video, default is `upload page`
 YOUTUBE_DELETE_REDIRECT_URL = '/myurl/'
-
-# Varnish
-VARNISH_WATCHED_MODELS = ('auth.user','profiles.profile')
-VARNISH_MANAGMENT_ADDRS = ('127.0.0.1:8081')

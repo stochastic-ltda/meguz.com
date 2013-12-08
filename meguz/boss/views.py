@@ -24,7 +24,7 @@ def PrizeApprove(request, prize_id):
 	prize.status = "C"
 
 	# Insert into elasticsearch
-	obj = es.index({"id":prize.id,"title": prize.title,"slug":prize.slug,"thumbnail":prize.media_thumb,"description": prize.description + prize.conditions,"publish_date": prize.publish_date.strftime('%Y-%m-%d'),"status": prize.status,"url": "/premios/"+str(prize.id)+"/"+prize.slug+"/","vote_limit":prize.vote_limit,"vote_source":prize.vote_source}, "prize","prize", prize.id)
+	obj = es.index({"id":prize.id,"title": prize.title,"slug":prize.slug,"thumbnail":prize.media_thumb,"description": prize.description + prize.conditions,"publish_date": prize.publish_date.strftime('%Y-%m-%d'),"status": prize.status,"url": "/premios/"+str(prize.id)+"/"+prize.slug+"/","vote_limit":prize.vote_limit,"vote_source":prize.vote_source, "category":prize.category.name}, "prize","prize", prize.id)
 	es.indices.refresh("prize")
 
 	# Save database record	

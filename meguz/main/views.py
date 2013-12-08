@@ -62,25 +62,29 @@ def CompanyContact(request):
 			user.save()
 			
 			# send email with login info
-			plaintext = get_template('email/registrook.txt')
-			htmly = get_template('email/registrook.html')
+			try:
+				plaintext = get_template('email/registrook.txt')
+				htmly = get_template('email/registrook.html')
 
-			d = Context({
-				'contact_name':request.POST['contact_name'],
-				'empresa':request.POST['name'],
-				'contact_email':request.POST['contact_email'],
-				'password':company.password,
-				})
+				d = Context({
+					'contact_name':request.POST['contact_name'],
+					'empresa':request.POST['name'],
+					'contact_email':request.POST['contact_email'],
+					'password':company.password,
+					})
 
-			subject, from_email, to = 'Registro de empresa en Meguz.com', 'pqzada@gmail.com', request.POST['contact_email']
-			text_content = plaintext.render(d)
-			html_content = htmly.render(d)
-			msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-			msg.attach_alternative(html_content, "text/html")
-			msg.send()
+				subject, from_email, to = 'Registro de empresa en Meguz.com', 'like@meguz.com', request.POST['contact_email']
+				text_content = plaintext.render(d)
+				html_content = htmly.render(d)
+				msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+				msg.attach_alternative(html_content, "text/html")
+				msg.send()
 
-			# redirect to 'register ok' page
-			return HttpResponseRedirect('/empresa/registro/ok')
+				# redirect to 'register ok' page
+				return HttpResponseRedirect('/empresa/registro/ok')
+
+			except Exception, e:
+				return render_to_response('company/contact.html', {"e":e}, context_instance=RequestContext(request))							
 	else:
 		form = CompanyContactForm()
 

@@ -1,7 +1,7 @@
 Hola {{ contact_name }},
 Haz concretado el registro de tu empresa "{{ empresa }}" en meguz.com, y ya te encuentras en condiciones de subir tu primera oferta en nuestro sitio.
 
-Ingresa en http://empresa.meguz.com con tu email ({{ contact_email}}) y password ({{ password }}), y presiona en "nueva oferta".
+Ingresa en http://www.meguz.com/epanel con tu email ({{ contact_email}}) y password ({{ password }}), y presiona en "nueva oferta".
 
 Equipo meguz.com
 Saludos,

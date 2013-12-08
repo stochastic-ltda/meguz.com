@@ -30,13 +30,13 @@ urlpatterns = patterns('',
     url(r'^usuario/premios/(?P<offer_id>.*)/participar/$', 'main.views.PrizeParticipate', name='user_participate'),
 
     # backoffice empresa
-    url(r'^boe/$', 'boe.views.Login', name='boe_login'),
-    url(r'^boe/salir$', 'boe.views.Logout', name='boe_salir'),
-    url(r'^boe/perfil$', 'boe.views.Profile', name='boe_profile'),
-    url(r'^boe/premios/lista$', 'boe.views.PrizeList', name='boe_offer_list'),
-    url(r'^boe/premios/nuevo$', 'boe.views.PrizeNew', name='boe_offer_new'),
-    url(r'^boe/premios/editar/(?P<offer_id>.*)/$', 'boe.views.PrizeEdit', name='boe_offer_edit'),
-    url(r'^boe/premios/multimedia/(?P<offer_id>.*)/$', 'boe.views.PrizeMultimedia', name='boe_offer_multimedia'),    
+    url(r'^epanel/$', 'boe.views.Login', name='boe_login'),
+    url(r'^epanel/salir$', 'boe.views.Logout', name='boe_salir'),
+    url(r'^epanel/perfil$', 'boe.views.Profile', name='boe_profile'),
+    url(r'^epanel/premios/lista$', 'boe.views.PrizeList', name='boe_offer_list'),
+    url(r'^epanel/premios/nuevo$', 'boe.views.PrizeNew', name='boe_offer_new'),
+    url(r'^epanel/premios/editar/(?P<offer_id>.*)/$', 'boe.views.PrizeEdit', name='boe_offer_edit'),
+    url(r'^epanel/premios/multimedia/(?P<offer_id>.*)/$', 'boe.views.PrizeMultimedia', name='boe_offer_multimedia'),    
 
     # boss zone
     url(r'^boss/$', 'boss.views.Home', name='boss_home'),
@@ -49,5 +49,5 @@ urlpatterns = patterns('',
 
 
     # youtube
-    (r'^boe/youtube/', include('django_youtube.urls')),
+    (r'^epanel/youtube/', include('django_youtube.urls')),
 )

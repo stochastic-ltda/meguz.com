@@ -1,4 +1,4 @@
-{% extends 'base_boe.html' %}
+{% extends 'base_epanel.html' %}
 
 {% block content %}
 <style type="text/css">
@@ -9,7 +9,7 @@
 </style>
 <div class="row">
 	<h1>Mis premios</h1>
-	<a href="/boe/premios/nuevo" class="btn btn-primary">Nuevo premio</a>
+	<a href="/epanel/premios/nuevo" class="btn btn-primary">Nuevo premio</a>
 
 	<table class="table table-hover">
 		<thead>
@@ -33,8 +33,8 @@
 				<td>{{ o.stock }}</td>
 				<td>
 					<ul class="controls">
-						<li><a href="/boe/premios/editar/{{ o.id }}">Editar</a></li>
-						<li><a href="/boe/premios/multimedia/{{ o.id }}">Multimedia</a></li>
+						<li><a href="/epanel/premios/editar/{{ o.id }}">Editar</a></li>
+						<li><a href="/epanel/premios/multimedia/{{ o.id }}">Multimedia</a></li>
 						<li><a href="#">Eliminar</a></li>
 					</ul>
 				</td>
