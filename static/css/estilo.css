@@ -752,7 +752,7 @@ footer {
 	border: 1px solid #d4d5d6;
 }
 
-.contenedor_central_superior_detalle_izq h1 {
+.contenedor_central_superior_detalle_izq h5 {
 	float: left;
 	width: 100%;
 	font-family: 'Open Sans', sans-serif;
@@ -761,6 +761,8 @@ footer {
 	padding-bottom: 7px;
 	/*margin-bottom: 12px;*/
 	border-bottom: 1px solid #a0a0a0;
+	padding: 15px 0;
+	color: #4b5c66;
 
 }
 
@@ -989,8 +991,7 @@ padding-bottom: 5px;
 .contenedor_auspiciador {
 	float: left;
 	width: 100%;
-	height: 215px;
-	padding: 0px;
+	padding: 15px 0px;
 	text-align: center;
 }
 

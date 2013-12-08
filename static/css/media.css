@@ -199,8 +199,13 @@
     display: none;
   }
   .contenedor_publicidad_detalle {
-    display: none; /* CAJA PUBLICIDAD MOBILE */
+    display: block; /* CAJA PUBLICIDAD MOBILE */
   }
+
+  .publicidad_banner_lar {
+    display: none;
+  }
+
   .contenido_img_detalle {
     margin-right: 0;
     width: 296px;
@@ -283,8 +288,9 @@
     margin: 15px 0 0 0;
   }
   .contenedor_descripcion p {
-    font-size: 14px;
+    font-size: 12px;
   }
+
   .boton_img_like {
     margin-left: 11%;
   }
@@ -316,6 +322,19 @@
   .contenedor_central_superior_detalle_izq_empresa h5 {
     margin-top: 12px;
     margin-bottom: 0;
+    font-size: 17px;
+  }
+
+  .contenedor_descripcion h3 {
+    font-size: 17px; 
+  }
+
+  .estan_participando_empresa {
+    font-size: 17px;
+  }
+
+  .contenedor_central_superior_detalle_izq h5 { 
+    font-size: 17px; 
   }
   
   .txt_datos_auspiciador {
@@ -572,8 +591,21 @@
     display: none;
   }
   .contenedor_publicidad_detalle {
-    display: none; /* CAJA PUBLICIDAD MOBILE HORIZONTAL */
+    display: block; /* CAJA PUBLICIDAD MOBILE HORIZONTAL */
   }
+
+  .estan_participando_empresa {
+    font-size: 17px;
+  }
+
+  .contenedor_central_superior_detalle_izq h5 { 
+    font-size: 17px; 
+  }
+
+  .publicidad_banner_lar {
+    display: none;
+  }
+
   .contenido_img_detalle {
     margin-right: 0;
     width: 436px;
@@ -618,6 +650,7 @@
   .contenedor_auspiciado h3 {
     margin-top: 20px;
     margin-bottom: 25px;
+    font-size: 17px;
   }
   .posicion_ver_perfil {
     float: none;
@@ -682,7 +715,13 @@
   .contenedor_central_superior_detalle_izq_empresa h5 {
     margin-top: 12px;
     margin-bottom: 0;
+    font-size: 17px;
   }
+
+  .contenedor_descripcion h3 {
+    font-size: 17px;
+  }
+
   .txt_datos_auspiciador {
     width: 96%;
     font-size: 17px;
