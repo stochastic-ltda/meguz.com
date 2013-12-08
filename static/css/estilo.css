@@ -976,6 +976,7 @@ padding-bottom: 5px;
 	border: 1px solid #c0c0c0;
 	margin-right: 16px;
 	height: 393px;
+	overflow: hidden;
 }
 
 .contenido_img_detalle_empresa img {

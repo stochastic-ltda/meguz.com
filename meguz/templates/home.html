@@ -5,9 +5,13 @@
 	<nav class="cont_navegacion">
 
 		<div class="contenedor_navega">
-			<h1>Categorias</h1>
+			<h1>Categorias</h1>			
 		</div>
-		<ul></ul>
+		<ul>
+			{% for c in facets.category.terms %}
+				<li>{{ c.term }} ({{ c.count }})</li>
+			{% endfor %}
+		</ul>
 
 		<h3>¿Necesitas ayuda?</h3>
 		<ul>
@@ -20,7 +24,7 @@
 
 <aside class="contenedor_central_content">
 	<div class="cont_titulo_destacado">
-		<h2>Desafios destacados</h2>
+		<h2>Premios destacados</h2>
 	</div>
 
 
@@ -45,7 +49,7 @@
 	</aside>
 
 	<div class="cont_titulo_mas_meguz">
-		<h2>Más Meguz</h2>
+		<h2>Meguz</h2>
 	</div>
 
 	<aside class="contenedor_mas_meguz">

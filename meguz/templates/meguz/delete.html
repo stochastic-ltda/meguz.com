@@ -1,1 +1,11 @@
-done
+{% extends 'base.html' %}
+
+{% block content %}
+<p>Hemos eliminado el meguz seleccionado</p>
+
+<script>
+$(document).ready(function(){
+	document.location = '/usuario/mis-meguz';
+})
+</script>
+{% endblock %}

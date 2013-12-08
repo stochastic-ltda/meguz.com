@@ -45,9 +45,9 @@ function fbLogin(){
                     url: '/usuario/login', 
                     data: userinfo,  
                     success: function(data) {
-                        setCookie('fbmgz_234778956683382', data, 7);
-                        setCookie('user_name', userinfo.first_name, 7);
-                        setCookie('user_avatar', 'http://graph.facebook.com/' + userinfo.id + '/picture', 7); 
+                        setCookie('fbmgz_234778956683382', data);
+                        setCookie('user_name', userinfo.first_name);
+                        setCookie('user_avatar', 'http://graph.facebook.com/' + userinfo.id + '/picture'); 
                         userPanelLogout();  
                     }
                 });
@@ -192,7 +192,7 @@ function sameOrigin(url) {
 
 function participar(prize_id) {
     if(!isLogged()) fbLogin();
-    else document.location = "/premios/" + prize_id + '/participar';
+    else document.location = "/usuario/premios/" + prize_id + '/participar';
 }
 
 function participarForm(offer_id) {

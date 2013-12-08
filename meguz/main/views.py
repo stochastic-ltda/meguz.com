@@ -13,6 +13,8 @@ from django.template import Context
 
 from django.core.context_processors import csrf
 
+from pyes import *
+
 import Image
 
 # ------------------------------------------------------------------------------------------------
@@ -23,10 +25,12 @@ def Home(request):
 	prize_model = generate_model("prize","prize")
 	prizes = prize_model.objects.filter(status='c').order_by('-publish_date')
 
+	facets = prize_model.objects.facet("category").size(0).facets
+
 	meguz_model = generate_model("meguz","meguz")
 	meguzs = meguz_model.objects.filter(status='c').order_by('-publish_date')
 
-	context = {'prizes':prizes, 'meguzs':meguzs}
+	context = {'prizes':prizes, 'facets':facets, 'meguzs':meguzs}
 	return render_to_response('home.html', context, context_instance=RequestContext(request))
 
 # ------------------------------------------------------------------------------------------------
@@ -159,8 +163,12 @@ def PrizeParticipate(request, offer_id):
 				formVideo = MeguzMultimediaForm(initial={"token": data["youtube_token"]})	
 							
 				import os
+				from django.contrib.sites.models import Site
+				current_site = Site.objects.get_current()
+				domain = current_site.domain
+
 				protocol = 'https' if request.is_secure() else 'http'
-				next_url = "".join([protocol, ":", os.sep, os.sep, request.get_host(), "/meguz/update/multimedia/{0}/{1}".format(prize.id,request.COOKIES.get('fbmgz_234778956683382')), os.sep])
+				next_url = "".join([protocol, ":", os.sep, os.sep, domain, "/meguz/update/multimedia/{0}/{1}".format(prize.id,request.COOKIES.get('fbmgz_234778956683382')), os.sep])
 
 				context = { 'offer': prize, 'company': company, 'form_data': formData, 'form_video': formVideo, 'post_url': data['post_url'], 'next_url': next_url }
 				return render_to_response('meguz/new.html', context, context_instance=RequestContext(request))
@@ -389,7 +397,15 @@ def MeguzDelete(request, meguz_id):
 					api.authenticate()						
 					
 					if api.delete_video(meguz.video_id) is True:
-						meguz.delete()
+						if meguz.status == 'C':
+							try: 
+								es = ES('127.0.0.1:9200')
+								es.delete('meguz','meguz',meguz.id)
+							except:
+								messages.add_message(request, messages.ERROR, _('Aviso no se encuentra en es'))
+
+						meguz.delete()						
+
 						HttpResponseRedirect("/usuario/mis-meguz")
 				except:
 					messages.add_message(request, messages.ERROR, _('Ha ocurrido un error, por favor intenta de nuevo'))

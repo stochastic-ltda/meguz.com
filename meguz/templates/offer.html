@@ -25,7 +25,7 @@
 			<div class="contenido_img_detalle_empresa">
 				<!-- // 600 x 393 -->
 				{% if offer.media_type == "I" %}
-				<img src="{{ offer.media_image.url }}">
+				<img src="{{ offer.media_image.url_600x393 }}">
 				{% else %}
 				<iframe width="600" height="393" src="//www.youtube.com/embed/{{ offer.media_url }}?showinfo=0&modestbranding=1&rel=0&theme=light" frameborder="0" allowfullscreen></iframe>
 				{% endif %}
