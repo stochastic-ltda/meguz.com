@@ -24,9 +24,10 @@ function fbLogin(){
             //console.log(response); // dump complete info
             access_token = response.authResponse.accessToken; //get access token
             user_id = response.authResponse.userID; //get FB UID
+alert(user_id)
 
             FB.api('/me', function(userinfo) {
-
+/*
                 var csrftoken = getCookie('csrftoken');
                 
                 $.ajaxSetup({
@@ -36,26 +37,34 @@ function fbLogin(){
                             // Send the token only if the method warrants CSRF protection
                             // Using the CSRFToken value acquired earlier
                             xhr.setRequestHeader("X-CSRFToken", csrftoken);
+				alert("hola");
                         }
                     }
                 });
-                
+
+		alert("lalela");
+  */              
                 var request = $.ajax({
                     type: "POST",
                     url: '/usuario/login', 
                     data: userinfo,  
                     success: function(data) {
+			alert(data);
                         setCookie('fbmgz_234778956683382', data,1);
                         setCookie('user_name', userinfo.first_name,1);
                         setCookie('user_avatar', 'http://graph.facebook.com/' + userinfo.id + '/picture',1); 
                         userPanelLogout();  
-                    }
+                    },
+		    error: function(jqXHR, textStatus, errorThrown) {
+  alert(textStatus); alert (errorThrown);
+}
                 });
     
             });
 
         } else {
             //user hit cancel button
+		alert("hola mundo");
             console.log('User cancelled login or did not fully authorize.');
 
         }
