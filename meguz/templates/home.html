@@ -9,7 +9,7 @@
 		</div>
 		<ul>
 			{% for c in facets.category.terms %}
-				<li>{{ c.term }} ({{ c.count }})</li>
+				<li><a href="/{{ c.term|slugify }}">{{ c.term }} ({{ c.count }})</a></li>
 			{% endfor %}
 		</ul>
 
