@@ -100,7 +100,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
@@ -152,10 +152,9 @@ LOGGING = {
 }
 
 # Email 
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_PORT = 465
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
 EMAIL_HOST_USER = 'postmaster@meguz.com'
 EMAIL_HOST_PASSWORD = '14kl1mmi29y6'
 DEFAULT_FROM_EMAIL = 'like@meguz.com'
