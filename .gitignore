@@ -2,3 +2,7 @@
 media
 meguz/apache/django.wsgi
 meguz/settings.py
+bin
+include
+local
+meguz/lib

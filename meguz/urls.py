@@ -50,4 +50,7 @@ urlpatterns = patterns('',
 
     # youtube
     (r'^epanel/youtube/', include('django_youtube.urls')),
+
+    # categories
+    url(r'^(?P<category_slug>.*)/$', 'main.views.SearchCategory', name='search_category'),
 )

@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 
-from main.models import Company, Offer, Meguz
+from main.models import Company, Offer, Meguz, Category
 from main.forms import CompanyContactForm, MeguzForm, MeguzMultimediaForm
 
 from django.core.mail import EmailMultiAlternatives
@@ -32,6 +32,21 @@ def Home(request):
 
 	context = {'prizes':prizes, 'facets':facets, 'meguzs':meguzs}
 	return render_to_response('home.html', context, context_instance=RequestContext(request))
+
+def SearchCategory(request, category_slug):
+	category = Category.objects.get(slug=category_slug);
+	if category is None:
+		HttpResponseRedirect("/")
+	else:
+		from pyes.queryset import generate_model
+		prize_model = generate_model("prize","prize")
+		prizes = prize_model.objects.filter(category=category.name).order_by('-publish_date')
+
+		facets = prize_model.objects.facet("category").size(0).facets
+
+		context = {'prizes':prizes, 'facets':facets}
+		return render_to_response('home.html', context, context_instance=RequestContext(request))
+
 
 # ------------------------------------------------------------------------------------------------
 # Company views
@@ -175,7 +190,8 @@ def PrizeParticipate(request, offer_id):
 
 			else:
 				# User is already participating
-				return render_to_response('meguz/new_forbidden.html', {}, context_instance=RequestContext(request))
+				context = { 'offer': prize }
+				return render_to_response('meguz/new_forbidden.html', context, context_instance=RequestContext(request))
 
 def PrizeParticipateForm(request, prize_id, user_token):
 
