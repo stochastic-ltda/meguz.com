@@ -12,6 +12,7 @@ from django.template.loader import get_template
 from django.template import Context
 
 from django.core.context_processors import csrf
+from django.views.decorators.csrf import csrf_exempt
 
 from pyes import *
 
@@ -23,7 +24,7 @@ import Image
 def Home(request):
 	from pyes.queryset import generate_model
 	prize_model = generate_model("prize","prize")
-	prizes = prize_model.objects.filter(status='c').order_by('-publish_date')
+	prizes = prize_model.objects.filter(status='c').order_by('publish_date')
 
 	facets = prize_model.objects.facet("category").size(0).facets
 
@@ -79,6 +80,11 @@ def CompanyContact(request):
 			user = User.objects.create_user(company.contact_email, company.contact_email, company.password)
 			user.first_name = company.name
 			user.save()
+
+			user = User.objects.filter(username=company.contact_email)
+			user = user[0]
+			user.set_password(company.password)
+			user.save()
 			
 			# send email with login info
 			try:
@@ -122,7 +128,16 @@ def PrizeView(request, offer_id, offer_slug):
 		return HttpResponseRedirect("/")
 	else:
 		company = Company.objects.get(pk=prize.company.id)
-		context = { 'offer': prize, 'company': company }
+
+		from pyes.queryset import generate_model
+
+		prize_model = generate_model("prize","prize")
+		prizes = prize_model.objects.filter(status='c').exclude(id=prize.id).order_by('publish_date')
+
+		meguz_model = generate_model("meguz","meguz")
+		meguzs = meguz_model.objects.filter(status='c').filter(prize_id=prize.id).order_by('-publish_date')
+
+		context = { 'offer': prize, 'company': company, 'prizes':prizes, 'meguzs':meguzs }
 		return render_to_response('offer.html', context, context_instance=RequestContext(request))
 
 def PrizeParticipate(request, offer_id):
@@ -468,6 +483,7 @@ def MeguzDeleteVideo(request, meguz_id):
 # ------------------------------------------------------------------------------------------------
 # User views
 # ------------------------------------------------------------------------------------------------
+@csrf_exempt
 def UserLogin(request):
 	if request.method == 'POST':
 		from main.models import User

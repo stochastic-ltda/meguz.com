@@ -4,7 +4,7 @@
 <div class="titulo_usuario_meguz">
 	<div class="contendor_header_usuario">
 	<span class="perfil_imagen_usuario">
-		<img src="{{ company.logo.url_120x60 }}" />
+		<img src="{{ company.logo.url }}" />
 	</span>
 	<span class="titulo_usuario_barra_perfil">
 		<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>
@@ -25,7 +25,7 @@
 			<div class="contenido_img_detalle_empresa">
 				<!-- // 600 x 393 -->
 				{% if offer.media_type == "I" %}
-				<img src="{{ offer.media_image.url_600x393 }}">
+				<img src="{{ offer.media_image.url }}">
 				{% else %}
 				<iframe width="600" height="393" src="//www.youtube.com/embed/{{ offer.media_url }}?showinfo=0&modestbranding=1&rel=0&theme=light" frameborder="0" allowfullscreen></iframe>
 				{% endif %}
@@ -40,7 +40,7 @@
 		<div class="contenedor_central_superior_detalle_izq_empresa">
 			<h5>Auspiciado por:</h5>
 			<div class="contenedor_auspiciador">
-				<img src="{{ company.logo.url_250x120 }}">
+				<img src="{{ company.logo.url }}">
 			</div>
 
 			<div class="contacto_auspiciador_1">
@@ -90,62 +90,27 @@
 	<div class="empresas_que_participan">
 		<aside class="contenedor_mas_meguz">
 			
+			{% for meguz in meguzs %}
 			<article class="contenedor_mas_m_full">
 				
 				<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
 					<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
-
+						<a href="{{ meguz.url }}">
+							<img src="{{ meguz.video_thumb }}">
+						</a>
 					</span> 
 				</div>
 
 				<div class="contenedor_txt_mas_m">
-					<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
-					<h2>Vamos al cerro más alto logrando los likes en MeguZ ( texto descripción)</h2>
+					<h1><a href="{{ meguz.url }}">{{ meguz.title }}</a></h1>
+					<h2>{{ meguz.description }}</h2>
 					<div class="contendor_like">
-						<h3>1.000.000</h3>
+						<h3>{{ meguz.vote_count }}</h3>
 						<span class="contenedor_icono_like_home"><a href="#"><img src="/static/img/icon_like.png"></a></span>
 					</div>
-				</div>
-
+				</div>			
 			</article>
-
-			<article class="contenedor_mas_m_full">
-				
-				<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
-					<span class="contenedor_mas_m_caja_img_interior fond_1_img_meguz">
-
-					</span> 
-				</div>
-
-				<div class="contenedor_txt_mas_m">
-					<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
-					<h2>Vamos al cerro más alto logrando los likes en MeguZ ( texto descripción)</h2>
-					<div class="contendor_like">
-						<h3>1.000.000</h3>
-						<span class="contenedor_icono_like_home"><a href="#"><img src="/static/img/icon_twi.png"></a></span>
-					</div>
-				</div>
-
-			</article>
-
-			<article class="contenedor_mas_m_full">
-				
-				<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
-					<span class="contenedor_mas_m_caja_img_interior fond_1_img_meguz">
-
-					</span> 
-				</div>
-
-				<div class="contenedor_txt_mas_m">
-					<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
-					<h2>Vamos al cerro más alto logrando los likes en MeguZ ( texto descripción)</h2>
-					<div class="contendor_like">
-						<h3>1.000.000</h3>
-						<span class="contenedor_icono_like_home"><a href="#"><img src="/static/img/icon_like.png"></a></span>
-					</div>
-				</div>
-
-			</article>
+			{% endfor %}			
 
 		</aside>
 	</div>
@@ -153,16 +118,22 @@
 
 <!-- // Right Bar -->
 <aside class="contenedor_derecho_detalle">
+	{% for prize in prizes %}
 	<article class="contenedor_destacados_derecho">		
 		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
-			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz"></span> 
+			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
+				<a href="{{ prize.url }}">
+					<img src="{{ prize.thumbnail }}">
+				</a>
+			</span> 
 		</div>
 		<div class="cont_like_destacado_f">
-			<span class="txt_digito_destacados">1.000.000</span>
-			<span class="bt_like_destacados"><a href="#"><img src="/static/img/twite_destacado.jpg"></a></span>
+			<span class="txt_digito_destacados">{{ prize.vote_limit }}</span>
+			<span class="bt_like_destacados"><a href="#"><img src="/static/img/like_destacado.jpg"></a></span>
 		</div>
-		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
+		<h1><a href="{{ prize.url }}">{{ prize.title }}</a></h1>
 	</article>
+	{% endfor %}
 </aside>
 
 {% endblock %}

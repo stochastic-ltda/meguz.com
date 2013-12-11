@@ -11,15 +11,7 @@
   .contenedor_menu_izq {
     display: none;
   }
-  .boton_usuario_nav a {
-    display: none;
-  }
-  .boton_usuario_nav_boton {
-    display: none;
-  }
-  .boton_usuario_nav_boton_conf {
-    display: none;
-  }
+.cont_btn_users a { display: none; }
   .contenedor_central_content {
     width: 100%;
     margin: 0;

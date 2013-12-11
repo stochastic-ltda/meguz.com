@@ -1,5 +1,5 @@
 from django.db import models
-from thumbs import ImageWithThumbsField
+# from thumbs import ImageWithThumbsField
 
 MEDIA_CHOICES 	= ( 
 	('I', 'Imagen'),
@@ -23,7 +23,7 @@ STATUS_CHOICES 	= (
 class Company(models.Model):
 	name 			= models.CharField(max_length=200)
 	slug 			= models.SlugField(unique=True,max_length=200)
-	logo 			= ImageWithThumbsField(upload_to="company/", sizes=((120,60),(250,120)))
+	logo 			= models.ImageField(upload_to="company/")
 	slogan 			= models.CharField(max_length=200, null=True)
 	rut 			= models.CharField(max_length=25)
 	website 		= models.URLField(max_length=200, null=True)
@@ -53,7 +53,7 @@ class Offer(models.Model):
 	conditions   	= models.TextField(blank=True)
 	media_type     	= models.CharField(max_length=1, choices=MEDIA_CHOICES)
 	media_url     	= models.CharField(max_length=200)
-	media_image		= ImageWithThumbsField(upload_to="offer/", sizes=((600,393),(158,104)))
+	media_image		= models.ImageField(upload_to="offer/")
 	media_thumb		= models.CharField(max_length=200)
 	vote_limit     	= models.IntegerField()
 	vote_source   	= models.CharField(max_length=1, choices=SOCIAL_CHOICES)

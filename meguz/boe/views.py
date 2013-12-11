@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 
 from main.models import Company, Offer
 from django.contrib import auth
+from django.contrib.auth import authenticate
 
 from boe.forms import OfferNewForm, OfferMultimediaForm, CompanyEditForm
 
@@ -22,14 +23,14 @@ def Login(request):
 		# user logged in
 		if user is not None:
 			auth.login(request, user)
-			return HttpResponseRedirect("/epanel/premios/lista")
+			return HttpResponseRedirect("/epanel/premios/lista/")
 		# authentication fail
 		else:
-			return HttpResponseRedirect("/epanel")
+			return HttpResponseRedirect("/epanel/?fail")
 
 	else :	
 		if request.user.is_authenticated():
-			return HttpResponseRedirect("/epanel/premios/lista")
+			return HttpResponseRedirect("/epanel/premios/lista") 
 		else:
 			return render_to_response('epanel/login.html', {}, context_instance=RequestContext(request))
 

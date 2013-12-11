@@ -5,9 +5,12 @@ http://django.es
 """
 from django.db.models import ImageField
 from django.db.models.fields.files import ImageFieldFile
-from PIL import Image
 from django.core.files.base import ContentFile
 import cStringIO
+
+import PIL
+import Image
+import _imaging
 
 def generate_thumb(img, thumb_size, format):
     """
