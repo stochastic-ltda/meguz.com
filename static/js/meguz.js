@@ -11,6 +11,53 @@ window.fbAsyncInit = function() {
         xfbml   : true // parse XFBML
     });
 
+    /**
+     * FB.Event Suscribe
+     * Detect when an user press like button 
+     */
+
+    FB.Event.subscribe('edge.create', function(href, widget) {
+            
+            // TODO: Revisar seguridad de esta llamada
+            var meguzId = document.URL.split("/meguz/")[1].split("/")[0];                
+            $.ajax({
+                type: "POST",
+                url: '/usuario/suscribe/'+meguzId+'/', 
+                success: function(data) { 
+
+                    if(data == 'NOT_FOUND') {
+
+                        console.log("Meguz "+meguzId+" no encontrado...");
+
+                    } else if(data == 'FORBIDDEN') {
+                        
+                        console.log("Acceso restringido");
+
+                    } else if(data == 'FINISH') {
+                        // TODO: Implement instace where fix number of likes using
+                        // https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='PAGE URL'
+                        console.log("FINISH")
+                        var url = document.URL;
+                        $.getJSON("https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='"+url+"'", function(data) { 
+                            console.log(data.data[0].like_count); 
+                            // TODO: Call method to check like count db value
+                            // Change page for winners
+
+                        });
+                    } else {
+
+                        console.log("DONE");                        
+                        
+                    }
+                }
+            });
+            
+
+                    
+        }
+
+    );
+
   };
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -26,20 +73,7 @@ function fbLogin(){
             user_id = response.authResponse.userID; //get FB UID
 
             FB.api('/me', function(userinfo) {
-/*
-                var csrftoken = getCookie('csrftoken');
-                
-                $.ajaxSetup({
-                    beforeSend: function(xhr, settings) {
-                        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-                            // Send the token to same-origin, relative URLs only.
-                            // Send the token only if the method warrants CSRF protection
-                            // Using the CSRFToken value acquired earlier
-                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                        }
-                    }
-                });
-  */              
+         
                 var request = $.ajax({
                     type: "POST",
                     url: '/usuario/login', 
@@ -111,42 +145,6 @@ function toggleMenu() {
     else btn.hide();
 }
 
-/**
- * FB.Event Suscribe
- * Detect when an user press like button 
- */
-/*
-FB.Event.subscribe('edge.create', function(href, widget) {
-        alert("i like it!");
-        /*
-        var csrftoken = getCookie('csrftoken');
-        var meguzId = document.URL.split("/meguz/")[1].split("/")[0];
-                
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-                    // Send the token to same-origin, relative URLs only.
-                    // Send the token only if the method warrants CSRF protection
-                    // Using the CSRFToken value acquired earlier
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                }
-            }
-        });
-
-        var request = $.ajax({
-            type: "POST",
-            url: '/meguz/'+meguzId+'/suscribe', 
-            success: function(data) { 
-            }
-        });
-        */
-
-        // TODO: Implement instace where fix number of likes using
-        // https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='PAGE URL'
-/*    }
-
-);
-*/
 // ------------------------------------------------------------------------------------------------------------------
 // Funciones generales 
 // ------------------------------------------------------------------------------------------------------------------

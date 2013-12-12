@@ -1,3 +1,7 @@
+#--------------------------------------------------------------------------------
+# BOE
+#--------------------------------------------------------------------------------
+
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -23,7 +27,7 @@ def Login(request):
 		# user logged in
 		if user is not None:
 			auth.login(request, user)
-			return HttpResponseRedirect("/epanel/premios/lista/")
+			return HttpResponseRedirect("/epanel/premios/lista")
 		# authentication fail
 		else:
 			return HttpResponseRedirect("/epanel/?fail")
@@ -49,6 +53,47 @@ def PrizeList(request):
 			offers = {}
 
 		return render_to_response('epanel/offer/list.html', {'offers':offers}, context_instance=RequestContext(request))
+
+def PrizeActivate(request, offer_id):
+	if not request.user.is_authenticated():
+		return HttpResponseRedirect("/epanel")
+	else:
+		offer = Offer.objects.get(pk=offer_id)
+		if offer is None: 
+			return HttpResponseRedirect("/epanel")
+		else: 
+			# TODO: Validate user (use request.user)
+			if(offer.status == 'A'):
+				offer.status = 'C'
+				offer.save()
+
+				es = ES("localhost:9200")
+				prizeES = es.get("prize","prize",offer.id)
+				prizeES.status = 'C'
+				prizeES.save()
+
+	return HttpResponseRedirect("/epanel/premios/lista")
+
+def PrizeDeactivate(request, offer_id):
+	if not request.user.is_authenticated():
+		return HttpResponseRedirect("/epanel")
+	else:
+		offer = Offer.objects.get(pk=offer_id)
+		if offer is None: 
+			return HttpResponseRedirect("/epanel")
+		else: 
+			# TODO: Validate user (use request.user)
+			if(offer.status == 'C'):
+				offer.status = 'A'
+				offer.save()
+
+				es = ES("localhost:9200")
+				prizeES = es.get("prize","prize",offer.id)
+				prizeES.status = 'A'
+				prizeES.save()
+
+	return HttpResponseRedirect("/epanel/premios/lista")
+
 
 def PrizeEdit(request, offer_id):
 	if not request.user.is_authenticated():
@@ -175,7 +220,7 @@ def PrizeMultimedia(request, offer_id):
 					if request.GET['status'] == "200":
 						if 'id' in request.GET:
 							offer.media_url = request.GET['id']
-							offer.media_thumb = "http://img.youtube.com/vi/%s/1.jpg" % request.GET['id']
+							offer.media_thumb = "http://img.youtube.com/vi/%s/mqdefault.jpg" % request.GET['id']
 							offer.media_type = 'Y'
 							offer.save()
 

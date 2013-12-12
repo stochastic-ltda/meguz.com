@@ -2,8 +2,8 @@ from pyes import *
 es = ES("localhost:9200")
 
 # DELETE ?
-# es.indices.delete_index("prize")
-# es.indices.delete_index("meguz")
+es.indices.delete_index("prize")
+es.indices.delete_index("meguz")
 
 # PRIZE
 # Indez

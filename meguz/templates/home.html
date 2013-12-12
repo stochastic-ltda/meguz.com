@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load humanize %}
+
 {% block content %}
 <aside class="contenedor_menu_izq">
 	
@@ -40,7 +42,7 @@
 				</span> 
 			</div>
 			<div class="cont_like_destacado_f">
-				<span class="txt_digito_destacados">{{ prize.vote_limit }}</span>
+				<span class="txt_digito_destacados">{{ prize.vote_limit|intcomma }}</span>
 				<span class="bt_like_destacados"><a href="#"><img src="/static/img/like_destacado.jpg"></a></span>
 			</div>
 			<h1><a href="{{ prize.url }}">{{ prize.title }}</a></h1>

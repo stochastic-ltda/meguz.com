@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^usuario/mis-meguz$', 'main.views.UserMisMeguz', name="user_mismeguz"),
     url(r'^usuario/mis-datos$', 'main.views.UserMisDatos', name="user_misdatos"),
     url(r'^usuario/premios/(?P<offer_id>.*)/participar/$', 'main.views.PrizeParticipate', name='user_participate'),
+    url(r'^usuario/suscribe/(?P<meguz_id>.*)/$', 'main.views.UserSuscribe', name="user_suscribe"),
 
     # backoffice empresa
     url(r'^epanel/$', 'boe.views.Login', name='boe_login'),
@@ -36,6 +37,8 @@ urlpatterns = patterns('',
     url(r'^epanel/premios/lista$', 'boe.views.PrizeList', name='boe_offer_list'),
     url(r'^epanel/premios/nuevo$', 'boe.views.PrizeNew', name='boe_offer_new'),
     url(r'^epanel/premios/editar/(?P<offer_id>.*)/$', 'boe.views.PrizeEdit', name='boe_offer_edit'),
+    url(r'^epanel/premios/activar/(?P<offer_id>.*)/$', 'boe.views.PrizeActivate', name='boe_offer_activate'),
+    url(r'^epanel/premios/desactivar/(?P<offer_id>.*)/$', 'boe.views.PrizeDeactivate', name='boe_offer_deactivate'),
     url(r'^epanel/premios/multimedia/(?P<offer_id>.*)/$', 'boe.views.PrizeMultimedia', name='boe_offer_multimedia'),    
 
     # boss zone

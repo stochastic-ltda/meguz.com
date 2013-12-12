@@ -8,14 +8,14 @@
 <div class="titulo_usuario_meguz">
 	<div class="contendor_header_usuario">
 	<span class="perfil_imagen_usuario">
-		<img src="{{ company.logo.url_120x60 }}" />
+		<img src="{{ company.logo.url }}" />
 	</span>
 	<span class="titulo_usuario_barra_perfil">
 		<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>
 		<a href="#" class="eslogan_empresa">"{{ company.slogan }}"</a>
 	</span>
 
-	<span class="boton azul posicion_ver_perfil">Ver perfil</span>
+	<!--<span class="boton azul posicion_ver_perfil">Ver perfil</span>-->
 
 	</div>
 </div>	
@@ -50,6 +50,8 @@
 					{{ form.file.errors }}
 					<label for="id_file">Sube tu video</label> 
 					{{ form_video.file }}
+					<span class="helptext">- Dependiendo del tamaño del video, esta operación puede tardar algunos minutos.</span>
+					<span class="helptext">- El video estará disponible una vez que termine su procesamiento en nuestra <a href="http://www.youtube.com/MEGUZcom" target="_blank">página de youtube</a></span>
 		    		{{ form_video.token.as_hidden }}
 	    		</li>
     			<li>
@@ -62,16 +64,16 @@
 </aside>
 
 <!-- // Right Bar -->
+
 <aside class="contenedor_derecho_detalle">
 	<article class="contenedor_destacados_derecho">		
-		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
-			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz"></span> 
-		</div>
-		<div class="cont_like_destacado_f">
-			<span class="txt_digito_destacados">1.000.000</span>
-			<span class="bt_like_destacados"><a href="#"><img src="/static/img/twite_destacado.jpg"></a></span>
-		</div>
-		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
+		<h2>Recuerda</h2>
+		<ul class="recuerda">
+			<li>Tu video debe ser exclusivamente grabado para Meguz.com</li>
+			<li>El protagonista del video debes ser tú</li>
+			<li>Se validará que los likes hayan sido obtenidos exclusivamente en Meguz.com</li>
+		</ul>
 	</article>
 </aside>
+
 {% endblock %}

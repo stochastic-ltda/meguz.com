@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
 <div class="titulo_usuario_meguz">
@@ -17,12 +18,15 @@
 
 <aside class="contenedor_izq_detalle">
 	<h1>{{ meguz.title }}</h1>
+	<div class="boton_participa">
+		<span class="boton azul posicion_ver_perfil" id="boton_verde">Participar</span>
+	</div>
 
 	<div class="contenedor_central_superior_detalle">
 
 		<div class="contenedor_central_superior_detalle_der">
 			<div class="contenido_img_detalle">
-				<iframe src="http://www.youtube.com/embed/{{ meguz.video_id }}" frameborder="0" allowfullscreen></iframe>
+				<iframe width="600" height="393" src="//www.youtube.com/embed/{{ meguz.video_id }}?showinfo=0&modestbranding=1&rel=0&theme=light" frameborder="0" allowfullscreen></iframe>
 			</div>
 		</div>
 
@@ -31,19 +35,16 @@
 			<div class="logo_auspiciador">
 				<img src="{{ meguz.prize.company.logo.url }}">
 			</div>
-			<div class="boton_participa">
-				<span class="boton azul posicion_ver_perfil" id="boton_verde">Participar</span>
-			</div>
 		</div>
 
 		<div class="contenedor_central_superior_detalle_izq">
 
 			<h5>Meta</h5>
-			<h2>{{ meguz.prize.vote_limit }} <span class="texto_like">Likes</span></h2>
+			<h2>{{ meguz.prize.vote_limit|intcomma }} <span class="texto_like">likes</span></h2>
 
 			<h5>Llevamos...</h5>
 			<span class="boton azul posicion_ver_perfil bt_like_lar">
-				<span class="boton_img_like"><img src="/static/img/like.png"></span>
+				<!--<span class="boton_img_like"><img src="/static/img/like.png"></span>-->
 				<span class="boton_img_redsocial">
 					<div class="fb-like" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
 				</span>

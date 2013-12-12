@@ -1,3 +1,7 @@
+#--------------------------------------------------------------------------------
+# MAIN
+#--------------------------------------------------------------------------------
+
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -483,6 +487,38 @@ def MeguzDeleteVideo(request, meguz_id):
 # ------------------------------------------------------------------------------------------------
 # User views
 # ------------------------------------------------------------------------------------------------
+
+@csrf_exempt
+def UserSuscribe(request, meguz_id):
+	meguz = Meguz.objects.get(pk=meguz_id)
+	if meguz is None:
+		response = 'NOT_FOUND'
+	else:
+
+		from models import User
+		user = User.objects.get(token=request.COOKIES.get('fbmgz_234778956683382'))
+		if user is None:
+			response = 'FORBIDDEN'
+		else:
+
+			meguz.vote_count = meguz.vote_count + 1
+			meguz.save()
+			response = 'DONE'
+
+			es = ES("localhost:9200")
+			meguzES = es.get("meguz","meguz",meguz.id)
+			if meguzES.vote_count is None:
+				meguzES.vote_count = 1
+			else:
+				meguzES.vote_count = meguzES.vote_count + 1
+			meguzES.save()
+
+			if(meguz.vote_count == meguz.prize.vote_limit):
+				response = "FINISH"		
+
+	context = {"response": response}
+	return render_to_response('meguz/suscribe.html', context, context_instance=RequestContext(request))
+
 @csrf_exempt
 def UserLogin(request):
 	if request.method == 'POST':

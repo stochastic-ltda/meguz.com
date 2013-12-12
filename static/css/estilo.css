@@ -490,6 +490,7 @@ footer {
 
 .contenedor_mas_m_caja_img_interior a img {
 	width: 100%;
+	height: 100%;
 	position: relative;
 	top: -7px;
 }
@@ -636,6 +637,22 @@ footer {
 	color: #008fd5;
 }
 
+.recuerda {
+    margin-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    color: #4b5c66;
+}
+
+.recuerda li {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.contenedor_destacados_derecho h2 {
+    font-family: 'Open Sans', sans-serif;
+    color: #4b5c66;
+}
+
 .titulo_usuario_meguz {
 	float: left;
 	width: 100%;
@@ -756,12 +773,11 @@ footer {
 	float: left;
 	width: 100%;
 	font-family: 'Open Sans', sans-serif;
-	font-size: 23px;
+	font-size: 12px;
 	font-weight: normal;
-	padding-bottom: 7px;
 	/*margin-bottom: 12px;*/
 	border-bottom: 1px solid #a0a0a0;
-	padding: 15px 0;
+	padding: 10px 0 3px;
 	color: #4b5c66;
 
 }
@@ -782,8 +798,8 @@ footer {
 
 .bt_like_lar {
 	float: left;
-	width: 196px;
-	padding: 8px 0px 10px 25px;
+	width: auto;
+	padding: 0px 10px 10px 10px;
 }
 
 .boton_img_like {
@@ -849,23 +865,23 @@ footer {
 	float: left;
 	width: 100%;
 	font-family: 'Open Sans', sans-serif;
-	font-size: 20px;
+	font-size: 12px;
 	font-weight: normal;
 	color: #4a4a4a;
 	/*margin-bottom: 30px;*/
-	margin-bottom: 12px;
+	margin-bottom: 5px;
 	border-bottom: 1px solid #a0a0a0;
-	padding-bottom: 7px;
+	padding-bottom: 3px;
 
 }
 
 .logo_auspiciador {
-	float: left;
-	width: 50%;
+	text-align: center;
+	width: 100%;
 }
 
 .logo_auspiciador img {
-	width: 100%;
+	width: 70%;
 }
 
 /*.not-login p {
@@ -885,8 +901,8 @@ padding-bottom: 5px;
 }
 
 .boton_participa {
-	float: left;
-	width: 50%;
+	float: right;
+	width: 15%;
 }
 
 #boton_verde {
@@ -962,7 +978,7 @@ padding-bottom: 5px;
 	float: left;
 	width: 100%;
 	font-family: 'Open Sans', sans-serif;
-	font-size: 20px;
+	font-size: 12px;
 	font-weight: normal;
 	padding-bottom: 3px;
 	margin-bottom: 5px;
