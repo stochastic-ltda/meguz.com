@@ -18,42 +18,75 @@
 
 <aside class="contenedor_izq_detalle">
 	<h1>{{ meguz.title }}</h1>
+	<!--
 	<div class="boton_participa">
 		<span class="boton azul posicion_ver_perfil" id="boton_verde">Participar</span>
 	</div>
+	-->
 
 	<div class="contenedor_central_superior_detalle">
 
 		<div class="contenedor_central_superior_detalle_der">
 			<div class="contenido_img_detalle">
-				<iframe width="600" height="393" src="//www.youtube.com/embed/{{ meguz.video_id }}?showinfo=0&modestbranding=1&rel=0&theme=light" frameborder="0" allowfullscreen></iframe>
-			</div>
+				<iframe width="600" height="393" src="//www.youtube.com/embed/{{ meguz.video_id }}?showinfo=0&modestbranding=1&rel=0&theme=light" frameborder="0" allowfullscreen></iframe>				
+			</div>			
 		</div>
 
+
+		<div class="contenedor_auspiciado">
+			<h3>Premio</h3>
+			<div class="meguz_premio">
+				<a href="/premios/{{ meguz.prize.id }}/{{ meguz.prize.slug }}/">
+					<img src="{{ meguz.prize.media_thumb }}">
+				</a>
+				<h4>{{ meguz.prize.title }}</h4>
+				<div class="boton_participa">
+					<span class="boton azul posicion_ver_perfil" id="boton_verde" onclick="participar({{ meguz.prize.id }})">Participar</span>
+				</div>
+			</div>
+		</div>
+		
 		<div class="contenedor_auspiciado">
 			<h3>Auspiciado por:</h3>
 			<div class="logo_auspiciador">
 				<img src="{{ meguz.prize.company.logo.url }}">
 			</div>
 		</div>
-
+<!--
 		<div class="contenedor_central_superior_detalle_izq">
 
-			<h5>Meta</h5>
-			<h2>{{ meguz.prize.vote_limit|intcomma }} <span class="texto_like">likes</span></h2>
+			<div class="detalle_mid_box">
+				<h5>Meta</h5>
+				<h2>{{ meguz.prize.vote_limit|intcomma }} <span class="texto_like">likes</span></h2>
+			</div>
 
-			<h5>Llevamos...</h5>
-			<span class="boton azul posicion_ver_perfil bt_like_lar">
-				<!--<span class="boton_img_like"><img src="/static/img/like.png"></span>-->
-				<span class="boton_img_redsocial">
-					<div class="fb-like" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
+			<div class="detalle_mid_box">
+				<h5>Llevamos...</h5>
+				<span class="boton azul posicion_ver_perfil bt_like_lar">					
+					<span class="boton_img_redsocial">
+						<div class="fb-like" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
+					</span>
 				</span>
-			</span>
+			</div>
 
 		</div>
-
+		-->
+		<div class="contenedor_auspiciado">
+			<h3>Likes</h3>
+			<div id="contenido_stats_detalle">
+				<div class="contenido_stats_subdetalle" style="margin-left:1%;" title="Meta: {{ meguz.prize.vote_limit|intcomma }} likes">
+					<img src="/static/img/goal.png">
+					{{ meguz.prize.vote_limit|intcomma }}
+				</div>
+				<div class="contenido_stats_subdetalle" style="border-left:0px;margin-left:7%;">
+					<img src="/static/img/likes.png">
+					<div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+				</div>				
+			</div>
+		</div>
 	</div>
 
+	<!--
 	<div class="contendor_caracteristicas_auspiciador">
 		<div class="contendor_interno_auspiciador">
 			<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Sorteados: <span class="txt_datos_auspiciador_bold">{{ meguz.prize.stock }}</span></span>
@@ -61,6 +94,7 @@
 			<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_der">Premio: <span class="txt_datos_auspiciador_bold">{{ meguz.prize.prize_name }}</span></span>
 		</div>
 	</div>
+	-->
 
 	<div class="contenedor_medio_detalle">
 
@@ -71,6 +105,7 @@
 
 	</div>
 
+	<!--
 	<div class="contenedor_publicidad_detalle">
 		<div class="publicidad_banner_lar">
 			<div class="banner_lar_detalle">
@@ -78,6 +113,7 @@
 			</div>
 		</div>
 	</div>
+	-->
 
 	<div class="contenedor_comentarios_detalle_facebook">
 		<div class="fb-comments" data-width="1000" data-numposts="20" data-colorscheme="light"></div>
@@ -87,21 +123,24 @@
 
 <aside class="contenedor_derecho_detalle">
 
+	{% for m in meguzs %}
 	<article class="contenedor_destacados_derecho">
 
 		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
 			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
-
+				<a href="{{ m.url }}">
+					<img src="{{ m.video_thumb }}">
+					<div class="votos_caja" title="A {{ m.vote_count }} personas le gusta este Meguz">
+						<img src="/static/img/icon_like.png">
+						<span class="votos_caja_count">{{ m.vote_count }}</span>
+					</div>
+				</a>
 			</span> 
 		</div>
-		<div class="cont_like_destacado_f">
-			<span class="txt_digito_destacados">1.000.000</span>
-			<span class="bt_like_destacados"><a href="#"><img src="/static/img/twite_destacado.jpg"></a></span>
-		</div>
-
-		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
+		<h1><a href="#">{{ m.title }}</a></h1>
 
 	</article>
+	{% endfor %}
 	
 </aside>
 

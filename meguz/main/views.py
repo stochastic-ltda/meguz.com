@@ -249,7 +249,12 @@ def PrizeParticipateForm(request, prize_id, user_token):
 # ------------------------------------------------------------------------------------------------
 def MeguzView(request, meguz_id, meguz_slug):
 	meguz = Meguz.objects.get(pk=meguz_id)
-	context = {"meguz":meguz}
+
+	from pyes.queryset import generate_model
+	meguz_model = generate_model("meguz","meguz")
+	meguzs = meguz_model.objects.filter(status='c').filter(prize_id=meguz.prize.id).order_by('-publish_date')
+
+	context = {"meguz":meguz, "meguzs":meguzs}
 	return render_to_response('meguz.html', context, context_instance=RequestContext(request))
 
 
@@ -375,6 +380,13 @@ def MeguzEditForm(request, meguz_id, user_token):
 			else:
 				meguz.save()
 
+				if meguz.status == 'C':
+					es = ES("localhost:9200")
+					meguzES = es.get("meguz","meguz",meguz.id)
+					meguzES.title = meguz.title
+					meguzES.description = meguz.description
+					meguzES.save()
+
 				# Update youtube data
 				try:
 					api = Api()
@@ -493,28 +505,22 @@ def UserSuscribe(request, meguz_id):
 	meguz = Meguz.objects.get(pk=meguz_id)
 	if meguz is None:
 		response = 'NOT_FOUND'
-	else:
+	else:		
 
-		from models import User
-		user = User.objects.get(token=request.COOKIES.get('fbmgz_234778956683382'))
-		if user is None:
-			response = 'FORBIDDEN'
+		meguz.vote_count = meguz.vote_count + 1
+		meguz.save()
+		response = 'DONE'
+
+		es = ES("localhost:9200")
+		meguzES = es.get("meguz","meguz",meguz.id)
+		if meguzES.vote_count is None:
+			meguzES.vote_count = 1
 		else:
+			meguzES.vote_count = meguzES.vote_count + 1
+		meguzES.save()
 
-			meguz.vote_count = meguz.vote_count + 1
-			meguz.save()
-			response = 'DONE'
-
-			es = ES("localhost:9200")
-			meguzES = es.get("meguz","meguz",meguz.id)
-			if meguzES.vote_count is None:
-				meguzES.vote_count = 1
-			else:
-				meguzES.vote_count = meguzES.vote_count + 1
-			meguzES.save()
-
-			if(meguz.vote_count == meguz.prize.vote_limit):
-				response = "FINISH"		
+		if(meguz.vote_count == meguz.prize.vote_limit):
+			response = "FINISH"		
 
 	context = {"response": response}
 	return render_to_response('meguz/suscribe.html', context, context_instance=RequestContext(request))

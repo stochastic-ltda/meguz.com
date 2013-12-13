@@ -30,7 +30,7 @@
 			</ul>
 		</form>
 
-		<form action="{{ post_url }}?nexturl={{ next_url }}" id="form_participar_multimedia" class="forms" method="post" enctype="multipart/form-data" onsubmit="return editMeguz({{ meguz.id }})">
+		<form action="{{ post_url }}?nexturl={{ next_url }}" id="form_participar_multimedia" class="forms" method="post" enctype="multipart/form-data">
 			<ul>
 				<li id="input_video">
 					{{ form.file.errors }}
@@ -41,7 +41,8 @@
 		    		{{ form_video.token.as_hidden }}
 	    		</li>
     			<li>
-    				<input value="Editar meguz" id="submit" type="submit" />
+    				<input value="Editar meguz" id="submit" type="button" onclick="editMeguz({{ meguz.id }}); return false;" />
+    				<input type="submit" id="submit_meguz_form" style="display:none">
     			</li>
 		</li>
 		</form>
@@ -54,14 +55,12 @@
 <!-- // Right Bar -->
 <aside class="contenedor_derecho_detalle">
 	<article class="contenedor_destacados_derecho">		
-		<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
-			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz"></span> 
-		</div>
-		<div class="cont_like_destacado_f">
-			<span class="txt_digito_destacados">1.000.000</span>
-			<span class="bt_like_destacados"><a href="#"><img src="/static/img/twite_destacado.jpg"></a></span>
-		</div>
-		<h1><a href="#">Juntamos 1000 likes y nos tiramos en carreton por un cerro</a></h1>
-	</article>
+		<h2>Recuerda</h2>
+		<ul class="recuerda">
+			<li>Tu video debe ser exclusivamente grabado para Meguz.com</li>
+			<li>El protagonista del video debes ser tú</li>
+			<li>Se validará que los likes hayan sido obtenidos exclusivamente en Meguz.com</li>
+		</ul>
+	</article>	
 </aside>
 {% endblock %}

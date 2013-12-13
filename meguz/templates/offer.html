@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
 <div class="titulo_usuario_meguz">
@@ -8,7 +9,7 @@
 	</span>
 	<span class="titulo_usuario_barra_perfil">
 		<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>
-		<a href="#" class="eslogan_empresa">"{{ company.slogan }}"</a>
+		<!--<a href="#" class="eslogan_empresa">"{{ company.slogan }}"</a>-->
 	</span>
 
 	<!--<span class="boton azul posicion_ver_perfil" id="boton_perfil_mobile">Ver perfil</span>-->
@@ -57,9 +58,9 @@
 		
 			<div class="contendor_caracteristicas_auspiciador">
 				<div class="contendor_interno_auspiciador">
-					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Meta: <span class="txt_datos_auspiciador_bold">{{ offer.vote_limit }}</span></span>
-					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Gano: <span class="txt_datos_auspiciador_bold">{{ offer.prize_name }}</span></span>
-					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_der">Stock: <span class="txt_datos_auspiciador_bold">{{ offer.stock }} Premios</span></span>
+					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Meta: <span class="txt_datos_auspiciador_bold">{{ offer.vote_limit|intcomma }}</span></span>
+					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Premio: <span class="txt_datos_auspiciador_bold">{{ offer.prize_name }}</span></span>
+					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_der">Cantidad: <span class="txt_datos_auspiciador_bold">{{ offer.stock }} premios</span></span>
 				</div>
 			</div>
 
@@ -72,6 +73,8 @@
 		<div class="contenedor_descripcion">
 			<h3>Descripción:</h3>
 			<p>{{ offer.description }}</p>
+
+			<h3 style="margin-top:10px;">Letra chica:</h3>
 			<p>{{ offer.conditions }}</p>
 		</div>
 
@@ -83,7 +86,7 @@
 
 	<div class="contenedor_publicidad_detalle">
 		<div class="estan_participando_empresa">
-			Están Participando
+			Ya están participando...
 		</div>
 	</div>
 
@@ -91,26 +94,32 @@
 		<aside class="contenedor_mas_meguz">
 			
 			{% for meguz in meguzs %}
-			<article class="contenedor_mas_m_full">
-				
+			<article class="contenedor_mas_m_full">			
 				<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
 					<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
 						<a href="{{ meguz.url }}">
 							<img src="{{ meguz.video_thumb }}">
+							<div class="votos_caja" title="A {{ meguz.vote_count }} personas le gusta este Meguz">
+								<img src="/static/img/icon_like.png">
+								<span class="votos_caja_count">{{ meguz.vote_count }}</span>
+							</div>
 						</a>
-					</span> 
+					</span> 				
 				</div>
 
 				<div class="contenedor_txt_mas_m">
 					<h1><a href="{{ meguz.url }}">{{ meguz.title }}</a></h1>
 					<h2>{{ meguz.description }}</h2>
+
+					<!--
 					<div class="contendor_like">
 						<h3>{{ meguz.vote_count }}</h3>
-						<span class="contenedor_icono_like_home"><a href="#"><img src="/static/img/icon_like.png"></a></span>
+						<span class="contenedor_icono_like_home"><a href="{{ meguz.url }}"><img src="/static/img/icon_like.png"></a></span>
 					</div>
-				</div>			
+					-->
+				</div>
 			</article>
-			{% endfor %}			
+			{% endfor %}		
 
 		</aside>
 	</div>

@@ -214,6 +214,7 @@ function participarForm(offer_id) {
 }
 
 function editMeguz(meguz_id) {
+
     $.ajax({
         async: false,
         type: 'POST',
@@ -223,12 +224,12 @@ function editMeguz(meguz_id) {
             console.log(responseText);
         },
         complete: function(data) {
+
             if( $('#id_file').val() != "" ) {
                 $.post('/meguz/'+meguz_id+'/eliminar-video/', $('#form_participar').serialize(), function(data){                    
-                    return true;
-                });                
-            } else {
-                return false;
+                    $('#submit_meguz_form').click()
+                });      
+
             }
         }
 

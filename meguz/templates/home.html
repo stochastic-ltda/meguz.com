@@ -26,7 +26,7 @@
 
 <aside class="contenedor_central_content">
 	<div class="cont_titulo_destacado">
-		<h2>Premios destacados</h2>
+		<h2>Premios</h2>
 	</div>
 
 
@@ -61,6 +61,10 @@
 				<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
 					<a href="{{ meguz.url }}">
 						<img src="{{ meguz.video_thumb }}">
+						<div class="votos_caja" title="A {{ meguz.vote_count }} personas le gusta este Meguz">
+							<img src="/static/img/icon_like.png">
+							<span class="votos_caja_count">{{ meguz.vote_count }}</span>
+						</div>
 					</a>
 				</span> 				
 			</div>
@@ -68,10 +72,13 @@
 			<div class="contenedor_txt_mas_m">
 				<h1><a href="{{ meguz.url }}">{{ meguz.title }}</a></h1>
 				<h2>{{ meguz.description }}</h2>
+
+				<!--
 				<div class="contendor_like">
 					<h3>{{ meguz.vote_count }}</h3>
 					<span class="contenedor_icono_like_home"><a href="{{ meguz.url }}"><img src="/static/img/icon_like.png"></a></span>
 				</div>
+				-->
 			</div>
 		</article>
 		{% endfor %}
