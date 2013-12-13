@@ -251,3 +251,8 @@ function btnParticipar() {
         $('.btn-participar').addClass('not-login');
     }
 }
+
+function closeWelcome() {
+    $('.welcome').slideUp();
+    // TODO: Set cookie to avoid showing welcome again
+}

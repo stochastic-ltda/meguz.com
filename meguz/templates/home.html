@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% load humanize %}
 
+{% block extrahead %}
+<title>Meguz.com</title>
+<meta name="description" content="Ganar espectaculares premios ¡Nunca había sido tan entretenido!
+Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqueda de un nuevo dueño...">
+
+<meta property="og:title" content="Meguz.com" />
+<meta property="og:description" content="Ganar espectaculares premios ¡Nunca había sido tan entretenido!
+Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqueda de un nuevo dueño..."/>
+<meta property="og:url" content="http://www.meguz.com"/>        
+<meta property="og:image" content="http://www.meguz.com/static/img/logo.png">
+{% endblock %}
+
 {% block content %}
 <aside class="contenedor_menu_izq">
 	
@@ -25,6 +37,42 @@
 </aside>
 
 <aside class="contenedor_central_content">
+
+	<div class="welcome">
+		<div id="close-welcome" onclick="closeWelcome()">
+			<img src="/static/img/close.png">
+		</div>
+		<div id="top-left">
+			<p>Bienvenido a</p>
+			<img src="/static/img/logo.png">		
+		</div>
+		<div id="top-right">
+			Ganar espectaculares premios ¡Nunca había sido tan entretenido!<br>
+			Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqueda de un nuevo dueño...
+		</div>
+		<div id="bottom-all">
+			<p>Sólo debes seguir los siguientes pasos</p>
+			<div class="welcome-steps">
+				<div class="step">
+					<img src="/static/img/welcome_prize.png">					
+					<p>Selecciona el premio que quieres ganar</p>
+				</div>
+				<div class="step">
+					<img src="/static/img/welcome_video.png">
+					<p>Participa y sube tu video</p>
+				</div>
+				<div class="step">
+					<img src="/static/img/welcome_share.png">
+					<p>Compartelo en redes sociales</p>
+				</div>
+				<div class="step">
+					<img src="/static/img/welcome_goal.png">
+					<p>Obtén todos los likes y ¡gana!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="cont_titulo_destacado">
 		<h2>Premios</h2>
 	</div>

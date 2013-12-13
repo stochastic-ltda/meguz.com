@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.views.generic.simple import direct_to_template
 
 from django.contrib import admin
 admin.autodiscover()
@@ -56,4 +57,7 @@ urlpatterns = patterns('',
 
     # categories
     url(r'^(?P<category_slug>.*)/$', 'main.views.SearchCategory', name='search_category'),
+    (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+
+
 )

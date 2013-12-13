@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 {% load humanize %}
 
+{% block extrahead %}
+<title>{{ meguz.title }} | Meguz.com</title>
+<meta name="description" content="{{ meguz.description }}">
+
+<meta property="og:title" content="{{ meguz.title }} | Meguz.com" />
+<meta property="og:description" content="{{ meguz.description }}"/>
+<meta property="og:url" content="http://www.meguz.com/meguz/{{ meguz.id }}/{{ meguz.slug }}/"/>        
+<meta property="og:image" content="{{ meguz.video_thumb }}">
+{% endblock %}
+
 {% block content %}
 <div class="titulo_usuario_meguz">
 	<div class="contendor_header_usuario">

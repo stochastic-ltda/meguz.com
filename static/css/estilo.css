@@ -1315,3 +1315,94 @@ table.mis-meguz {
 	    font-weight: normal;
 	    width: inherit;
 	}
+
+/* ------------------------------------------------------------------------------- */
+/* Home Welcome
+/* ------------------------------------------------------------------------------- */
+#close-welcome {
+	position: absolute;
+	right: 2%;
+	top: 2%;
+	cursor: pointer;
+}
+.welcome {
+    width: 96%;
+    float: left;
+    height: 300px;
+    padding: 2%;
+    font-family: 'Open Sans', sans-serif;
+    position: relative;
+}
+#top-left {
+    width: 30%;
+    float: left;
+    text-align: center;
+}
+#top-right {
+	width: 70%;
+	float: left;
+	font-size: 18px;
+	color: #666;
+	margin-top: 5px;
+	line-height: 27px;
+}
+#bottom-all {
+    width: 100%;
+    float: left;
+    margin-top: 20px;
+}
+.welcome-steps {
+    width: 100%;
+    float: left;
+}
+.step {
+    width: 25%;
+    float: left;
+    text-align: center;
+}
+.step img {
+    width: 100px;
+}
+#top-left p {
+    font-size: 11px;
+    margin-bottom: 6px;
+    color: #666;
+}
+#top-left img {
+    width: 180px;
+}
+#bottom-all p {
+    font-size: 11px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #666;
+}
+.step p {
+    font-size: 18px !important;
+    width: 80%;
+    margin: auto;
+    font-weight: bold;
+}
+.step {
+    text-align: center;
+}
+
+/* ------------------------------------------------------------------------------- */
+/* Home Welcome
+/* ------------------------------------------------------------------------------- */
+.footer-wrapper {
+    width: 96%;
+    padding: 1%;
+}
+.footer-side {
+    width: 50%;
+    float: left;
+    color: white;
+}
+footer a {
+    color: white;
+}
+footer #right-side {
+	text-align: right;
+}
