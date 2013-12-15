@@ -28,12 +28,12 @@ import Image
 def Home(request):
 	from pyes.queryset import generate_model
 	prize_model = generate_model("prize","prize")
-	prizes = prize_model.objects.filter(status='c').order_by('publish_date')
+	prizes = prize_model.objects.exclude(status='a').exclude(status='b').exclude(status='d').exclude(status='e').order_by('publish_date')
 
 	facets = prize_model.objects.facet("category").size(0).facets
 
 	meguz_model = generate_model("meguz","meguz")
-	meguzs = meguz_model.objects.filter(status='c').order_by('-publish_date')
+	meguzs = meguz_model.objects.exclude(status='a').exclude(status='b').exclude(status='d').exclude(status='e').order_by('-publish_date')
 
 	context = {'prizes':prizes, 'facets':facets, 'meguzs':meguzs}
 	return render_to_response('home.html', context, context_instance=RequestContext(request))
@@ -126,7 +126,7 @@ def CompanyThanks(request):
 # ------------------------------------------------------------------------------------------------
 # Prize views
 # ------------------------------------------------------------------------------------------------
-def PrizeView(request, offer_id, offer_slug):
+def PrizeView(request, company_slug, offer_id, offer_slug):
 	prize = Offer.objects.get(pk=offer_id)
 	if prize is None:
 		return HttpResponseRedirect("/")
@@ -136,12 +136,16 @@ def PrizeView(request, offer_id, offer_slug):
 		from pyes.queryset import generate_model
 
 		prize_model = generate_model("prize","prize")
-		prizes = prize_model.objects.filter(status='c').exclude(id=prize.id).order_by('publish_date')
+		prizes = prize_model.objects.exclude(status='a').exclude(status='b').exclude(status='d').exclude(status='e').exclude(id=prize.id).order_by('publish_date')
 
 		meguz_model = generate_model("meguz","meguz")
-		meguzs = meguz_model.objects.filter(status='c').filter(prize_id=prize.id).order_by('-publish_date')
+		meguzs = meguz_model.objects.exclude(status='a').exclude(status='b').exclude(status='d').exclude(status='e').filter(prize_id=prize.id).order_by('-publish_date')
 
-		context = { 'offer': prize, 'company': company, 'prizes':prizes, 'meguzs':meguzs }
+		winners = {}
+		if prize.status == 'F' :
+			winners = Meguz.objects.filter(prize=prize).filter(status='F')
+
+		context = { 'offer': prize, 'company': company, 'prizes':prizes, 'meguzs':meguzs, 'winners':winners }
 		return render_to_response('offer.html', context, context_instance=RequestContext(request))
 
 def PrizeParticipate(request, offer_id):
@@ -252,7 +256,7 @@ def MeguzView(request, meguz_id, meguz_slug):
 
 	from pyes.queryset import generate_model
 	meguz_model = generate_model("meguz","meguz")
-	meguzs = meguz_model.objects.filter(status='c').filter(prize_id=meguz.prize.id).order_by('-publish_date')
+	meguzs = meguz_model.objects.exclude(status='a').exclude(status='b').exclude(status='d').exclude(status='e').filter(prize_id=meguz.prize.id).order_by('-publish_date')
 
 	context = {"meguz":meguz, "meguzs":meguzs}
 	return render_to_response('meguz.html', context, context_instance=RequestContext(request))
@@ -496,6 +500,90 @@ def MeguzDeleteVideo(request, meguz_id):
 
 	return render_to_response('meguz/delete.html', {}, context_instance=RequestContext(request))
 
+@csrf_exempt
+def MeguzValidateFinish(request):
+	if request.method == 'POST':
+
+		meguz_id = request.POST['meguz_id']
+		url = request.POST['url']
+
+		meguz = Meguz.objects.get(pk=meguz_id)
+		if meguz is None:
+			response = "Error al validar: Meguz no encontrado"
+		else:
+
+			# Database vote count
+			dbCount = meguz.vote_count
+
+			# Facebook vote count
+			import requests
+			r = requests.get("https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='"+url+"'")
+			if r.status_code == 200:
+				json = r.json()
+				fbCount = json["data"][0]["like_count"]
+
+				if(dbCount >= fbCount):
+
+					# Meguz update
+					meguz.vote_count = fbCount
+
+					es = ES("localhost:9200")
+					meguzES = es.get("meguz","meguz",meguz.id)
+					meguzES.vote_count = meguz.vote_count
+
+					# Check if meguz wins
+					if(meguz.vote_count >= meguz.prize.vote_limit):
+
+						# If prize is not finish
+						if meguz.prize.status != 'F':
+
+							# If prize stock is avalaible
+							if(meguz.prize.stock > 0):
+
+								meguz.status = 'F'
+								meguzES.status = 'F'
+
+								prize = Offer.objects.get(pk=meguz.prize.id)
+								prize.stock = prize.stock-1
+								prize.save()
+
+								# If is last prize, finish the Offer
+								if(prize.stock == 0):
+
+									prize.status = 'F'
+									prize.save()
+
+									prizeES = es.get("prize","prize",prize.id)
+									prizeES.status = 'F'
+									prizeES.save()
+
+									response = "Se completa el stock"
+
+								else:
+									response = "Aun queda stock"
+
+							else:
+								response = "No hay stock disponible"
+
+						else:
+							response = "El premio ya ha finalizado"
+
+					else:
+						response = "Aun no se cumple la meta"
+
+					meguz.save()
+					meguzES.save()
+					
+				else:
+					response = "Hack detected"
+
+			else:
+				response = "Ha ocurrido un problema al intentar validar la informacion"
+	else:
+		response = "Forbidden"
+
+	return render_to_response('meguz/validate_finish.html', {'response': response}, context_instance=RequestContext(request))
+
 # ------------------------------------------------------------------------------------------------
 # User views
 # ------------------------------------------------------------------------------------------------
@@ -516,10 +604,10 @@ def UserSuscribe(request, meguz_id):
 		if meguzES.vote_count is None:
 			meguzES.vote_count = 1
 		else:
-			meguzES.vote_count = meguzES.vote_count + 1
+			meguzES.vote_count = meguz.vote_count + 1
 		meguzES.save()
 
-		if(meguz.vote_count == meguz.prize.vote_limit):
+		if(meguz.vote_count >= meguz.prize.vote_limit):
 			response = "FINISH"		
 
 	context = {"response": response}

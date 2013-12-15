@@ -17,6 +17,7 @@ STATUS_CHOICES 	= (
 	('C', 'Publicado'),
 	('D', 'Rechazado'),
 	('E', 'Eliminado'),
+	('F', 'Finished'),
 )
 
 # Empresas

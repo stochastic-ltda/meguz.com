@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load number_filter %}
 
 {% block extrahead %}
 <title>{{ offer.title }} | Meguz.com</title>
@@ -9,6 +10,8 @@
 <meta property="og:description" content="{{ offer.description }}"/>
 <meta property="og:url" content="http://www.meguz.com/premios/{{ offer.id }}/{{ offer.slug }}/"/>        
 <meta property="og:image" content="{{ offer.media_thumb }}">
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 {% endblock %}
 
 {% block content %}
@@ -44,9 +47,11 @@
 			</div>
 		</div>
 
+		{% if offer.status == "C" %}
 		<div class="contenedor_auspiciado" id="participar_mobile">
 			<span class="boton_nar posicion_ver_perfil btn-participar" id="boton_naranjo" onclick="participar({{ offer.id }})">Participar</span>
 		</div>
+		{% endif %}
 
 		<div class="contenedor_central_superior_detalle_izq_empresa">
 			<h5>Auspiciado por:</h5>
@@ -74,6 +79,33 @@
 				</div>
 			</div>
 
+			<div class="share-wrapper">
+				<h5>Comparte este premio</h5>
+				<div class="contenedor_auspiciador">
+					<div class="sharebox">
+						<div class="fb-share-button" data-type="button"></div>
+					</div>
+					<div class="sharebox">
+						<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="none">Tweet</a>
+					</div>
+					<div class="sharebox">
+						<!-- Inserta esta etiqueta donde quieras que aparezca Botón Compartir. -->
+						<div class="g-plus" data-action="share" data-annotation="none"></div>
+
+						<!-- Inserta esta etiqueta después de la última etiqueta de compartir. -->
+						<script type="text/javascript">
+						  window.___gcfg = {lang: 'es'};
+
+						  (function() {
+						    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+						    po.src = 'https://apis.google.com/js/platform.js';
+						    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+						  })();
+						</script>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 	</div>
@@ -88,9 +120,28 @@
 			<p>{{ offer.conditions }}</p>
 		</div>
 
+		{% if offer.status == "C" %}
 		<div class="contenedor_auspiciado" id="participar_desktop">
 			<span class="boton_nar posicion_ver_perfil btn-participar" id="boton_naranjo" onclick="participar({{ offer.id }})">Participar</span>
 		</div>
+		{% else %}
+		<div id="winners">
+			<h5>Ganadores</h5>
+			<ul>
+				{% for w in winners %}
+				<li>
+					<div class="winner_image">
+						<a href="/meguz/{{ w.id }}/{{ w.slug }}/">
+							<img src="{{ w.video_thumb }}" class="thumb">
+							<img src="{{ w.user.avatar }}" class="avatar">
+						</a>
+					</div>
+					<div class="winner_title">{{ w.title }}</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
 
 	</div>
 
@@ -111,7 +162,7 @@
 							<img src="{{ meguz.video_thumb }}">
 							<div class="votos_caja" title="A {{ meguz.vote_count }} personas le gusta este Meguz">
 								<img src="/static/img/icon_like.png">
-								<span class="votos_caja_count">{{ meguz.vote_count }}</span>
+								<span class="votos_caja_count">{{ meguz.vote_count|mini_number }}</span>
 							</div>
 						</a>
 					</span> 				

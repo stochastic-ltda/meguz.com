@@ -24,7 +24,7 @@ def PrizeApprove(request, prize_id):
 	prize.status = "C"
 
 	# Insert into elasticsearch
-	obj = es.index({"id":prize.id,"title": prize.title,"slug":prize.slug,"thumbnail":prize.media_thumb,"description": prize.description + prize.conditions,"publish_date": prize.publish_date.strftime('%Y-%m-%d'),"status": prize.status,"url": "/premios/"+str(prize.id)+"/"+prize.slug+"/","vote_limit":prize.vote_limit,"vote_source":prize.vote_source, "category":prize.category.name}, "prize","prize", prize.id)
+	obj = es.index({"id":prize.id,"title": prize.title,"slug":prize.slug,"thumbnail":prize.media_thumb,"description": prize.description + prize.conditions,"publish_date": prize.publish_date.strftime('%Y-%m-%d'),"status": prize.status,"url": "/"+prize.company.slug+"/premios/"+str(prize.id)+"/"+prize.slug+"/","vote_limit":prize.vote_limit,"vote_source":prize.vote_source, "category":prize.category.name}, "prize","prize", prize.id)
 	es.indices.refresh("prize")
 
 	# Save database record	
@@ -61,7 +61,7 @@ def MeguzApprove(request, meguz_id):
 	meguz.status = "C"
 
 	# Insert into elasticsearch
-	obj = es.index({"id":meguz.id,"prize_id":meguz.prize.id,"title": meguz.title,"slug":meguz.slug,"description": meguz.description,"publish_date": meguz.publish_date.strftime('%Y-%m-%d'),"status": meguz.status,"url": "/meguz/"+str(meguz.id)+"/"+meguz.slug+"/","video_thumb":meguz.video_thumb}, "meguz","meguz", meguz.id)
+	obj = es.index({"id":meguz.id,"prize_id":meguz.prize.id,"title": meguz.title,"slug":meguz.slug,"description": meguz.description,"publish_date": meguz.publish_date.strftime('%Y-%m-%d'),"status": meguz.status,"url": "/meguz/"+str(meguz.id)+"/"+meguz.slug+"/","video_thumb":meguz.video_thumb, "user_avatar":meguz.user.avatar}, "meguz","meguz", meguz.id)
 	es.indices.refresh("meguz")
 
 	# Save database record	

@@ -15,8 +15,7 @@ urlpatterns = patterns('',
     url(r'^empresa/registro/$', 'main.views.CompanyContact', name='company_contact'),
     url(r'^empresa/registro/ok$', 'main.views.CompanyThanks', name='company_thanks'),
 
-    url(r'^premios/participar/form/(?P<prize_id>.*)/(?P<user_token>.*)/$', 'main.views.PrizeParticipateForm', name='offer_participate_form'),    
-    url(r'^premios/(?P<offer_id>.*)/(?P<offer_slug>.*)/$', 'main.views.PrizeView', name='offer_view'), 
+    url(r'^premios/participar/form/(?P<prize_id>.*)/(?P<user_token>.*)/$', 'main.views.PrizeParticipateForm', name='offer_participate_form'),        
 
     url(r'^meguz/update/multimedia/(?P<prize_id>.*)/(?P<user_token>.*)/$', 'main.views.MeguzUpdateMultimedia', name='meguz_update_multimedia'),        
     url(r'^meguz/(?P<meguz_id>.*)/editar/$', 'main.views.MeguzEdit', name='meguz_edit'),
@@ -24,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^meguz/(?P<meguz_id>.*)/eliminar-video/$', 'main.views.MeguzDeleteVideo', name='meguz_delete_video'),
     url(r'^meguz/edit/form/(?P<meguz_id>.*)/(?P<user_token>.*)/$', 'main.views.MeguzEditForm', name='meguz_edit_form'),
     url(r'^meguz/(?P<meguz_id>.*)/(?P<meguz_slug>.*)/$', 'main.views.MeguzView', name='meguz_view'),
+    url(r'^meguz/validate-finish/$', 'main.views.MeguzValidateFinish', name='meguz_validate_finish'),
 
     url(r'^usuario/login$', 'main.views.UserLogin', name="user_login"),
     url(r'^usuario/mis-meguz$', 'main.views.UserMisMeguz', name="user_mismeguz"),
@@ -55,9 +55,11 @@ urlpatterns = patterns('',
     # youtube
     (r'^epanel/youtube/', include('django_youtube.urls')),
 
+    # offer view
+    url(r'^(?P<company_slug>.*)/premios/(?P<offer_id>.*)/(?P<offer_slug>.*)/$', 'main.views.PrizeView', name='offer_view'), 
+
     # categories
     url(r'^(?P<category_slug>.*)/$', 'main.views.SearchCategory', name='search_category'),
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
-
 
 )

@@ -463,7 +463,7 @@ footer {
 
 .contenedor_mas_m_full {
 	float: left;
-	width: 43%;
+	width: 60%;
 	border-bottom: 1px solid #d8dadc;
 	padding: 16px 20px;
 }
@@ -526,10 +526,11 @@ footer {
 
 .contenedor_txt_mas_m {
 	float: left;
-	width: 50%;
+	width: 40%;
 	padding: 0px 0 5px 15px;
 	height: 119px;
 	overflow: hidden;
+	margin-right: 5%;
 }
 
 .contenedor_txt_mas_m h1 {
@@ -552,6 +553,15 @@ footer {
 	font-weight: normal;
 	font-size: 13px;
 	color: #4b5c66;
+}
+
+.user_avatar {
+    width: 20%;
+    float: left;
+}
+.user_avatar img {
+    width: 100%;
+    border: 1px solid #CCC;
 }
 
 .contendor_like {
@@ -768,17 +778,21 @@ footer {
 
 #contenido_stats_detalle {
 	float: left;
-	width: 98%;
+	width: 590px;
 	background: #ddd;
-	padding: 2% 1%;
-	margin-top: -5px;
+	padding: 5px;
+	margin-top: 5px;
 
+}
+
+#me-gusta {
+	font-size: 11px;
 }
 .contenido_stats_subdetalle {
 	width: 43%;
 	float: left;
 	text-align: center;
-	padding: 2% 1%;
+	padding: 6px 7px 2px;
 	font-size: 18px;
 	line-height: 24px;
 	color: #354c8c;
@@ -1006,7 +1020,7 @@ padding-bottom: 5px;
 
 .estan_participando_empresa {
 	float: left;
-	width: 100%;
+	width: 98%;
 	padding: 20px 0; 
 	border-top: 1px solid #d8dadc;
 	border-bottom: 1px solid #d8dadc;
@@ -1014,6 +1028,8 @@ padding-bottom: 5px;
 	font-size: 20px;
 	font-weight: normal;
 	color: #4a4a4a;
+	padding-left: 2%;
+	background: url(../img/textu_roja.png);
 }
 
 .eslogan_empresa {
@@ -1080,6 +1096,19 @@ padding-bottom: 5px;
 	background: #ddd;
 	margin-top: -5px;
 }
+
+	.contenedor_auspiciador h3 {
+		float: left;
+		width: 100%;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 12px;
+		font-weight: normal;
+		color: #4a4a4a;
+		margin-bottom: 30px;
+		margin-bottom: 5px;
+		border-bottom: 1px solid #a0a0a0;
+		padding-bottom: 3px;
+	}
 
 	.contenedor_auspiciador img {
 		width: 75%;
@@ -1172,6 +1201,24 @@ padding-bottom: 5px;
 	line-height: 20px;
 	margin-top: 5px;
 	display: inline;
+}
+
+.share-wrapper {
+	margin-top: 20px !important;
+	float: left;
+	width: 100%;
+}
+
+.share-wrapper_meguz {
+	float: right;
+	width: 38%;
+	margin-right: 16px;
+}
+
+.sharebox {
+	width: 30%;
+	float: left;
+	text-align: center;
 }
 
 .boton_nar {
@@ -1328,23 +1375,35 @@ table.mis-meguz {
 .welcome {
     width: 96%;
     float: left;
-    height: 300px;
+    height: 320px;
     padding: 2%;
     font-family: 'Open Sans', sans-serif;
     position: relative;
 }
 #top-left {
-    width: 30%;
-    float: left;
-    text-align: center;
+width: 22%;
+float: left;
+text-align: center;
 }
 #top-right {
-	width: 70%;
+	width: 75%;
 	float: left;
-	font-size: 18px;
+	font-size: 22px;
 	color: #666;
 	margin-top: 5px;
-	line-height: 27px;
+	line-height: 35px;
+	position: relative;
+	height: 160px;
+}
+#debes-seguir {
+	display: block;
+	font-size: 15px;
+	margin: 0px;
+	text-align: left;
+	color: #666;
+	font-weight: bold;
+	position: absolute;
+	bottom: 0px;
 }
 #bottom-all {
     width: 100%;
@@ -1352,16 +1411,17 @@ table.mis-meguz {
     margin-top: 20px;
 }
 .welcome-steps {
-    width: 100%;
+    width: 85%;
     float: left;
+    padding-left: 15%;
 }
 .step {
-    width: 25%;
+    width: 20%;
     float: left;
     text-align: center;
 }
 .step img {
-    width: 100px;
+    width: 70px;
 }
 #top-left p {
     font-size: 11px;
@@ -1369,7 +1429,7 @@ table.mis-meguz {
     color: #666;
 }
 #top-left img {
-    width: 180px;
+    width: 75%;
 }
 #bottom-all p {
     font-size: 11px;
@@ -1379,7 +1439,7 @@ table.mis-meguz {
     color: #666;
 }
 .step p {
-    font-size: 18px !important;
+    font-size: 14px !important;
     width: 80%;
     margin: auto;
     font-weight: bold;
@@ -1405,4 +1465,51 @@ footer a {
 }
 footer #right-side {
 	text-align: right;
+}
+
+
+/* ------------------------------------------------------------------------------- */
+/* Meguz winners
+/* ------------------------------------------------------------------------------- */
+#winners h5 {
+    float: left; width: 100%; 
+    font-family: 'Open Sans', sans-serif; 
+    font-size: 12px; 
+    font-weight: normal; 
+    padding-bottom: 3px; 
+    margin-bottom: 5px; 
+    border-bottom: 1px solid #a0a0a0; 
+    color: #4b5c66;
+}
+#winners {
+    width: 37%;
+    float: right;
+    margin-right: 17px;
+}
+.winner_image {
+    width: 120px;
+    height: 90px;
+    float: left;
+    position: relative;
+    margin-left: 10px;
+}
+.winner_image .avatar {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 40px;
+    border: 1px solid #666;
+}
+#winners li {
+    width: 140px;
+    float: left;
+    text-align: center;
+}
+.winner_title {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    font-family: 'Open Sans', sans-serif;
+    color: #4a4a4a;
+    font-weight: bold;
 }

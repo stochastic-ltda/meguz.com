@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load number_filter %}
 
 {% block extrahead %}
 <title>{{ meguz.title }} | Meguz.com</title>
@@ -9,6 +10,8 @@
 <meta property="og:description" content="{{ meguz.description }}"/>
 <meta property="og:url" content="http://www.meguz.com/meguz/{{ meguz.id }}/{{ meguz.slug }}/"/>        
 <meta property="og:image" content="{{ meguz.video_thumb }}">
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 {% endblock %}
 
 {% block content %}
@@ -28,72 +31,85 @@
 
 <aside class="contenedor_izq_detalle">
 	<h1>{{ meguz.title }}</h1>
-	<!--
-	<div class="boton_participa">
-		<span class="boton azul posicion_ver_perfil" id="boton_verde">Participar</span>
-	</div>
-	-->
 
 	<div class="contenedor_central_superior_detalle">
 
 		<div class="contenedor_central_superior_detalle_der">
 			<div class="contenido_img_detalle">
 				<iframe width="600" height="393" src="//www.youtube.com/embed/{{ meguz.video_id }}?showinfo=0&modestbranding=1&rel=0&theme=light" frameborder="0" allowfullscreen></iframe>				
-			</div>			
-		</div>
+			</div>	
 
-
-		<div class="contenedor_auspiciado">
-			<h3>Premio</h3>
-			<div class="meguz_premio">
-				<a href="/premios/{{ meguz.prize.id }}/{{ meguz.prize.slug }}/">
-					<img src="{{ meguz.prize.media_thumb }}">
-				</a>
-				<h4>{{ meguz.prize.title }}</h4>
-				<div class="boton_participa">
-					<span class="boton azul posicion_ver_perfil" id="boton_verde" onclick="participar({{ meguz.prize.id }})">Participar</span>
-				</div>
-			</div>
-		</div>
-		
-		<div class="contenedor_auspiciado">
-			<h3>Auspiciado por:</h3>
-			<div class="logo_auspiciador">
-				<img src="{{ meguz.prize.company.logo.url }}">
-			</div>
-		</div>
-<!--
-		<div class="contenedor_central_superior_detalle_izq">
-
-			<div class="detalle_mid_box">
-				<h5>Meta</h5>
-				<h2>{{ meguz.prize.vote_limit|intcomma }} <span class="texto_like">likes</span></h2>
-			</div>
-
-			<div class="detalle_mid_box">
-				<h5>Llevamos...</h5>
-				<span class="boton azul posicion_ver_perfil bt_like_lar">					
-					<span class="boton_img_redsocial">
-						<div class="fb-like" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false"></div>
-					</span>
-				</span>
-			</div>
-
-		</div>
-		-->
-		<div class="contenedor_auspiciado">
-			<h3>Likes</h3>
 			<div id="contenido_stats_detalle">
 				<div class="contenido_stats_subdetalle" style="margin-left:1%;" title="Meta: {{ meguz.prize.vote_limit|intcomma }} likes">
 					<img src="/static/img/goal.png">
-					{{ meguz.prize.vote_limit|intcomma }}
+					{{ meguz.prize.vote_limit|intcomma }} <span id="me-gusta">me gusta</span>
 				</div>
 				<div class="contenido_stats_subdetalle" style="border-left:0px;margin-left:7%;">
 					<img src="/static/img/likes.png">
 					<div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>				
 			</div>
+
 		</div>
+
+		<div class="contenedor_auspiciado banner_336x280">
+			<div style="margin:auto;">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- 336x280 Search results page-2 -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:336px;height:280px"
+				     data-ad-client="ca-pub-1054516004019864"
+				     data-ad-slot="3796594384"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</div>
+		</div>
+
+
+		<div class="contenedor_auspiciado">
+			<h3>Premio</h3>
+			<div class="meguz_premio">
+				<a href="/{{ meguz.prize.company.slug }}/premios/{{ meguz.prize.id }}/{{ meguz.prize.slug }}/">
+					<img src="{{ meguz.prize.media_thumb }}">
+				</a>
+				<h4>{{ meguz.prize.title }}</h4>
+
+				{% if meguz.prize.status == 'C' %}
+				<div class="boton_participa">
+					<span class="boton azul posicion_ver_perfil" id="boton_verde" onclick="participar({{ meguz.prize.id }})">Participar</span>
+				</div>
+				{% endif %}
+			</div>
+		</div>	
+
+		<div class="contenedor_auspiciado" style="float:right;margin-right:16px;">		
+			<h3>Comparte este premio</h3>
+			<div class="meguz_premio">
+				<div class="sharebox">
+					<div class="fb-share-button" data-type="button"></div>
+				</div>
+				<div class="sharebox">
+					<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es" data-count="none">Tweet</a>
+				</div>
+				<div class="sharebox">
+					<!-- Inserta esta etiqueta donde quieras que aparezca Botón Compartir. -->
+					<div class="g-plus" data-action="share" data-annotation="none"></div>
+
+					<!-- Inserta esta etiqueta después de la última etiqueta de compartir. -->
+					<script type="text/javascript">
+					  window.___gcfg = {lang: 'es'};
+
+					  (function() {
+					    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					    po.src = 'https://apis.google.com/js/platform.js';
+					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+					  })();
+					</script>
+				</div>
+			</div>
+		</div>	
+
 	</div>
 
 	<!--
@@ -142,7 +158,7 @@
 					<img src="{{ m.video_thumb }}">
 					<div class="votos_caja" title="A {{ m.vote_count }} personas le gusta este Meguz">
 						<img src="/static/img/icon_like.png">
-						<span class="votos_caja_count">{{ m.vote_count }}</span>
+						<span class="votos_caja_count">{{ m.vote_count|mini_number }}</span>
 					</div>
 				</a>
 			</span> 

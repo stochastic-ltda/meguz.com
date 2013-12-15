@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load number_filter %}
 
 {% block extrahead %}
 <title>Meguz.com</title>
@@ -43,31 +44,33 @@ Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqu
 			<img src="/static/img/close.png">
 		</div>
 		<div id="top-left">
-			<p>Bienvenido a</p>
-			<img src="/static/img/logo.png">		
+			<img src="/static/img/icono_meguz.jpg">		
 		</div>
 		<div id="top-right">
 			Ganar espectaculares premios ¡Nunca había sido tan entretenido!<br>
 			Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqueda de un nuevo dueño...
+
+			<div id="debes-seguir">
+				Sólo debes seguir los siguientes pasos:
+			</div>
 		</div>
 		<div id="bottom-all">
-			<p>Sólo debes seguir los siguientes pasos</p>
 			<div class="welcome-steps">
 				<div class="step">
 					<img src="/static/img/welcome_prize.png">					
-					<p>Selecciona el premio que quieres ganar</p>
+					<p>1. Selecciona el premio que quieres ganar</p>
 				</div>
 				<div class="step">
 					<img src="/static/img/welcome_video.png">
-					<p>Participa y sube tu video</p>
+					<p>2. Participa y sube tu video</p>
 				</div>
 				<div class="step">
 					<img src="/static/img/welcome_share.png">
-					<p>Compartelo en redes sociales</p>
+					<p>3. Compartelo en redes sociales</p>
 				</div>
 				<div class="step">
 					<img src="/static/img/welcome_goal.png">
-					<p>Obtén todos los likes y ¡gana!</p>
+					<p>4. Obtén todos los likes y ¡gana!</p>
 				</div>
 			</div>
 		</div>
@@ -111,8 +114,8 @@ Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqu
 						<img src="{{ meguz.video_thumb }}">
 						<div class="votos_caja" title="A {{ meguz.vote_count }} personas le gusta este Meguz">
 							<img src="/static/img/icon_like.png">
-							<span class="votos_caja_count">{{ meguz.vote_count }}</span>
-						</div>
+							<span class="votos_caja_count">{{ meguz.vote_count|mini_number }}</span>
+						</div>						
 					</a>
 				</span> 				
 			</div>
@@ -127,6 +130,10 @@ Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqu
 					<span class="contenedor_icono_like_home"><a href="{{ meguz.url }}"><img src="/static/img/icon_like.png"></a></span>
 				</div>
 				-->
+			</div>
+
+			<div class="user_avatar">
+				<img src="{{ meguz.user_avatar }}?type=large"/>
 			</div>
 		</article>
 		{% endfor %}

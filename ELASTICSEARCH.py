@@ -114,5 +114,10 @@ meguzMapping = {
         'store': 'yes',
         'type': 'string',        
     }
+    'user_avatar': {
+        'index': 'analyzed',
+        'store': 'yes',
+        'type': 'string',        
+    }
 }
 es.indices.put_mapping("meguz", {'properties':meguzMapping}, ["meguz"])

@@ -25,25 +25,23 @@ window.fbAsyncInit = function() {
                 url: '/usuario/suscribe/'+meguzId+'/', 
                 success: function(data) { 
 
-                    if(data == 'NOT_FOUND') {
+                    console.log("data: "+data);
+                    if(data.search('NOT_FOUND') > -1) {
 
                         console.log("Meguz "+meguzId+" no encontrado...");
 
-                    } else if(data == 'FORBIDDEN') {
+                    } else if(data.search('FORBIDDEN') > -1) {
                         
                         console.log("Acceso restringido");
 
-                    } else if(data == 'FINISH') {
-                        // TODO: Implement instace where fix number of likes using
+                    } else if(data.search("FINISH") > -1) {
+                        // TODO: Implement instance where fix number of likes using
                         // https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='PAGE URL'
                         console.log("FINISH")
-                        var url = document.URL;
-                        $.getJSON("https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='"+url+"'", function(data) { 
-                            console.log(data.data[0].like_count); 
-                            // TODO: Call method to check like count db value
-                            // Change page for winners
-
-                        });
+                        $.post('/meguz/validate-finish/', {meguz_id: meguzId, url: document.URL}, function(response){
+                            console.log(response);
+                        })
+                        
                     } else {
 
                         console.log("DONE");                        
