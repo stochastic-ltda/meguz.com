@@ -204,7 +204,7 @@ def PrizeMultimedia(request, offer_id):
 				offer.media_image = request.FILES['media_image']				
 				offer.save()
 
-				offer.media_thumb = offer.media_image.url_158x104
+				offer.media_thumb = offer.media_image.url
 				offer.save()
 
 				# update elasticsearch
