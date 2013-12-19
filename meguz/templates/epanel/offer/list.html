@@ -28,7 +28,7 @@
 			<tr>
 				<td>{{ o.id }}</td>
 				<td><img src="{{ o.media_thumb }}" class="list_thumb"></td>
-				<td><a href="/premios/{{ o.id }}/{{ o.slug }}" target="_blank">{{ o.title }}</a></td>
+				<td><a href="/{{ o.company.slug }}/premios/{{ o.id }}/{{ o.slug }}" target="_blank">{{ o.title }}</a></td>
 				<td>{{ o.prize_name }}</td>
 				<td>{{ o.stock }}</td>
 				<td>
