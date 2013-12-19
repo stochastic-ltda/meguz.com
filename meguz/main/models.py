@@ -90,7 +90,7 @@ class Meguz(models.Model):
 	prize 			= models.ForeignKey('Offer')
 	user 			= models.ForeignKey('User')
 	title       	= models.CharField(max_length=200)
-	slug       		= models.SlugField(unique=True,max_length=200)
+	slug       		= models.SlugField(max_length=200)
 	description   	= models.TextField(blank=False,null=True)
 	video_id     	= models.CharField(max_length=200,null=True)
 	video_thumb		= models.CharField(max_length=200,null=True)

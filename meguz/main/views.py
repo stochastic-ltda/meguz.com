@@ -9,7 +9,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 
 from main.models import Company, Offer, Meguz, Category
-from main.forms import CompanyContactForm, MeguzForm, MeguzMultimediaForm
+from main.forms import CompanyContactForm, MeguzForm, MeguzMultimediaForm, MeguzCreateForm
 
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
@@ -260,6 +260,145 @@ def MeguzView(request, meguz_id, meguz_slug):
 
 	context = {"meguz":meguz, "meguzs":meguzs}
 	return render_to_response('meguz.html', context, context_instance=RequestContext(request))
+
+def MeguzCreate(request, offer_id):
+
+	prize = Offer.objects.get(pk=offer_id)
+	if prize is None:
+		messages.add_message(request, messages.ERROR, _('Prize is None'))
+		return HttpResponseRedirect("/")
+	else:
+		# Prize exists
+		from main.models import User
+		user = User.objects.get(token=request.COOKIES.get('fbmgz_234778956683382'))
+		if user is None:
+			messages.add_message(request, messages.ERROR, _('User is none'))
+			return HttpResponseRedirect("/")		
+		else:
+			meguz = Meguz.objects.filter(user=user,prize=prize)
+			if meguz.count() == 0:
+
+				# Company info
+				company = Company.objects.get(pk=prize.company.id)
+
+				# Upload video form
+				formData = MeguzCreateForm()	
+
+				# Generate next_url
+				import os
+				from django.contrib.sites.models import Site
+				current_site = Site.objects.get_current()
+				domain = current_site.domain
+
+				protocol = 'https' if request.is_secure() else 'http'
+				next_url = "".join([protocol, ":", os.sep, os.sep, domain, "/meguz/create/procesar-callback/{0}/{1}".format(prize.id,request.COOKIES.get('fbmgz_234778956683382')), os.sep])
+
+				context = { 'offer': prize, 'company': company, 'form': formData, 'next_url': next_url }
+				return render_to_response('meguz/create.html', context, context_instance=RequestContext(request))
+
+			else:
+				# User is already participating
+				context = { 'offer': prize }
+				return render_to_response('meguz/new_forbidden.html', context, context_instance=RequestContext(request))
+
+
+@csrf_exempt
+def MeguzCreateBase(request):
+
+	if request.method == "POST":
+
+		# Imports for django_youtube
+		from django.core.urlresolvers import reverse
+		from django.contrib import messages
+		from django_youtube.api import Api, AccessControl, ApiError
+
+		# Get POST params
+		title = request.POST['title']
+		description = request.POST['description']
+		offer_id = request.POST['offer_id']
+
+		# Get and validate Offer
+		offer = Offer.objects.get(pk=offer_id)
+		if offer is None:
+			response = "Premio no existe"
+		else:
+
+			# Offer is OK
+			# Get and validate User
+			from main.models import User
+			user = User.objects.get(token=request.COOKIES.get('fbmgz_234778956683382'))
+			if user is None:
+				response = "Usuario no existe"		
+			else:
+
+				# User is OK
+				# Save Meguz
+				meguz = Meguz()
+				meguz.title = title
+				meguz.description = description
+				meguz.slug = slugify(title)
+				meguz.status = 'B'
+				meguz.prize_id = offer_id
+				meguz.vote_count = 0
+				meguz.user_id = user.id
+				meguz.save()
+
+				# Generate video metadata
+				title = title + " | Meguz.com"
+				keywords = offer.category.name + "," + offer.prize_name + "," + offer.company.name + ", Meguz, Premios"
+				description = description + "... Visita www.meguz.com para mas informacion"
+
+				# Try to create post_url and token
+				try:
+					api = Api()
+					api.authenticate()
+
+					data = api.upload(title, description=description, keywords=keywords, access_control=AccessControl.Unlisted)
+
+				# Api error happend
+				except ApiError as e:
+					response = e.message
+
+				# Other error
+				except Error as e:
+					response = e.message
+
+				response = data["youtube_token"]+"[GLUE]"+data['post_url']+"[GLUE]"+str(meguz.id)
+	else:
+		response = "Forbidden"
+
+	context = { 'response': response }
+	return render_to_response('meguz/create_base.html', context, context_instance=RequestContext(request))
+
+@csrf_exempt
+def MeguzCreateCallback(request, prize_id, user_token):
+
+	from django.core.urlresolvers import reverse
+	from django.contrib import messages
+	from django_youtube.api import Api, AccessControl, ApiError	
+
+	from main.models import User
+
+	prize = Offer.objects.get(pk=prize_id)
+	user = User.objects.get(token=user_token)
+	meguz = Meguz.objects.get(prize=prize,user=user)
+	if meguz is None:
+		return HttpResponseRedirect("/")
+	else:		
+
+		# If request.GET isset from Youtube, update media_url with video ID
+		if request.method == 'GET':
+			if 'status' in request.GET:
+				if request.GET['status'] == "200":
+					if 'id' in request.GET:
+
+						# Update database info
+						meguz.video_id = request.GET['id']
+						meguz.video_thumb = "http://img.youtube.com/vi/%s/1.jpg" % request.GET['id']
+						meguz.save()				
+
+						return HttpResponseRedirect("/usuario/mis-meguz") # /meguz/{id}/{slug}
+
 
 
 def MeguzUpdateMultimedia(request, prize_id, user_token):

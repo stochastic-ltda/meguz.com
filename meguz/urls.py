@@ -31,6 +31,10 @@ urlpatterns = patterns('',
     url(r'^usuario/premios/(?P<offer_id>.*)/participar/$', 'main.views.PrizeParticipate', name='user_participate'),
     url(r'^usuario/suscribe/(?P<meguz_id>.*)/$', 'main.views.UserSuscribe', name="user_suscribe"),
 
+    url(r'^usuario/meguz/crear/(?P<offer_id>.*)/$', 'main.views.MeguzCreate', name="meguz_create"),
+    url(r'^usuario/meguz/crear/procesar-data$', 'main.views.MeguzCreateBase', name="meguz_create_base"),
+    url(r'^usuario/meguz/crear/procesar-callback/(?P<prize_id>.*)/(?P<user_token>.*)/$', 'main.views.MeguzCreateCallback', name="meguz_create_callback"),
+
     # backoffice empresa
     url(r'^epanel/$', 'boe.views.Login', name='boe_login'),
     url(r'^epanel/salir$', 'boe.views.Logout', name='boe_salir'),

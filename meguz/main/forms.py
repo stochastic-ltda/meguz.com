@@ -23,3 +23,10 @@ class MeguzMultimediaForm(forms.Form):
 	token 			= forms.CharField()
 	file 			= forms.FileField()
 
+class MeguzCreateForm(forms.Form):
+	title 			= forms.CharField(max_length=200)
+	description		= forms.CharField(widget=forms.Textarea)
+	token 			= forms.CharField()
+	file 			= forms.FileField()
+
+
