@@ -113,7 +113,7 @@ meguzMapping = {
         'index': 'analyzed',
         'store': 'yes',
         'type': 'string',        
-    }
+    },
     'user_avatar': {
         'index': 'analyzed',
         'store': 'yes',

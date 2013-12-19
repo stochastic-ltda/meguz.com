@@ -623,6 +623,11 @@ def UserLogin(request):
 		oldUser = User.objects.filter(facebook_id=request.POST['id'])
 		if len(oldUser) > 0:
 			newUser.id = oldUser[0].id
+			newUser.token = oldUser[0].token
+		else:
+			import string, random
+			chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
+			newUser.token = ''.join(random.choice(chars) for x in range(40))
 
 		# Update user data
 		if 'name' in request.POST:
@@ -647,11 +652,7 @@ def UserLogin(request):
 		#	user.birthday = request.POST['birthday']
 
 		newUser.avatar = 'http://graph.facebook.com/' + request.POST['id'] + '/picture'
-		newUser.facebook_id = request.POST['id']
-
-		import string, random
-		chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
-		newUser.token = ''.join(random.choice(chars) for x in range(40))
+		newUser.facebook_id = request.POST['id']		
 
 		newUser.save()
 

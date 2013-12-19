@@ -33,6 +33,8 @@ Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqu
 			<li><a href="/empresa/registro/">Soy una empresa y quiero publicar mis propias ofertas</a></li>
 		</ul>
 
+		<img src="/static/img/arbol_navidad.png" id="arbol_navidad"/>
+
 	</nav>
 
 </aside>
@@ -43,18 +45,11 @@ Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqu
 		<div id="close-welcome" onclick="closeWelcome()">
 			<img src="/static/img/close.png">
 		</div>
+		<h2>Gana premios juntando like en Facebook</h2>
 		<div id="top-left">
-			<img src="/static/img/icono_meguz.jpg">		
+			<img src="/static/img/meguz_icon.png">		
 		</div>
 		<div id="top-right">
-			Ganar espectaculares premios ¡Nunca había sido tan entretenido!<br>
-			Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqueda de un nuevo dueño...
-
-			<div id="debes-seguir">
-				Sólo debes seguir los siguientes pasos:
-			</div>
-		</div>
-		<div id="bottom-all">
 			<div class="welcome-steps">
 				<div class="step">
 					<img src="/static/img/welcome_prize.png">					
@@ -74,6 +69,7 @@ Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqu
 				</div>
 			</div>
 		</div>
+		
 	</div>
 
 	<div class="cont_titulo_destacado">
@@ -93,7 +89,7 @@ Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqu
 				</span> 
 			</div>
 			<div class="cont_like_destacado_f">
-				<span class="txt_digito_destacados">{{ prize.vote_limit|intcomma }}</span>
+				<span class="txt_digito_destacados">{{ prize.vote_limit|intcomma }} <span style="font-size:12px">like</span></span>
 				<span class="bt_like_destacados"><a href="#"><img src="/static/img/like_destacado.jpg"></a></span>
 			</div>
 			<h1><a href="{{ prize.url }}">{{ prize.title }}</a></h1>
@@ -110,12 +106,14 @@ Prepara tus mejores videos, porque en Meguz.com tenemos muchos premios en búsqu
 		<article class="contenedor_mas_m_full">			
 			<div class="contenedor_mas_m_caja_img fond_0_img_meguz">
 				<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
-					<a href="{{ meguz.url }}">
+					<a href="{{ meguz.url }}" class="meguz_alist">
 						<img src="{{ meguz.video_thumb }}">
-						<div class="votos_caja" title="A {{ meguz.vote_count }} personas le gusta este Meguz">
+						
+						<div class="votos_caja" title="A [howmany]  personas le gusta este Meguz">
 							<img src="/static/img/icon_like.png">
-							<span class="votos_caja_count">{{ meguz.vote_count|mini_number }}</span>
-						</div>						
+							<span class="votos_caja_count"></span>
+						</div>			
+									
 					</a>
 				</span> 				
 			</div>

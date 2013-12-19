@@ -21,7 +21,8 @@
 		<img src="{{ company.logo.url }}" />
 	</span>
 	<span class="titulo_usuario_barra_perfil">
-		<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>
+		<!--<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>-->
+		{{ company.name }}
 		<!--<a href="#" class="eslogan_empresa">"{{ company.slogan }}"</a>-->
 	</span>
 
@@ -62,7 +63,7 @@
 			<div class="contacto_auspiciador_1">
 				<p class="auspiciador_nombre">{{ company.name }}</p>
 				<p class="auspiciador_website">
-					<a href="{{ company.website }}" target="_blank" rel="nofollow">Visitar página</a>
+					<!--<a href="{{ company.website }}" target="_blank" rel="nofollow">Visitar página</a>-->
 				</p>
 			</div>
 			<div class="contacto_auspiciador_2">
@@ -73,7 +74,7 @@
 		
 			<div class="contendor_caracteristicas_auspiciador">
 				<div class="contendor_interno_auspiciador">
-					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Meta: <span class="txt_datos_auspiciador_bold">{{ offer.vote_limit|intcomma }}</span></span>
+					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Meta: <span class="txt_datos_auspiciador_bold">{{ offer.vote_limit|intcomma }} likes</span></span>
 					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_izq">Premio: <span class="txt_datos_auspiciador_bold">{{ offer.prize_name }}</span></span>
 					<span class="txt_datos_auspiciador txt_datos_auspiciador_separa_der">Cantidad: <span class="txt_datos_auspiciador_bold">{{ offer.stock }} premios</span></span>
 				</div>
@@ -160,10 +161,12 @@
 					<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
 						<a href="{{ meguz.url }}">
 							<img src="{{ meguz.video_thumb }}">
+							<!--
 							<div class="votos_caja" title="A {{ meguz.vote_count }} personas le gusta este Meguz">
 								<img src="/static/img/icon_like.png">
 								<span class="votos_caja_count">{{ meguz.vote_count|mini_number }}</span>
 							</div>
+							-->
 						</a>
 					</span> 				
 				</div>
@@ -198,7 +201,7 @@
 			</span> 
 		</div>
 		<div class="cont_like_destacado_f">
-			<span class="txt_digito_destacados">{{ prize.vote_limit }}</span>
+			<span class="txt_digito_destacados">{{ prize.vote_limit }} like</span>
 			<span class="bt_like_destacados"><a href="#"><img src="/static/img/like_destacado.jpg"></a></span>
 		</div>
 		<h1><a href="{{ prize.url }}">{{ prize.title }}</a></h1>

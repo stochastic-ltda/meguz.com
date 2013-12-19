@@ -21,10 +21,10 @@
 			<img src="{{ meguz.user.avatar }}">
 		</span>
 		<span class="titulo_usuario_barra_perfil" id="titulo_mobile_horizontal">
-		<a href="#">{{ meguz.user.name }}</a>
+		<a href="http://www.facebook.com/{{ meguz.user.facebook_id }}" target="_blank">{{ meguz.user.name }}</a>
 		</span>
 
-		<span class="boton azul posicion_ver_perfil">Ver perfil</span>
+		<!--<span class="boton azul posicion_ver_perfil">Ver perfil</span>-->
 
 	</div>
 </div>	
@@ -40,22 +40,29 @@
 			</div>	
 
 			<div id="contenido_stats_detalle">
-				<div class="contenido_stats_subdetalle" style="margin-left:1%;" title="Meta: {{ meguz.prize.vote_limit|intcomma }} likes">
+				<div class="contenido_stats_subdetalle stats_1" title="Meta: {{ meguz.prize.vote_limit|intcomma }} like">
 					<img src="/static/img/goal.png">
 					{{ meguz.prize.vote_limit|intcomma }} <span id="me-gusta">me gusta</span>
 				</div>
-				<div class="contenido_stats_subdetalle" style="border-left:0px;margin-left:7%;">
+				<div class="contenido_stats_subdetalle stats_2">
 					<img src="/static/img/likes.png">
-					<div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+					<div class="fb-like" data-layout="button_count" data-href="http://www.meguz.com/meguz/{{ meguz.id }}/{{ meguz.slug }}/" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>				
+			</div>
+
+			<div class="contenedor_descripcion mobile">
+				<h3>Descripción:</h3>
+				<p>{{ meguz.description }}</p>
 			</div>
 
 		</div>
 
-		<div class="contenedor_auspiciado banner_336x280">
+		<div class="contenedor_auspiciado banner_336x280">		
 			<div style="margin:auto;">
-				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+				<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
 				<!-- 336x280 Search results page-2 -->
+				<!--
 				<ins class="adsbygoogle"
 				     style="display:inline-block;width:336px;height:280px"
 				     data-ad-client="ca-pub-1054516004019864"
@@ -63,6 +70,8 @@
 				<script>
 				(adsbygoogle = window.adsbygoogle || []).push({});
 				</script>
+				-->
+				<img src="/static/img/banner_copucha.jpg">
 			</div>
 		</div>
 
@@ -83,8 +92,8 @@
 			</div>
 		</div>	
 
-		<div class="contenedor_auspiciado" style="float:right;margin-right:16px;">		
-			<h3>Comparte este premio</h3>
+		<div class="contenedor_auspiciado btn-compartir">		
+			<h3>Ayuda a este usuario compartiendo su video con tus amigos</h3>
 			<div class="meguz_premio">
 				<div class="sharebox">
 					<div class="fb-share-button" data-type="button"></div>
@@ -124,7 +133,7 @@
 
 	<div class="contenedor_medio_detalle">
 
-		<div class="contenedor_descripcion">
+		<div class="contenedor_descripcion no-mobile">
 			<h3>Descripción:</h3>
 			<p>{{ meguz.description }}</p>
 		</div>
@@ -142,7 +151,10 @@
 	-->
 
 	<div class="contenedor_comentarios_detalle_facebook">
-		<div class="fb-comments" data-width="1000" data-numposts="20" data-colorscheme="light"></div>
+		<div class="fb-comments" data-href="http://www.meguz.com/meguz/{{ meguz.id }}/{{ meguz.slug }}/" data-numposts="10" mobile="false"></div>
+		<style>.fb-comments, .fb-comments iframe[style], .fb-like-box, .fb-like-box iframe[style] {width: 100% !important;}
+.fb-comments span, .fb-comments iframe span[style], .fb-like-box span, .fb-like-box iframe span[style] {width: 100% !important;}
+</style>
 	</div>
 
 </aside>
@@ -156,14 +168,16 @@
 			<span class="contenedor_mas_m_caja_img_interior  fond_1_img_meguz">
 				<a href="{{ m.url }}">
 					<img src="{{ m.video_thumb }}">
+					<!--
 					<div class="votos_caja" title="A {{ m.vote_count }} personas le gusta este Meguz">
 						<img src="/static/img/icon_like.png">
 						<span class="votos_caja_count">{{ m.vote_count|mini_number }}</span>
 					</div>
+					-->
 				</a>
 			</span> 
 		</div>
-		<h1><a href="#">{{ m.title }}</a></h1>
+		<h1><a href="{{ m.url }}">{{ m.title }}</a></h1>
 
 	</article>
 	{% endfor %}
