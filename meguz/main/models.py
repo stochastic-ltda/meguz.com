@@ -100,3 +100,12 @@ class Meguz(models.Model):
 
 	def __unicode__(self):
 		return self.title 
+
+class Winner(models.Model):
+	user 			= models.ForeignKey('User')
+	prize 			= models.ForeignKey('Offer')
+	meguz 			= models.ForeignKey('Meguz')
+	win_date 		= models.DateTimeField(auto_now=True)
+
+	def __unicode__(self):
+		return self.user_id

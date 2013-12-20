@@ -1,0 +1,6 @@
+Usuario: {{ user }}
+Premio: {{ premio }}
+Meguz: {{ meguz }}
+
+Likes: {{ likes }} / {{ meta }}
+Fecha/Hora: {{ fechahora }}

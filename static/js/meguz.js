@@ -17,40 +17,45 @@ window.fbAsyncInit = function() {
      */
 
     FB.Event.subscribe('edge.create', function(href, widget) {
-            
-            // TODO: Revisar seguridad de esta llamada
-            var meguzId = document.URL.split("/meguz/")[1].split("/")[0];                
-            $.ajax({
-                type: "POST",
-                url: '/usuario/suscribe/'+meguzId+'/', 
-                success: function(data) { 
 
-                    console.log("data: "+data);
-                    if(data.search('NOT_FOUND') > -1) {
+            var url = document.URL;
+            var meguzId = document.URL.split("/meguz/")[1].split("/")[0];
+            var query = "https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='"+url+"'";
+            $.get(query, function(data) {
 
-                        console.log("Meguz "+meguzId+" no encontrado...");
+                $('#count_megusta').hide().html(data.data[0].like_count).fadeIn('slow');
 
-                    } else if(data.search('FORBIDDEN') > -1) {
-                        
-                        console.log("Acceso restringido");
+                $.ajax({
+                    type: "POST",
+                    url: '/usuario/suscribe/'+meguzId+'/'+data.data[0].like_count+'/', 
+                    success: function(data) { 
 
-                    } else if(data.search("FINISH") > -1) {
-                        // TODO: Implement instance where fix number of likes using
-                        // https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='PAGE URL'
-                        console.log("FINISH")
-                        $.post('/meguz/validate-finish/', {meguz_id: meguzId, url: document.URL}, function(response){
-                            console.log(response);
-                        })
-                        
-                    } else {
+                        if(data.search('NOT_FOUND') > -1) {
 
-                        console.log("DONE");                        
-                        
+                            console.log("Meguz "+meguzId+" no encontrado...");
+
+                        } else if(data.search('FORBIDDEN') > -1) {
+                            
+                            console.log("Acceso restringido");
+
+                        } else if(data.search("FINISH") > -1) {
+
+                            // TODO: Implement instance where fix number of likes using
+                            // https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='PAGE URL'
+                            console.log("FINISH")
+                            $.post('/meguz/validate-finish/', {meguz_id: meguzId, url: document.URL}, function(response){
+                                console.log(response);
+                            })
+                            
+                        } else {
+
+                            console.log("DONE");                        
+                            
+                        }
                     }
-                }
-            });
-            
+                });
 
+            });                
                     
         }
 

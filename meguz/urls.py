@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^usuario/mis-meguz$', 'main.views.UserMisMeguz', name="user_mismeguz"),
     url(r'^usuario/mis-datos$', 'main.views.UserMisDatos', name="user_misdatos"),
     url(r'^usuario/premios/(?P<offer_id>.*)/participar/$', 'main.views.PrizeParticipate', name='user_participate'),
-    url(r'^usuario/suscribe/(?P<meguz_id>.*)/$', 'main.views.UserSuscribe', name="user_suscribe"),
+    url(r'^usuario/suscribe/(?P<meguz_id>.*)/(?P<vote_count>.*)/$', 'main.views.UserSuscribe', name="user_suscribe"),
 
     url(r'^usuario/meguz/crear/(?P<offer_id>.*)/$', 'main.views.MeguzCreate', name="meguz_create"),
     url(r'^usuario/meguz/crear/procesar-data$', 'main.views.MeguzCreateBase', name="meguz_create_base"),

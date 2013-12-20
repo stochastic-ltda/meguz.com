@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 
-from main.models import Company, Offer, Meguz, Category
+from main.models import Company, Offer, Meguz, Category, Winner
 from main.forms import CompanyContactForm, MeguzForm, MeguzMultimediaForm, MeguzCreateForm
 
 from django.core.mail import EmailMultiAlternatives
@@ -693,8 +693,43 @@ def MeguzValidateFinish(request):
 							# If prize stock is avalaible
 							if(meguz.prize.stock > 0):
 
+								# User WINS!!
 								meguz.status = 'F'
 								meguzES.status = 'F'
+
+								# Register Winner
+								winner = Winner()
+								winner.meguz_id = meguz.id
+								winner.prize_id = meguz.prize_id
+								winner.user_id = meguz.user_id
+								winner.save()
+
+								# Admin notification
+								import datetime
+
+								try:
+									plaintext = get_template('email/meguz_finish.txt')
+									htmly = get_template('email/meguz_finish.html')
+
+									d = Context({
+										'user': meguz.user.name,
+										'premio': meguz.prize.title,
+										'meguz': meguz.title,
+										'likes': meguz.vote_count,
+										'meta': meguz.prize.vote_limit,
+										'fechahora': datetime.datetime.now(),
+										})
+
+									subject, from_email, to = 'Notificacion: Meguz ganador', 'like@meguz.com', 'like@meguz.com'
+									text_content = plaintext.render(d)
+									html_content = htmly.render(d)
+									msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+									msg.attach_alternative(html_content, "text/html")
+									msg.send()
+
+								except Exception, e:
+									plaintext = "IMPLEMENTAR LOG AQUI"
+
 
 								prize = Offer.objects.get(pk=meguz.prize.id)
 								prize.stock = prize.stock-1
@@ -742,13 +777,13 @@ def MeguzValidateFinish(request):
 # ------------------------------------------------------------------------------------------------
 
 @csrf_exempt
-def UserSuscribe(request, meguz_id):
+def UserSuscribe(request, meguz_id, vote_count):
 	meguz = Meguz.objects.get(pk=meguz_id)
 	if meguz is None:
 		response = 'NOT_FOUND'
 	else:		
 
-		meguz.vote_count = meguz.vote_count + 1
+		meguz.vote_count = vote_count
 		meguz.save()
 		response = 'DONE'
 
@@ -757,7 +792,7 @@ def UserSuscribe(request, meguz_id):
 		if meguzES.vote_count is None:
 			meguzES.vote_count = 1
 		else:
-			meguzES.vote_count = meguz.vote_count + 1
+			meguzES.vote_count = vote_count
 		meguzES.save()
 
 		if(meguz.vote_count >= meguz.prize.vote_limit):
