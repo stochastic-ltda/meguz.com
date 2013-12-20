@@ -45,8 +45,8 @@
 					{{ meguz.prize.vote_limit|intcomma }} <span id="me-gusta">me gusta</span>
 				</div>
 				<div class="contenido_stats_subdetalle stats_2">
-					<img src="/static/img/likes.png">
-					<div class="fb-like" data-layout="button_count" data-href="http://www.meguz.com/meguz/{{ meguz.id }}/{{ meguz.slug }}/" data-action="like" data-show-faces="false" data-share="false"></div>
+					<img src="/static/img/likes.png"><span id="count_megusta"></span>
+					<div class="fb-like" data-layout="button" data-href="http://www.meguz.com/meguz/{{ meguz.id }}/{{ meguz.slug }}/" data-action="like" data-show-faces="false" data-share="false"></div>
 				</div>				
 			</div>
 
@@ -184,5 +184,20 @@
 	
 </aside>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		setTimeout(function() {
+
+			var url = document.URL;
+			var query = "https://graph.facebook.com/fql?q=SELECT like_count FROM link_stat WHERE url='"+url+"'";
+			$.get(query, function(data){
+				console.log(data.data[0].like_count);
+				$('#count_megusta').html(data.data[0].like_count);
+			});
+
+		}, 1000);
+	})
+</script>
 
 {% endblock %}
