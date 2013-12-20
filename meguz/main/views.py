@@ -484,6 +484,16 @@ def MeguzEdit(request,meguz_id):
 					#if meguz.video_id is not None:
 					#	status = api.check_upload_status(meguz.video_id)
 
+					# Get actual video status
+					availability = api.check_upload_status(meguz.video_id)
+					if availability is not True:
+						video_state = availability["upload_state"]
+						video_msg = availability["detailed_message"]
+					else:
+						video_state = False
+						video_msg = ''
+
+					# Generate video data for new upload
 					data = api.upload(title, description=description, keywords=keywords, access_control=AccessControl.Unlisted)			
 				except:
 					messages.add_message(request, messages.ERROR, _('Ha ocurrido un error, por favor intenta de nuevo'))
@@ -492,10 +502,14 @@ def MeguzEdit(request,meguz_id):
 				formVideo = MeguzMultimediaForm(initial={"token": data["youtube_token"]})	
 
 				import os
+				from django.contrib.sites.models import Site
+				current_site = Site.objects.get_current()
+				domain = current_site.domain
+				
 				protocol = 'https' if request.is_secure() else 'http'
-				next_url = "".join([protocol, ":", os.sep, os.sep, request.get_host(), "/meguz/update/multimedia/{0}/{1}".format(meguz.prize.id,request.COOKIES.get('fbmgz_234778956683382')), os.sep])
+				next_url = "".join([protocol, ":", os.sep, os.sep, domain, "/meguz/update/multimedia/{0}/{1}".format(meguz.prize.id,request.COOKIES.get('fbmgz_234778956683382')), os.sep])
 
-				context = {'meguz':meguz,'form_data':formData, 'form_video':formVideo, 'post_url': data['post_url'], 'next_url': next_url }
+				context = {'meguz':meguz,'form_data':formData, 'form_video':formVideo, 'post_url': data['post_url'], 'next_url': next_url, 'video_state':video_state, 'video_msg': video_msg }
 				return render_to_response('meguz/edit.html', context, context_instance=RequestContext(request))
 
 def MeguzEditForm(request, meguz_id, user_token):

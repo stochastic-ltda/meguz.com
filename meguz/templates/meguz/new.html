@@ -11,8 +11,9 @@
 		<img src="{{ company.logo.url }}" />
 	</span>
 	<span class="titulo_usuario_barra_perfil">
-		<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>
-		<a href="#" class="eslogan_empresa">"{{ company.slogan }}"</a>
+		<!--<a href="/empresas/{{ company.slug }}">{{ company.name }}</a>-->
+		<!--<a href="#" class="eslogan_empresa">"{{ company.slogan }}"</a>-->
+		{{ company.name }}
 	</span>
 
 	<!--<span class="boton azul posicion_ver_perfil">Ver perfil</span>-->
@@ -32,14 +33,16 @@
 				<li>
 					{{ form_data.title.errors }}
 					<label for="id_title">Título de tu video</label> 
-					{{ form_data.title }}				
+					{{ form_data.title }}		
+					<p class="error" id="error_title"></p>		
 				</li>
 				<li>
 					{{ form_data.description.errors }}
 					<label for="id_description">
 						¿Cómo piensas ganarte el premio? Describe tu video a continuación...
 					</label> 
-					{{ form_data.description }}							
+					{{ form_data.description }}			
+					<p class="error" id="error_description"></p>			
 				</li>					
 			</ul>
 		</form>
@@ -52,6 +55,7 @@
 					{{ form_video.file }}
 					<span class="helptext">- Dependiendo del tamaño del video, esta operación puede tardar algunos minutos.</span>
 					<span class="helptext">- El video estará disponible una vez que termine su procesamiento en nuestra <a href="http://www.youtube.com/MEGUZcom" target="_blank">página de youtube</a></span>
+					<p class="error" id="error_file"></p>
 		    		{{ form_video.token.as_hidden }}
 	    		</li>
     			<li>
@@ -75,5 +79,15 @@
 		</ul>
 	</article>
 </aside>
+
+<div id="loader_container">
+	<div id="overlay"></div>
+	<div id="info">
+		<img src="/static/img/youtube_loader.gif" />
+		<h3>Estamos subiendo tu video a Youtube</h3>
+		<h5>Dependiendo de tu conexión a internet y del tamaño de tu video, este proceso puede tardar varios minutos.</h5>
+		
+	</div>
+</div>
 
 {% endblock %}

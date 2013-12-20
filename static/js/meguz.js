@@ -196,42 +196,102 @@ function participar(prize_id) {
 
 function participarForm(offer_id) {
 
-    $.ajax({
-        async: false,
-        type: 'POST',
-        url: '/premios/participar/form/' + offer_id + '/' + getCookie('fbmgz_234778956683382') + '/',
-        data: $('#form_participar').serialize(),
-        success: function(responseText) {
-            if(jQuery.isNumeric(responseText)) {
-                console.log("responseText");
-                return true;
+    $('.error').hide('fast');
+    var title = $('#id_title').val();
+    var description = $('#id_description').val();
+    var file = $("#id_file").val();
+    var is_valid = true;
+
+    if(title == '') {
+        is_valid = false;
+        $('#error_title').html('Debes ingresar un título');
+    }
+
+    if(description == '') {
+        is_valid = false;
+        $('#error_description').html('Debes ingresar una descripción');
+    }
+
+    if(!file) {
+        is_valid = false;
+        $('#error_file').html('Debes ingresar un video');
+    }
+
+    if(is_valid) {
+
+        participarLoader();
+        $.ajax({
+            async: false,
+            type: 'POST',
+            url: '/premios/participar/form/' + offer_id + '/' + getCookie('fbmgz_234778956683382') + '/',
+            data: $('#form_participar').serialize(),
+            success: function(responseText) {
+                if(jQuery.isNumeric(responseText)) {
+                    console.log("responseText");
+                    return true;
+                }
             }
-        }
-    });
+        });
+
+    } else {
+
+        $('.error').fadeIn();
+        return false;
+
+    }        
 
 }
 
+function participarLoader() {
+    var height = Math.max($(document).height(), $(window).height())
+    $('#loader_container').css('height', height);
+    $('#loader_container').slideDown();
+}
+
+
+
 function editMeguz(meguz_id) {
 
-    $.ajax({
-        async: false,
-        type: 'POST',
-        url: '/meguz/edit/form/' + meguz_id + '/' + getCookie('fbmgz_234778956683382') + '/',
-        data: $('#form_participar').serialize(),
-        success: function(responseText) {
-            console.log(responseText);
-        },
-        complete: function(data) {
+    $('.error').hide('fast');
+    var title = $('#id_title').val();
+    var description = $('#id_description').val();
+    var file = $("#id_file").val();
+    var is_valid = true;
 
-            if( $('#id_file').val() != "" ) {
-                $.post('/meguz/'+meguz_id+'/eliminar-video/', $('#form_participar').serialize(), function(data){                    
-                    $('#submit_meguz_form').click()
-                });      
+    if(title == '') {
+        is_valid = false;
+        $('#error_title').html('Debes ingresar un título');
+    }
 
+    if(description == '') {
+        is_valid = false;
+        $('#error_description').html('Debes ingresar una descripción');
+    }
+
+    if(is_valid) {
+
+        $.ajax({
+            async: false,
+            type: 'POST',
+            url: '/meguz/edit/form/' + meguz_id + '/' + getCookie('fbmgz_234778956683382') + '/',
+            data: $('#form_participar').serialize(),
+            success: function(responseText) {
+                console.log(responseText);
+            },
+            complete: function(data) {
+
+                if( $('#id_file').val() != "" ) {
+                    participarLoader();
+                    $.post('/meguz/'+meguz_id+'/eliminar-video/', $('#form_participar').serialize(), function(data){                    
+                        $('#submit_meguz_form').click()
+                    });      
+
+                }
             }
-        }
 
-    });
+        });
+
+    }
 }
 
 function confirmDelete() {
