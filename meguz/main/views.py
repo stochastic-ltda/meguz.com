@@ -675,95 +675,90 @@ def MeguzValidateFinish(request):
 				json = r.json()
 				fbCount = json["data"][0]["like_count"]
 
-				if(dbCount >= fbCount):
+				# Meguz update
+				meguz.vote_count = fbCount
 
-					# Meguz update
-					meguz.vote_count = fbCount
+				es = ES("localhost:9200")
+				meguzES = es.get("meguz","meguz",meguz.id)
+				meguzES.vote_count = meguz.vote_count
 
-					es = ES("localhost:9200")
-					meguzES = es.get("meguz","meguz",meguz.id)
-					meguzES.vote_count = meguz.vote_count
+				# Check if meguz wins
+				if(meguz.vote_count >= meguz.prize.vote_limit):
 
-					# Check if meguz wins
-					if(meguz.vote_count >= meguz.prize.vote_limit):
+					# If prize is not finish
+					if meguz.prize.status != 'F':
 
-						# If prize is not finish
-						if meguz.prize.status != 'F':
+						# If prize stock is avalaible
+						if(meguz.prize.stock > 0):
 
-							# If prize stock is avalaible
-							if(meguz.prize.stock > 0):
+							# User WINS!!
+							meguz.status = 'F'
+							meguzES.status = 'F'
 
-								# User WINS!!
-								meguz.status = 'F'
-								meguzES.status = 'F'
+							# Register Winner
+							winner = Winner()
+							winner.meguz_id = meguz.id
+							winner.prize_id = meguz.prize_id
+							winner.user_id = meguz.user_id
+							winner.save()
 
-								# Register Winner
-								winner = Winner()
-								winner.meguz_id = meguz.id
-								winner.prize_id = meguz.prize_id
-								winner.user_id = meguz.user_id
-								winner.save()
+							# Admin notification
+							import datetime
 
-								# Admin notification
-								import datetime
+							try:
+								plaintext = get_template('email/meguz_finish.txt')
+								htmly = get_template('email/meguz_finish.html')
 
-								try:
-									plaintext = get_template('email/meguz_finish.txt')
-									htmly = get_template('email/meguz_finish.html')
+								d = Context({
+									'user': meguz.user.name,
+									'premio': meguz.prize.title,
+									'meguz': meguz.title,
+									'likes': meguz.vote_count,
+									'meta': meguz.prize.vote_limit,
+									'fechahora': datetime.datetime.now(),
+									})
 
-									d = Context({
-										'user': meguz.user.name,
-										'premio': meguz.prize.title,
-										'meguz': meguz.title,
-										'likes': meguz.vote_count,
-										'meta': meguz.prize.vote_limit,
-										'fechahora': datetime.datetime.now(),
-										})
+								subject, from_email, to = 'Notificacion: Meguz ganador', 'like@meguz.com', 'like@meguz.com'
+								text_content = plaintext.render(d)
+								html_content = htmly.render(d)
+								msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+								msg.attach_alternative(html_content, "text/html")
+								msg.send()
 
-									subject, from_email, to = 'Notificacion: Meguz ganador', 'like@meguz.com', 'like@meguz.com'
-									text_content = plaintext.render(d)
-									html_content = htmly.render(d)
-									msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-									msg.attach_alternative(html_content, "text/html")
-									msg.send()
-
-								except Exception, e:
-									plaintext = "IMPLEMENTAR LOG AQUI"
+							except Exception, e:
+								plaintext = "IMPLEMENTAR LOG AQUI"
 
 
-								prize = Offer.objects.get(pk=meguz.prize.id)
-								prize.stock = prize.stock-1
+							prize = Offer.objects.get(pk=meguz.prize.id)
+							prize.stock = prize.stock-1
+							prize.save()
+
+							# If is last prize, finish the Offer
+							if(prize.stock == 0):
+
+								prize.status = 'F'
 								prize.save()
 
-								# If is last prize, finish the Offer
-								if(prize.stock == 0):
+								prizeES = es.get("prize","prize",prize.id)
+								prizeES.status = 'F'
+								prizeES.save()
 
-									prize.status = 'F'
-									prize.save()
-
-									prizeES = es.get("prize","prize",prize.id)
-									prizeES.status = 'F'
-									prizeES.save()
-
-									response = "Se completa el stock"
-
-								else:
-									response = "Aun queda stock"
+								response = "Se completa el stock"
 
 							else:
-								response = "No hay stock disponible"
+								response = "Aun queda stock"
 
 						else:
-							response = "El premio ya ha finalizado"
+							response = "No hay stock disponible"
 
 					else:
-						response = "Aun no se cumple la meta"
+						response = "El premio ya ha finalizado"
 
-					meguz.save()
-					meguzES.save()
-					
 				else:
-					response = "Hack detected"
+					response = "Aun no se cumple la meta"
+
+				meguz.save()
+				meguzES.save()
 
 			else:
 				response = "Ha ocurrido un problema al intentar validar la informacion"
